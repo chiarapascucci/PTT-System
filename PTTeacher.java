@@ -6,19 +6,19 @@ public class PTTeacher {
 	//class variables
 	private String fName;
 	private String lName;
-	private int year;
+	//private int year;
 	private int tID;
 	private static int nextTID;
 	private String[] skills;
 	private String[] training;
 	//private ArrayList <Request>;
-	//private static ListofPTT list; -- invariant may be that if a teach exists then it must belong to a list
+	private static ListOfPTT list; //-- invariant may be that if a teach exists then it must belong to a list
 	
 	//constructor
 	public PTTeacher (String f, String l, int y ) {
 		this.fName = f;
 		this.lName = l;
-		this.year = y;
+		//this.year = y;
 		this.tID = nextTID;
 		nextTID ++;
 		
@@ -36,7 +36,7 @@ public class PTTeacher {
 	//one variant may be that if there is a teacher, then a list must exist to contain the teacher
 	private void listSetUp() {
 		if (this.tID == 0) {
-			list = new ListofPTT();
+			list = new ListOfPTT();
 			list.add(this);
 		}
 		
@@ -44,6 +44,9 @@ public class PTTeacher {
 			list.add(this);
 		}
 	}
+	
+	//CLASS METHODS//
+	
 	
 	
 }
