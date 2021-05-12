@@ -9,6 +9,7 @@ public class PTTeacher {
 	//private int year;
 	private int tID;
 	private static int nextTID;
+	private boolean available;
 	private String[] skills;
 	private String[] training;
 	//private ArrayList <Request>;
@@ -21,7 +22,7 @@ public class PTTeacher {
 		//this.year = y;
 		this.tID = nextTID;
 		nextTID ++;
-		
+		available = true;
 		//initialise request list
 		
 		this.skills = new String[10];
@@ -44,9 +45,64 @@ public class PTTeacher {
 			list.add(this);
 		}
 	}
+
+	
 	
 	//CLASS METHODS//
 	
+	//toString
+	//addSkill
+	//assign
+	//availability
+	//training print
+	//skill print
+	//summary print
+	
+	
+	//GETTERS AND SETTERS//
+	public String getfName() {
+		return fName;
+	}
+
+	public void setfName(String fName) {
+		this.fName = fName;
+	}
+
+	public String getlName() {
+		return lName;
+	}
+
+	public void setlName(String lName) {
+		this.lName = lName;
+	}
+
+	public boolean isAvailable() {
+		return available;
+	}
+
+	public void setAvailable(boolean available) {
+		this.available = available;
+	}
+
+	public String[] getSkills() {
+		return skills;
+	}
+
+	public void setSkills(String[] skills) {
+		this.skills = skills;
+	}
+
+	public String[] getTraining() {
+		return training;
+	}
+
+	public void setTraining(String[] training) {
+		this.training = training;
+	}
+
+	public int gettID() {
+		return tID;
+	}
 	
 	
 }

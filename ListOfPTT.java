@@ -8,5 +8,5 @@ public class ListOfPTT {
 		list = new ArrayList <PTTeacher>();
 	}
 	
-	
+	//not sure if we need more methods given that ArrayList has already methods for add, remove, find etc.
 }
