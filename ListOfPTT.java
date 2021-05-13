@@ -9,4 +9,8 @@ public class ListOfPTT {
 	}
 	
 	//not sure if we need more methods given that ArrayList has already methods for add, remove, find etc.
+	
+	protected void addTeacher(PTTeacher t) {
+		list.add(t);
+	}
 }
