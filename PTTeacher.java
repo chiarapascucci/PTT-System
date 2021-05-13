@@ -94,6 +94,10 @@ public class PTTeacher {
 		}
 	}
 	
+	public void complTraining(int i) {
+		this.addSkill(this.training[i]);
+		this.training[i] = null;
+	}
 	private static boolean freeSpace(String[]s) {
 		boolean result = false;
 		for (String i : s) {
@@ -102,13 +106,20 @@ public class PTTeacher {
 		
 		return result;
 	}
-	//toString
-	//addSkill
+	
+	public boolean isAvailable() {
+		return available;
+	}
+
+	public void setAvailable(boolean available) {
+		this.available = available;
+	}
+	
 	//assign
-	//availability
-	//training print
-	//skill print
-	//summary print
+
+
+
+	
 	
 	
 	//GETTERS AND SETTERS//
@@ -128,13 +139,7 @@ public class PTTeacher {
 		this.lName = lName;
 	}
 
-	public boolean isAvailable() {
-		return available;
-	}
-
-	public void setAvailable(boolean available) {
-		this.available = available;
-	}
+	
 
 	public String[] getSkills() {
 		return skills;
