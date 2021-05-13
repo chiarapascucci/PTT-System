@@ -13,4 +13,9 @@ public class ListOfPTT {
 	protected void addTeacher(PTTeacher t) {
 		list.add(t);
 	}
+	
+	public void printList() {
+		for (PTTeacher p : list) System.out.println(p);
+		
+	}
 }

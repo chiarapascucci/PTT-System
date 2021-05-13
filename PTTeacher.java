@@ -18,7 +18,7 @@ public class PTTeacher {
 	private static ListOfPTT list; //-- invariant may be that if a teach exists then it must belong to a list
 	
 	//constructor
-	public PTTeacher (String f, String l, int y ) {
+	public PTTeacher (String f, String l) {
 		this.fName = f;
 		this.lName = l;
 		//this.year = y;
@@ -158,6 +158,9 @@ public class PTTeacher {
 	}
 
 	
+	public ListOfPTT getList(){
+		return list;
+	}
 
 	public int gettID() {
 		return tID;
