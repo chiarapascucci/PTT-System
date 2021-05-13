@@ -29,7 +29,7 @@ public class TestPTT {
 		//System.out.println(alice.isAvailable());
 		
 		
-		//TEST 5 - I think this fails because myRequest is empty object so when 
+		//TEST 5 
 		TeachRequest myRequest = new TeachRequest();
 		ken.assign(myRequest);
 		System.out.println(ken.isAvailable());
