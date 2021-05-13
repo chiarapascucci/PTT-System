@@ -14,6 +14,26 @@ public class TestPTT {
 		ListOfPTT myList = bob.getList();
 		myList.printList();
 		
+		//TEST 3 - printin method shows Null elements
+		bob.addTraining("data analysis");
+		//bob.printTraining();
+		bob.complTraining(0);
+		//System.out.println();
+		//bob.printSkills();
+		//System.out.println();
+		//bob.printTraining();
+		
+		//TEST 4
+		//System.out.println(alice.isAvailable());
+		alice.setAvailable(false);
+		//System.out.println(alice.isAvailable());
+		
+		
+		//TEST 5 - I think this fails because myRequest is empty object so when 
+		TeachRequest myRequest = new TeachRequest();
+		ken.assign(myRequest);
+		System.out.println(ken.isAvailable());
+		
 	}
 
 }

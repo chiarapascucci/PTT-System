@@ -36,7 +36,7 @@ public class PTTeacher {
 	
 	//method to manage teacher - list interaction
 	//if instance is first teacher being created then list is created with it, if not the teacher is just added to the list
-	//one variant may be that if there is a teacher, then a list must exist to contain the teacher
+	//one invariant may be that if there is a teacher, then a list must exist to contain the teacher
 	private void listSetUp() {
 		if (this.tID == 0) {
 			list = new ListOfPTT();
@@ -120,9 +120,15 @@ public class PTTeacher {
 	//assign
 
 	protected boolean assign(TeachRequest q) {
-		if (this.isAvailable()) this.assign.add(q);
+		if (this.assign == null) this.assign = new ArrayList <TeachRequest>();
 		
-		return this.isAvailable();
+		if (this.isAvailable()) {
+			this.assign.add(q);
+			this.setAvailable(false);
+			return true;
+		}
+		
+		return false;
 	}
 
 	
