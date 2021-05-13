@@ -62,6 +62,46 @@ public class PTTeacher {
 	public void printTraining() {
 		for(String s : training) System.out.println(s);
 	}
+	
+	public void addTraining(String s) {
+		//Need input checking
+		if (freeSpace(this.training) == false) {
+			System.out.println("error");
+		}
+		else {
+			for (int i =0; i<training.length;i++) {
+				if (training[i] == null) {
+					training[i] = s;
+					break;
+				}
+				
+			}
+		}
+	}
+	
+	public void addSkill(String s) {
+		if (freeSpace(this.skills) == false) {
+			System.out.println("error"); //maybe replace with error message
+		}
+		else {
+			for (int i =0; i<skills.length;i++) {
+				if (skills[i] == null) {
+					skills[i] = s;
+					break;
+				}
+				
+			}
+		}
+	}
+	
+	private static boolean freeSpace(String[]s) {
+		boolean result = false;
+		for (String i : s) {
+			if(i == null) result = true;
+		}
+		
+		return result;
+	}
 	//toString
 	//addSkill
 	//assign
@@ -100,17 +140,13 @@ public class PTTeacher {
 		return skills;
 	}
 
-	public void setSkills(String[] skills) {
-		this.skills = skills;
-	}
+
 
 	public String[] getTraining() {
 		return training;
 	}
 
-	public void setTraining(String[] training) {
-		this.training = training;
-	}
+	
 
 	public int gettID() {
 		return tID;
