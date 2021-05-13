@@ -38,11 +38,11 @@ public class PTTeacher {
 	private void listSetUp() {
 		if (this.tID == 0) {
 			list = new ListOfPTT();
-			list.add(this);
+			list.addTeacher(this);
 		}
 		
 		else {
-			list.add(this);
+			list.addTeacher(this);
 		}
 	}
 
@@ -50,6 +50,18 @@ public class PTTeacher {
 	
 	//CLASS METHODS//
 	
+	public String toString() {
+		String s = ""+ fName + " " + lName + ", "+ tID;
+		return s;
+	}
+	
+	public void printSkills() {
+		for(String s : skills) System.out.println(s);
+	}
+	
+	public void printTraining() {
+		for(String s : training) System.out.println(s);
+	}
 	//toString
 	//addSkill
 	//assign
