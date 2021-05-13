@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 //PTT teach class
 //committ test
 
@@ -12,7 +14,7 @@ public class PTTeacher {
 	private boolean available;
 	private String[] skills;
 	private String[] training;
-	//private ArrayList <Request>;
+	private ArrayList <TeachRequest> assign;
 	private static ListOfPTT list; //-- invariant may be that if a teach exists then it must belong to a list
 	
 	//constructor
@@ -117,7 +119,11 @@ public class PTTeacher {
 	
 	//assign
 
-
+	protected boolean assign(TeachRequest q) {
+		if (this.isAvailable()) this.assign.add(q);
+		
+		return this.isAvailable();
+	}
 
 	
 	
