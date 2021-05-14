@@ -68,54 +68,7 @@ public class DataHandler {
 			}
 		}
 	}
-	
-	// Parse data being imported
-	private static void parseDataAndSet(String data) {
-		
-		
-		String [] splitData;
 
-		// Parse line as a teacher data object
-		if (data.charAt(0) == 'T') {
-			
-			// Remove outer casing of the data 
-			data = data.substring(2,data.length()-2); 		// Removing "T(" at start and ")" at end. Could change this to calculate ( position first
-			
-			// Split data by commas and store into a string array 
-			splitData = data.split(",");
-			
-			// Create a new teach entity (adds to list automatically in the constructor to satisfy class invariant)
-			PTTeacher p = new PTTeacher(splitData[0], splitData[1], LOP); 	
-			
-			
-			/* Extract and set rest of PTTeacher attributes */
-			
-			// Normal attributes
-			// ID is set on creation. Might need a new constructor to allow for ID to be set by loaded data 
-			p.setAvailable(Boolean.parseBoolean(splitData[3]));	
-			
-			// Skills 
-			String temp = splitData[4].substring(1,splitData[4].length()-2); 	// Remove out casing of Skills data (the curly brackets) 
-			p.addSkillArray(temp.split(","));
-			
-			// Training
-			temp = splitData[5].substring(1,splitData[5].length()-2); 	
-			p.addTrainingArray(temp.split(","));
-		}
-		// Parse line as a request data object
-		if (data.charAt(0) == 'R') {
-			
-			// Remove outer casing of the data 
-			data = data.substring(2,data.length()-2); 		
-			
-		
-		
-		}		
-		
-
-		
-	}
-	
 	public static void saveData(String path) { 
 		
 		FileWriter filewriter = null;
@@ -141,7 +94,50 @@ public class DataHandler {
 	}
 	
 	
-	// Class methods
+	
+	// Parse data being imported
+	private static void parseDataAndSet(String data) {
+
+
+		String [] splitData;
+
+		// Parse line as a teacher data object
+		if (data.charAt(0) == 'T') {
+
+			// Remove outer casing of the data 
+			data = data.substring(2,data.length()-2); 		// Removing "T(" at start and ")" at end. Could change this to calculate ( position first
+
+			// Split data by commas and store into a string array 
+			splitData = data.split(",");
+
+			// Create a new teach entity (adds to list automatically in the constructor to satisfy class invariant)
+			PTTeacher p = new PTTeacher(splitData[0], splitData[1], LOP); 	
+
+
+			/* Extract and set rest of PTTeacher attributes */
+
+			// Normal attributes
+			// ID is set on creation. Might need a new constructor to allow for ID to be set by loaded data 
+			p.setAvailable(Boolean.parseBoolean(splitData[3]));	
+
+			// Skills 
+			String temp = splitData[4].substring(1,splitData[4].length()-2); 	// Remove out casing of Skills data (the curly brackets) 
+			p.addSkillArray(temp.split(","));
+
+			// Training
+			temp = splitData[5].substring(1,splitData[5].length()-2); 	
+			p.addTrainingArray(temp.split(","));
+		}
+		// Parse line as a request data object
+		if (data.charAt(0) == 'R') {
+
+			// Remove outer casing of the data 
+			data = data.substring(2,data.length()-2); 		
+
+		}			
+	}
+
+	
 	// Format teacher data for exporting data 
 	private static String exportDataFormat(PTTeacher T) {
 		
@@ -193,9 +189,6 @@ public class DataHandler {
 	}
 
 
-	
-	
-	
 	// Getters
 	public static ListOfPTT getLOP() {
 		return LOP; 
