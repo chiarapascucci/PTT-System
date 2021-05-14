@@ -15,12 +15,16 @@ public class PTTeacher {
 	private String[] skills;
 	private String[] training;
 	private ArrayList <TeachRequest> assign;
-	private static ListOfPTT list; //-- invariant may be that if a teach exists then it must belong to a list
+	private static ListOfPTT list; //-- invariant may be that if a teacher exists then it must belong to a list
 	
 	//constructor
-	public PTTeacher (String f, String l) {
+	public PTTeacher (String f, String l, ListOfPTT j) {
 		this.fName = f;
 		this.lName = l;
+		this.list = j;
+		this.list.addTeacher(this);
+		
+		
 		//this.year = y;
 		this.tID = nextTID;
 		nextTID ++;
@@ -30,23 +34,19 @@ public class PTTeacher {
 		this.skills = new String[10];
 		this.training = new String[10];
 		
-		listSetUp();
+		//listSetUp();
 		
 	}
 	
 	//method to manage teacher - list interaction
 	//if instance is first teacher being created then list is created with it, if not the teacher is just added to the list
 	//one invariant may be that if there is a teacher, then a list must exist to contain the teacher
-	private void listSetUp() {
-		if (this.tID == 0) {
-			list = new ListOfPTT();
-			list.addTeacher(this);
-		}
-		
-		else {
-			list.addTeacher(this);
-		}
-	}
+	/*
+	 * private void listSetUp() { if (this.tID == 0) { list = new ListOfPTT();
+	 * list.addTeacher(this); }
+	 * 
+	 * else { list.addTeacher(this); } }
+	 */
 
 	
 	
@@ -94,6 +94,15 @@ public class PTTeacher {
 				
 			}
 		}
+	}
+	
+	// Added this here so i dont need a loop during the load process
+	public void addSkillArray(String[] sArray) {
+		skills = sArray;
+	}
+	
+	public void addTrainingArray(String[] tArray) {
+		training = tArray; 
 	}
 	
 	public void complTraining(int i) {
