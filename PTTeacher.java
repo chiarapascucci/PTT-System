@@ -22,6 +22,9 @@ public class PTTeacher {
 		this.fName = f;
 		this.lName = l;
 		this.list = j;
+		this.list.addTeacher(this);
+		
+		
 		//this.year = y;
 		this.tID = nextTID;
 		nextTID ++;
@@ -91,6 +94,15 @@ public class PTTeacher {
 				
 			}
 		}
+	}
+	
+	// Added this here so i dont need a loop during the load process
+	public void addSkillArray(String[] sArray) {
+		skills = sArray;
+	}
+	
+	public void addTrainingArray(String[] tArray) {
+		training = tArray; 
 	}
 	
 	public void complTraining(int i) {

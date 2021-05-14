@@ -18,4 +18,8 @@ public class ListOfPTT {
 		for (PTTeacher p : list) System.out.println(p);
 		
 	}
+	
+	public ArrayList<PTTeacher> getListReference() {
+		return list;
+	}
 }
