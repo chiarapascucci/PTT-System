@@ -11,7 +11,7 @@ public class TeachRequest {
 	private ArrayList <PTTeacher> assigned;
 
 	// Pass: associated course, required no. of staff, required training
-	public TeachRequest(String c, int no, String t) {
+	public TeachRequest(String c, int no, String t, ListOfRequests LOR) {
 		reqID = nextRID;
 		nextRID++;
 
@@ -20,7 +20,8 @@ public class TeachRequest {
 		teachNo = no;
 		trainingRequired = t;
 		assigned = new ArrayList <PTTeacher> (no);
-
+		
+		LOR.add(this); 
 		statusCheck();
 	}
 
@@ -40,7 +41,7 @@ public class TeachRequest {
 		boolean passCheck = true;
 
 		// Teacher quantity check
-		if((assigned.trimToSize()).size() < teachNo){
+		if(assigned.size() < teachNo){
 			status = false;
 			passCheck = false;
 		} 
@@ -51,7 +52,7 @@ public class TeachRequest {
 				boolean match = false;
 				String[] trainList = t.getTraining();
 				
-				for(int i = 0; i < trainList.length(); i++) {
+				for(int i = 0; i < trainList.length; i++) {
 					if(trainingRequired.equals(trainList[i])) {
 						match = true;
 						break;
@@ -100,6 +101,10 @@ public class TeachRequest {
 
 	public String getTrainingRequired() {
 		return trainingRequired;
+	}
+	
+	public ArrayList <PTTeacher> getAssigned(){
+		return assigned; 
 	}
 
 }
