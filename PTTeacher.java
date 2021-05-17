@@ -8,12 +8,11 @@ public class PTTeacher {
 	//class variables
 	private String fName;
 	private String lName;
-	//private int year;
 	private int tID;
 	private static int nextTID;
 	private boolean available;
-	private String[] skills;
-	private String[] training;
+	private ArrayList <String> skills;
+	private ArrayList <String> training;
 	private ArrayList <TeachRequest> assign;
 	private static ListOfPTT list; //-- invariant may be that if a teacher exists then it must belong to a list
 	
@@ -24,31 +23,16 @@ public class PTTeacher {
 		this.list = j;
 		this.list.addTeacher(this);
 		
-		
-		//this.year = y;
 		this.tID = nextTID;
 		nextTID ++;
 		available = true;
-		//initialise request list
 		
-		this.skills = new String[10];
-		this.training = new String[10];
-		
-		//listSetUp();
+		this.skills = new ArrayList <String>();
+		this.training = new ArrayList <String>();
+		this.assign = new ArrayList <TeachRequest> ();
 		
 	}
-	
-	//method to manage teacher - list interaction
-	//if instance is first teacher being created then list is created with it, if not the teacher is just added to the list
-	//one invariant may be that if there is a teacher, then a list must exist to contain the teacher
-	/*
-	 * private void listSetUp() { if (this.tID == 0) { list = new ListOfPTT();
-	 * list.addTeacher(this); }
-	 * 
-	 * else { list.addTeacher(this); } }
-	 */
 
-	
 	
 	//CLASS METHODS//
 	
@@ -66,59 +50,36 @@ public class PTTeacher {
 	}
 	
 	public void addTraining(String s) {
-		//Need input checking
-		if (freeSpace(this.training) == false) {
-			System.out.println("error");
-		}
-		else {
-			for (int i =0; i<training.length;i++) {
-				if (training[i] == null) {
-					training[i] = s;
-					break;
-				}
-				
-			}
-		}
+		training.add(s);
 	}
 	
 	public void addSkill(String s) {
-		if (freeSpace(this.skills) == false) {
-			System.out.println("error"); //maybe replace with error message
-		}
-		else {
-			for (int i =0; i<skills.length;i++) {
-				if (skills[i] == null) {
-					skills[i] = s;
-					break;
-				}
-				
-			}
-		}
+		skills.add(s);		
 	}
 	
-	// Added this here so i dont need a loop during the load process
-	public void addSkillArray(String[] sArray) {
-		skills = sArray;
+	public void removeTraining(String s) {
+		training.remove(s);
 	}
 	
-	public void addTrainingArray(String[] tArray) {
-		training = tArray; 
+	public void removeSkill(String s) {
+		skills.remove(s);
 	}
 	
-	public void complTraining(int i) {
-		this.addSkill(this.training[i]);
-		this.training[i] = null;
-	}
-	private static boolean freeSpace(String[]s) {
-		boolean result = false;
-		for (String i : s) {
-			if(i == null) result = true;
-		}
-		
-		return result;
-	}
+	// keeping the training completion option:
+	
+	// Added this here so i dont need a loop during the load process// @@ do we still need this if the array list are initialised in the constructor?@@
+	/*
+	 * public void addSkillArray(ArrayList <String> sArray) { skills = sArray; }
+	 * 
+	 * public void addTrainingArray(ArrayList <String> tArray) { training = tArray;
+	 * }
+	 */
+	
+	
+	//availability - assumed limit of classes a teacher can cover is 5. if no limit there is little use of availability as class var
 	
 	public boolean isAvailable() {
+		if (assign.size() >= 5) available = false;
 		return available;
 	}
 
@@ -133,6 +94,8 @@ public class PTTeacher {
 		
 		if (this.isAvailable()) {
 			this.assign.add(q);
+			}
+		if (this.assign.size()>= 5) {	
 			this.setAvailable(false);
 			return true;
 		}
@@ -162,13 +125,13 @@ public class PTTeacher {
 
 	
 
-	public String[] getSkills() {
+	public ArrayList <String> getSkills() {
 		return skills;
 	}
 
 
 
-	public String[] getTraining() {
+	public ArrayList <String> getTraining() {
 		return training;
 	}
 
