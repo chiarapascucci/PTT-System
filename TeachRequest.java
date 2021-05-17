@@ -11,7 +11,7 @@ public class TeachRequest {
 	private ArrayList <PTTeacher> assigned;
 
 	// Pass: associated course, required no. of staff, required training
-	// Need to implement ID is free checks
+	// Need to implement free-ID check later
 	public TeachRequest(String c, int no, String... t) {
 		id = nextID;
 		nextID++;
@@ -25,6 +25,7 @@ public class TeachRequest {
 	}
 
 	// Helper for common constructor content
+	// Exceptions to capture: arraylist constructor
 	private void requestSetup(String c, int no, String... t) {
 		status = false;
 		courseID = c;
@@ -64,17 +65,20 @@ public class TeachRequest {
 			passCheck = false;
 		} 
 
-		// Per assigned PTT, check for required training. Note excess teachers must be trained too.
+		// Per assigned PTT, check for required training/skill. Note excess teachers must be trained too.
+		// Missing check for null skill/training array(?)
 		else {
 			for(PTTeacher t: assigned) {
-				boolean teacherOK = false;
+				boolean teachersOK = false;
 				for(String s: trainingRequired) {
-					if((t.getTraining()).contains(s)) {
-						teacherOK = true;
+					if(t.getTraining().isEmpty() && t.getSkills().isEmpty()) {
+						break;
+					}else if ((t.getTraining()).contains(s) || (t.getSkills()).contains(s)) {
+						teachersOK = true;
 						break;
 					}
 				}
-				if(!teacherOK) {
+				if(!teachersOK) {
 					status = false;
 					passCheck = false;
 					break;
@@ -85,11 +89,21 @@ public class TeachRequest {
 		if(passCheck) { status = true; }
 	}
 
-	//print methods here
+	public void printTrainingRequired() {
+		if(trainingRequired != null) {
+			for(String s: trainingRequired) {	System.out.print(s + " ");	}
+		}
+	}
+
+	public void printTeachers() {
+		if(assigned != null) {
+			for(PTTeacher t: assigned) {	System.out.println(t);	}
+		}
+	}
 
 	// Update this with something more useful if necessary
 	public String toString() {
-		String output = "ID: " + id + " | Status: " + status;
+		String output = "ID: " + id + " | Complete?: " + status;
 		return output;
 	}
 
