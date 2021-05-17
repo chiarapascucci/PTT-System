@@ -14,7 +14,7 @@ public class PTTeacher {
 	private ArrayList <String> skills;
 	private ArrayList <String> training;
 	private ArrayList <TeachRequest> assign;
-	private static ListOfPTT list; //-- invariant may be that if a teacher exists then it must belong to a list
+	private  ListOfPTT list; //-- invariant may be that if a teacher exists then it must belong to a list
 	
 	//constructor
 	public PTTeacher (String f, String l, ListOfPTT j) {
@@ -66,6 +66,11 @@ public class PTTeacher {
 	}
 	
 	// keeping the training completion option:
+	public void completeTraining(int i) {
+		skills.add(training.get(i));
+		training.remove(training.get(i));
+	}
+	
 	
 	// Added this here so i dont need a loop during the load process// @@ do we still need this if the array list are initialised in the constructor?@@
 	/*
