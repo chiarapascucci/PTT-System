@@ -43,12 +43,22 @@ public class PTTeacher {
 		return s;
 	}
 	
-	public void printSkills() {
-		for(String s : skills) System.out.println(s);
+	public String[] printSkills() {
+		String [] s = new String[skills.size()];
+		for(int i = 0; i<s.length; i++) {
+			s[i] = skills.get(i);
+		}
+		
+		return s;
 	}
 	
-	public void printTraining() {
-		for(String s : training) System.out.println(s);
+	public String [] printTraining() {
+		String [] s = new String[training.size()];
+		for(int i = 0; i<s.length; i++) {
+			s[i] = training.get(i);
+		}
+		
+		return s;
 	}
 	
 	public void addTraining(String s) {
