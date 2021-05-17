@@ -7,6 +7,8 @@ public class ListOfRequests {
 		reqList = new ArrayList <TeachRequest> ();
 	}
 
+	// add is just an arraylist method
+
 	public void printReqList() {
 		for(TeachRequest t: reqList) System.out.println(t);
 	}
@@ -15,7 +17,5 @@ public class ListOfRequests {
 		return reqList; 
 	}
 	
-	public void add(TeachRequest R) {
-		reqList.add(R);
-	}
+
 }

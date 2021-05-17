@@ -1,64 +1,80 @@
 import java.util.ArrayList;
 
 public class TeachRequest {
-	private int reqID;
-	private static int nextRID = 0;
+	private int id;
+	private static int nextID = 0;
 	private boolean status;
 
 	private String courseID;
 	private int teachNo;
-	private String trainingRequired;
+	private ArrayList <String> trainingRequired;
 	private ArrayList <PTTeacher> assigned;
 
 	// Pass: associated course, required no. of staff, required training
-	public TeachRequest(String c, int no, String t, ListOfRequests LOR) {
-		reqID = nextRID;
-		nextRID++;
+	// Need to implement ID checks
+	public TeachRequest(String c, int no, String... t) {
+		id = nextID;
+		nextID++;
+		requestSetup(c,no,t);
+	}
 
+	// Alt. constructor sets a specific request ID
+	public TeachRequest(int i, String c, int no, String... t) {
+		id = i;
+		requestSetup(c,no,t);
+	}
+
+	// Helper for common constructor content
+	private void requestSetup(String c, int no, String... t) {
 		status = false;
 		courseID = c;
 		teachNo = no;
-		trainingRequired = t;
 		assigned = new ArrayList <PTTeacher> (no);
-		
-		LOR.add(this); 
-		statusCheck();
+
+		//Process training args
+		trainingRequired = new ArrayList <String> ();
+		for(String arg: t) {
+			trainingRequired.add(arg);
+		}
+
+		this.statusCheck();
 	}
 
-	public void assignTeacher(PTTeacher target) {
+	
+
+	public void addTeacher(PTTeacher target) {
 		assigned.add(target);
-		statusCheck();
+		this.statusCheck();
 	}
 
 	public void removeTeacher(PTTeacher target) {
 		assigned.remove(target);
-		statusCheck();
+		this.statusCheck();
 	}
 
-	// Check there is 1) enough teachers 2) all received training
+	// Checks fulfillment of request requirements
 	public void statusCheck() {
 
 		boolean passCheck = true;
 
-		// Teacher quantity check
+		// Check for enough assigned teachers.
+		assigned.trimToSize();
 		if(assigned.size() < teachNo){
-			status = false;
+			status = false;	
 			passCheck = false;
 		} 
 
-		// Training check
+		// Per assigned PTT, check for required training. Note excess teachers must be trained too.
 		else {
 			for(PTTeacher t: assigned) {
-				boolean match = false;
-				String[] trainList = t.getTraining();
-				
-				for(int i = 0; i < trainList.length; i++) {
-					if(trainingRequired.equals(trainList[i])) {
-						match = true;
+				boolean teacherOK = false;
+				for(String s: trainingRequired) {
+					if((t.getTraining()).contains(s)) {
+						teacherOK = true;
 						break;
 					}
 				}
-				if(!match) {
+				if(!teacherOK) {
 					status = false;
 					passCheck = false;
 					break;
@@ -69,27 +85,24 @@ public class TeachRequest {
 		if(passCheck) { status = true; }
 	}
 
-	// print()
-	// Save + destroy object
+	//print methods here
 
+	// Update this with something more useful if necessary
 	public String toString() {
-		String line = reqID + " | " + teachNo + ", " + trainingRequired;
-		return line;
+		String output = "ID: " + id + " | Status: " + status;
+		return output;
 	}
+
+
 
 	// Get/set
 	public int getReqID() {
-		return reqID;
+		return id;
 	}
 
 	public boolean getStatus() {
 		return status;
 	}
-
-	/* -- Manually set status; not needed if status is auto-updated? */
-	// public void setStatus(boolean s) {
-	// 	status = s;
-	// }
 
 	public String getCourseID() {
 		return courseID;
@@ -99,12 +112,12 @@ public class TeachRequest {
 		return teachNo;
 	}
 
-	public String getTrainingRequired() {
+	public ArrayList <String> getTrainingRequired() {
 		return trainingRequired;
 	}
-	
-	public ArrayList <PTTeacher> getAssigned(){
-		return assigned; 
+
+	public ArrayList <PTTeacher> getAssigned() {
+		return assigned;
 	}
 
 }
