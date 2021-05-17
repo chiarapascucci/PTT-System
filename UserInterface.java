@@ -29,12 +29,7 @@ public class UserInterface extends JFrame {
         //peach	255, 170, 84
         //duck egg 202,232,220
         //prussian blue 16,42,58
-        
-        
-        
-        
-        
-        
+                     
         setContentPane(contentPane);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
