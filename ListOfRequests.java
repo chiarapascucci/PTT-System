@@ -10,4 +10,12 @@ public class ListOfRequests {
 	public void printReqList() {
 		for(TeachRequest t: reqList) System.out.println(t);
 	}
+	
+	public  ArrayList <TeachRequest> getListReference() {
+		return reqList; 
+	}
+	
+	public void add(TeachRequest R) {
+		reqList.add(R);
+	}
 }

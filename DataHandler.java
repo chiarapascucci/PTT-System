@@ -74,9 +74,16 @@ public class DataHandler {
 		FileWriter filewriter = null;
 		try {
 			filewriter = new FileWriter(path + "\\" + filename); 
-
+			
+			String exportString; 
+			
 			for (int i = 0; i < LOP.getListReference().size(); i++) {
-				String exportString = exportDataFormat(LOP.getListReference().get(i)); 
+				exportString = exportDataFormat(LOP.getListReference().get(i)); 
+				filewriter.write(exportString);
+			}
+			
+			for (int i = 0; i < LOR.getListReference().size(); i++) {
+				exportString = exportDataFormat(LOR.getListReference().get(i)); 
 				filewriter.write(exportString);
 			}
 		}
@@ -105,7 +112,7 @@ public class DataHandler {
 		if (data.charAt(0) == 'T') {
 
 			// Remove outer casing of the data 
-			data = data.substring(2,data.length()-2); 		// Removing "T(" at start and ")" at end. Could change this to calculate ( position first
+			data = data.substring(2,data.length()-1); 		// Removing "T(" at start and ")" at end. Could change this to calculate ( position first
 
 			// Split data by commas and store into a string array 
 			splitData = data.split(",");
@@ -121,19 +128,39 @@ public class DataHandler {
 			p.setAvailable(Boolean.parseBoolean(splitData[3]));	
 
 			// Skills 
-			String temp = splitData[4].substring(1,splitData[4].length()-2); 	// Remove out casing of Skills data (the curly brackets) 
+			String temp = splitData[4].substring(1,splitData[4].length()-1); 	// Remove out casing of Skills data (the curly brackets) 
 			p.addSkillArray(temp.split(","));
 
 			// Training
-			temp = splitData[5].substring(1,splitData[5].length()-2); 	
+			temp = splitData[5].substring(1,splitData[5].length()-1); 	
 			p.addTrainingArray(temp.split(","));
 		}
 		// Parse line as a request data object
 		if (data.charAt(0) == 'R') {
 
 			// Remove outer casing of the data 
-			data = data.substring(2,data.length()-2); 		
+			data = data.substring(2,data.length()-1); 		// Removing "R(" at start and ")" at end. Could change this to calculate ( position first
 
+			// Split data by commas and store into a string array 
+			splitData = data.split(",");
+
+			// Create a new request entity (adds to list automatically in the constructor to satisfy class invariant)
+			TeachRequest r = new TeachRequest(splitData[2], Integer.parseInt(splitData[3]), splitData[4], LOR); 	
+
+
+			/* Extract and set rest of TeachRequest attributes */
+
+			// Normal attributes
+			// ID is set on creation. Might need a new constructor to allow for ID to be set by loaded data 
+
+			// Teachers assigned to request
+			String temp = splitData[5].substring(1,splitData[5].length()-1); 	// Remove out casing of assigned teacher data (the curly brackets) 
+			
+			
+			// Currently null as need to change PTTeacher to PTTeacher ID
+			for (int i = 0; i < temp.length(); i++) {
+				r.getAssigned().add(null);
+			}
 		}			
 	}
 
@@ -159,10 +186,8 @@ public class DataHandler {
 			if (i < T.getSkills().length - 1) {
 				temp += T.getSkills()[i] + ",";
 			}
-			else {
-				temp += T.getSkills()[i] + "}";
-			}
 		}
+		temp += "}";
 		exportString += "," + temp;
 		
 		
@@ -173,10 +198,8 @@ public class DataHandler {
 			if (i < T.getTraining().length - 1) {
 				temp += T.getTraining()[i] + ",";
 			}
-			else {
-				temp += T.getTraining()[i] + "}";
-			}
 		}
+		temp += "}";
 		exportString += "," + temp + ")\n"; 
 		
 		return exportString; 
@@ -184,8 +207,28 @@ public class DataHandler {
 
 	// Format request data for export
 	private static String exportDataFormat(TeachRequest R) {
-		String s = ""; 
-		return s; 
+		// Create string to store all teacher data and instantiate to be returned. 
+		// Data is encapsulated in an indicator for its respective class and brackets
+		
+		String	 exportString = "R("; 
+		
+		
+		// Append class attributes
+		exportString += R.getReqID() + "," + R.getStatus() + "," + R.getCourseID() + "," + R.getTeachNo() + "," + R.getTrainingRequired(); 
+		
+		// Store arrays as a single string encapuslated in {} for clarity 
+		// assigned teachers 
+		String temp = "{"; 
+		for (int i = 0; i < R.getAssigned().size(); i++) {
+			
+			if (i < R.getAssigned().size() - 1) {
+				temp += R.getAssigned().get(i) + ",";
+			}
+		}
+		temp += "}";
+		exportString += "," + temp + ")\n"; 
+		
+		return exportString; 
 	}
 
 
