@@ -27,8 +27,10 @@ public class PTTeacher {
 		nextTID ++;
 		available = true;
 		
-		this.skills = new ArrayList <String>();
-		this.training = new ArrayList <String>();
+		
+		 // this.skills = new ArrayList <String>(); this.training = new ArrayList
+		 // <String>();
+		 
 		this.assign = new ArrayList <TeachRequest> ();
 		
 	}
@@ -73,12 +75,11 @@ public class PTTeacher {
 	
 	
 	// Added this here so i dont need a loop during the load process// @@ do we still need this if the array list are initialised in the constructor?@@
-	/*
-	 * public void addSkillArray(ArrayList <String> sArray) { skills = sArray; }
-	 * 
-	 * public void addTrainingArray(ArrayList <String> tArray) { training = tArray;
-	 * }
-	 */
+	
+	public void addSkillArray(ArrayList <String> sArray) { skills = sArray; }
+	  
+	public void addTrainingArray(ArrayList <String> tArray) { training = tArray;}
+	 
 	
 	
 	//availability - assumed limit of classes a teacher can cover is 5. if no limit there is little use of availability as class var
