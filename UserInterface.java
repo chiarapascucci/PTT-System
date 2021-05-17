@@ -79,43 +79,6 @@ public class UserInterface extends JFrame {
     }
   
 
-    //Course Director Home Page
-    public void cdMain(){
-        //formats course director page
-        setTitle("Course Director Home");
-        setSize(600, 400);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-
-        JPanel cdMain= new JPanel();//creates main panel for course director page
-        //button to return to home page
-        var backButton = new JButton("Back");
-        backButton.setToolTipText("Return to previous page");
-        //backButton.addActionListener((event) -> initGUI());
-
-        //button to submit request page
-        var submitReq = new JButton("Submit Request");
-        submitReq.setToolTipText("Submit Request");
-        submitReq.addActionListener((event) -> submitRequest());
-
-        //button to page to check request status
-        var statCheck = new JButton("Check Request Status");
-        statCheck.setToolTipText("View Requests");
-        statCheck.addActionListener((event) -> statusCheck());
-        //formats course director display
-        cdMain.setLayout(new GridLayout(3,1));
-        cdMain.add(submitReq);
-        cdMain.add(statCheck);
-        cdMain.add(backButton);
-
-        //contentPane.remove(0);//clears window
-        //contentPane.add(cdMain);//adds course director panel to window
-    }
-
-
-
-    //admin primary functions
-
 
     private void viewRequests(){
         //reformats JFrame
@@ -285,11 +248,11 @@ public class UserInterface extends JFrame {
 
         var backButton = new JButton("Back"); //creates a back button that returns to course director main page
         backButton.setToolTipText("Return to course director page");
-        backButton.addActionListener((event) -> cdMain());
+        //backButton.addActionListener((event) -> cdMain());
 
         var submitReq = new JButton("Submit Request"); //creates a back button that returns to course director main page
         submitReq.setToolTipText("Return to course director page");
-        submitReq.addActionListener((event) -> cdMain());
+       // submitReq.addActionListener((event) -> cdMain());
 
         JLabel teacher= new JLabel("Enter teacher number");
         JTextField teachNo= new JTextField(25); //allows to enter teacher number
@@ -327,7 +290,7 @@ public class UserInterface extends JFrame {
 
          var backButton = new JButton("Back"); //creates a back button that returns to course director main page
          backButton.setToolTipText("Return to course director page");
-         backButton.addActionListener((event) -> cdMain());
+         //backButton.addActionListener((event) -> cdMain());
          
          JLabel req= new JLabel("Enter request number");
          JTextField reqNo= new JTextField(5); //allows to enter request number

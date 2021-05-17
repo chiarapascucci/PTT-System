@@ -1,7 +1,9 @@
+import java.awt.Dimension;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 public class AdminPanel extends JPanel {
@@ -52,8 +54,14 @@ public class AdminPanel extends JPanel {
         
         this.add(panel);
         
-        JTextArea displayField = new JTextArea();
+        JTextArea textArea = new JTextArea(50, 50);
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPane.setPreferredSize(new Dimension(600,350));
+        textArea.setEditable(false);
+        textArea.setText("Select Action");
         
-        this.add(displayField);
+        this.add(textArea);
+        this.add(scrollPane);
 	}
 }
