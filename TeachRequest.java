@@ -11,7 +11,7 @@ public class TeachRequest {
 	private ArrayList <PTTeacher> assigned;
 
 	// Pass: associated course, required no. of staff, required training
-	// Need to implement ID checks
+	// Need to implement ID is free checks
 	public TeachRequest(String c, int no, String... t) {
 		id = nextID;
 		nextID++;
