@@ -20,6 +20,21 @@ public class UserInterface extends JFrame {
         setSize(800, 400);
         contentPane= new JPanel();//creates new main panel
         contentPane.setBorder(new EmptyBorder(5,5,5,5));
+        contentPane.setBackground(new Color(16,42,58));
+        
+        //russian green 67,92,67
+        //phthalo green 12,35,24
+        //burnt orange 218,97,20
+        //sandy yellow 243, 210, 80
+        //peach	255, 170, 84
+        //duck egg 202,232,220
+        //prussian blue 16,42,58
+        
+        
+        
+        
+        
+        
         setContentPane(contentPane);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -30,7 +45,8 @@ public class UserInterface extends JFrame {
 
     public void mainButtons(){
         JPanel home= new JPanel();// creates home page JPanel
-
+        
+        
         //creates button to close program
         var exitButton = new JButton("Exit");
         exitButton.setToolTipText("Exits Program");
@@ -51,7 +67,6 @@ public class UserInterface extends JFrame {
         home.add(exitButton);
 
         contentPane.add(home);//adds home page to window
-
     }
 
     //Admin Home Page
@@ -138,7 +153,6 @@ public class UserInterface extends JFrame {
 
     //admin primary functions
 
-
     private void viewRequests(){
         //reformats JFrame
         setTitle("View Requests");
@@ -147,7 +161,8 @@ public class UserInterface extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         JPanel requestView= new JPanel();// new JPanel for assign functions
-
+        
+        
         //creates and formats the window for displaying requests
         JTextArea textArea = new JTextArea(50, 50);
         JScrollPane scrollPane = new JScrollPane(textArea);
@@ -243,7 +258,7 @@ public class UserInterface extends JFrame {
         contentPane.remove(0);//clear JFrame
         contentPane.add(searchMain);//add new JPanel
     }
-    private void updateTeacher() {
+    private void updateTeacher() {//page for updating teacher information
         setTitle("Update Teacher Information");
         setSize(800, 400);
         setLocationRelativeTo(null);
@@ -289,13 +304,9 @@ public class UserInterface extends JFrame {
         contentPane.add(updateTeach);//add new JPanel
     }
 
-    private void controller() {
-        //generic hold for controller
-    }
-
-
 
     //course director functions
+    
     private void submitRequest(){
         //create new screen for search by requirements
         setTitle("Submit Request");
@@ -322,8 +333,8 @@ public class UserInterface extends JFrame {
         JLabel skill3= new JLabel("Third Requirement");
         JTextField skillThree= new JTextField(25);
 
-        subReq.setLayout(new GridLayout(5,2));
-
+        subReq.setLayout(new GridLayout(5,2));// format layout
+        //add request submission components
         subReq.add(teacher);
         subReq.add(teachNo);
         subReq.add(skill1);
@@ -340,12 +351,13 @@ public class UserInterface extends JFrame {
 
     }
     private void statusCheck(){
+    	//reformat window for status check screen
     	 setTitle("Check Request Status");
          setSize(800, 400);
          setLocationRelativeTo(null);
          setDefaultCloseOperation(EXIT_ON_CLOSE);
          
-         JPanel statCheck= new JPanel();
+         JPanel statCheck= new JPanel();//new main panel for status check function
 
          var backButton = new JButton("Back"); //creates a back button that returns to course director main page
          backButton.setToolTipText("Return to course director page");
@@ -361,7 +373,7 @@ public class UserInterface extends JFrame {
          JTextArea textArea = new JTextArea(1, 10);// text area for displaying status
          textArea.setEditable(false); // only displays requests
          
-         statCheck.setLayout(new GridLayout(3,2));
+         statCheck.setLayout(new GridLayout(3,2));//create page layout and add components
          statCheck.add(req);
          statCheck.add(reqNo);
          statCheck.add(check);
@@ -370,15 +382,15 @@ public class UserInterface extends JFrame {
          
          contentPane.remove(0);//clear JFrame
          contentPane.add(statCheck);//add new JPanel
-         
-        
-
     }
-
 
     public static void main(String[] args) {//instantiate and call UI
         UserInterface ui= new UserInterface();
         ui.setVisible(true);
+    }
+    
+    private void controller() {
+        //generic hold for controller
     }
 
 }
