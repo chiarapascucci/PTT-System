@@ -15,7 +15,5 @@ public class ListOfRequests {
 		return reqList; 
 	}
 	
-	public void add(TeachRequest R) {
-		reqList.add(R);
-	}
+
 }
