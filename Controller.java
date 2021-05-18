@@ -24,15 +24,15 @@ public class Controller implements ActionListener {
 		
 		
 		else if (e.getSource() == view.adminMain.assignTeach) {
-			
+			//need data handler
 		}
 		
 		else if (e.getSource() == view.adminMain.search) {
-			
+			//need dh --> access ptt lists
 		}
 		
 		else if (e.getSource() == view.adminMain.viewReqs) {
-			
+			//need dh --> access reqs list
 		}
 		
 		else if (e.getSource() == view.adminMain.updateTeach) {

@@ -80,66 +80,7 @@ public class UserInterface extends JFrame {
   
 
 
-    private void viewRequests(){
-        //reformats JFrame
-        setTitle("View Requests");
-        setSize(800, 400);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-
-        JPanel requestView= new JPanel();// new JPanel for assign functions
-
-        //creates and formats the window for displaying requests
-        JTextArea textArea = new JTextArea(50, 50);
-        JScrollPane scrollPane = new JScrollPane(textArea);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        scrollPane.setPreferredSize(new Dimension(600,350));
-        textArea.setEditable(false); // only displays requests
-
-        var backButton = new JButton("Back"); //creates a back button that returns to admin main page
-        backButton.setToolTipText("Return to previous page");
-        //backButton.addActionListener((event) -> adminMain());
-
-        requestView.setLayout(new FlowLayout());//creates layout
-        requestView.add(scrollPane);
-        requestView.add(backButton);
-
-        //contentPane.remove(0);// clears JFrame
-       // contentPane.add(requestView);//adds request view JPanel to frame
-    }
-    private void assignTeacher(){
-        setTitle("Assign Teacher");
-        setSize(800, 400);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-
-        JPanel assignTeach= new JPanel();// new JPanel for assign functions
-
-        var backButton = new JButton("Back"); //creates a back button that returns to admin main page
-        backButton.setToolTipText("Return to previous page");
-        //backButton.addActionListener((event) -> adminMain());
-
-        JLabel teacher= new JLabel("Enter teacher name");
-        JTextField teachName= new JTextField(25); //allows to enter teacher name
-        JLabel request= new JLabel("Enter request number");
-        JTextField requestNo= new JTextField(25); //allows to enter request number
-
-        var assign= new JButton("Assign"); //button to assign teacher to reequest
-        assign.setToolTipText("Assign Teacher to Request");
-        //backButton.addActionListener((event) -> adminMain());
-
-        //adds all components to JPanel assignTeach
-        assignTeach.setLayout(new GridLayout(6,1));
-        assignTeach.add(teacher);
-        assignTeach.add(teachName);
-        assignTeach.add(request);
-        assignTeach.add(requestNo);
-        assignTeach.add(assign);
-        assignTeach.add(backButton);
-
-        //contentPane.remove(0);//clears JFrame
-        //contentPane.add(assignTeach);//adds new JPanel
-    }
+   
     private void searchByReqs(){
         //create new screen for search by requirements
         setTitle("Search By Requirements");
