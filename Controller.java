@@ -58,6 +58,8 @@ public class Controller implements ActionListener {
 					view.adminMain.textArea.setText("assignment failed");
 				}
 			}
+			
+			view.adminMain.assignF.setEnabled(false);
 		}
 		
 		// 1.2 - ADMIN >> SEARCH TEACHERS BY DIFFERENT CRITERIA
@@ -72,6 +74,8 @@ public class Controller implements ActionListener {
 			for (PTTeacher p : result) {
 				view.adminMain.textArea.append(p.toString());
 			}
+			
+			view.adminMain.searchF.setEnabled(false);
 		}
 		
 		//1.3 ADMIN >> VIEW REQUESTS
@@ -86,6 +90,7 @@ public class Controller implements ActionListener {
 		//1.4 ADMIN >> UPDATE INFORMATION FOR A SPECIFIC TEACHER
 		else if (e.getSource() == view.adminMain.updateTeach) {
 			
+			view.adminMain.updateF.setEnabled(true);
 			
 			if (e.getSource() == view.adminMain.addSkill) {
 				int iD = Integer.parseInt(view.adminMain.teachID.getText());
@@ -114,6 +119,7 @@ public class Controller implements ActionListener {
 					t.removeTraining(s);
 				}
 			}
+			view.adminMain.updateF.setEnabled(false);
 			
 		}
 		
