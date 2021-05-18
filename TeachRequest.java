@@ -22,7 +22,7 @@ public class TeachRequest {
 	public TeachRequest(int i, String c, int no, ListOfRequests LOR, String... t ) {
 		id = i;
 		requestSetup(c,no,LOR,t);
-		nextID = LOR.maxRID();	
+		nextID = LOR.maxRID() + 1;	
 	}
 
 	// Helper for common constructor content
