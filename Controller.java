@@ -18,13 +18,14 @@ public class Controller implements ActionListener {
 		}
 		
 		else if (e.getSource() == view.courseButton) {
-			System.out.println("view as Admin");
+			System.out.println("view as Course Director");
 			view.updateView(view.getCDPanel());
 		}
 		
 		
 		else if (e.getSource() == view.adminMain.assignTeach) {
-			//need data handler
+			System.out.println("assign teacher");
+			
 		}
 		
 		else if (e.getSource() == view.adminMain.search) {

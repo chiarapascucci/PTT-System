@@ -70,7 +70,7 @@ public class AdminPanel extends JPanel {
         panelL.add(updateTeach);
         panelL.add(backButton);
         
-        this.add(panelR);
+        this.add(panelL);
         
         panelC = new JPanel();
         panelR = new JPanel();
@@ -89,8 +89,10 @@ public class AdminPanel extends JPanel {
         
         //creting function specific panels for admin
         assignF = generateAssignF();
+        assignF.setVisible(false);
         
         searchF = generateSearchF();
+        searchF.setVisible(false);
         
         
 	}
@@ -148,6 +150,18 @@ public class AdminPanel extends JPanel {
 	        searchMain.add(backButton);
 		
 		return searchMain;
+	}
+
+	public JComboBox getOptionList() {
+		return optionList;
+	}
+
+	public void setOptionList(JComboBox optionList) {
+		this.optionList = optionList;
+	}
+
+	public JPanel getAssignF() {
+		return assignF;
 	}
 
 	public JPanel getPanelR() {
