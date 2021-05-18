@@ -50,6 +50,24 @@ public class ListOfPTT {
 		return null; 
 	}
 	
+	public ArrayList <PTTeacher> findTeacher(String s, int i){
+		ArrayList <PTTeacher> result = new ArrayList <PTTeacher>();
+		
+		if ( i == 0) {
+			PTTeacher p = this.getTeacherRef(s);
+			result.add(p);
+		}
+		
+		else if (i == 1) {
+			for (PTTeacher p : list) if (p.getTraining().contains(s)) result.add(p);
+		}
+		else if (i ==2) {
+			for (PTTeacher p : list) if (p.getTraining().contains(s)) result.add(p);			
+		}
+		return result;
+	}
+	
+	
 	public PTTeacher getTeacherRef(String n) {
 		for (PTTeacher t : list) {
 			if (t.getlName().equals(n)) return t;

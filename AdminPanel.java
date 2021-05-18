@@ -23,7 +23,7 @@ public class AdminPanel extends JPanel {
 	
 	//search by reqs elements
 	protected JPanel searchF;
-	private JComboBox optionList;
+	protected JComboBox <String> optionList;
 	private JTextField searchChoiceOne, searchChoiceTwo, searchChoiceThree;
 	private JButton searchButton;
 	private String[] options = {"Name","Skills", "Training" };
@@ -180,11 +180,7 @@ public class AdminPanel extends JPanel {
 
 	        JLabel searchOne= new JLabel("Enter first search requirement");
 	        searchChoiceOne= new JTextField(25); //allows to enter search requirements
-	        JLabel searchTwo= new JLabel("Enter second search requirement");
-	        searchChoiceTwo= new JTextField(25);
-	        JLabel searchThree= new JLabel("Enter third search requirement");
-	        searchChoiceThree= new JTextField(25);
-
+	        
 	        searchButton = new JButton("Search"); //search button creation
 	        searchButton.setToolTipText("Search on Requirement");
 	        searchButton.addActionListener(c);
@@ -195,10 +191,7 @@ public class AdminPanel extends JPanel {
 	        searchMain.add(optionList);
 	        searchMain.add(searchOne);
 	        searchMain.add(searchChoiceOne);
-	        searchMain.add(searchTwo);
-	        searchMain.add(searchChoiceTwo);
-	        searchMain.add(searchThree);
-	        searchMain.add(searchChoiceThree);
+	       
 	        searchMain.add(searchButton);
 	      
 		

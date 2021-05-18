@@ -60,6 +60,16 @@ public class Controller implements ActionListener {
 			System.out.println("search");
 			
 			view.adminMain.searchF.setEnabled(true);
+			
+			if (view.adminMain.optionList.getSelectedIndex() == 0) {
+				
+			}
+			else if (view.adminMain.optionList.getSelectedIndex() == 1) {
+				
+			}
+			else if (view.adminMain.optionList.getSelectedIndex() == 2) {
+				
+			}
 			//need dh --> access ptt lists
 		}
 		
