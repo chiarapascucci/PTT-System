@@ -30,10 +30,10 @@ public class AdminPanel extends JPanel {
 	
 	//Update teacher information
 	protected JPanel updateF;
-	private JTextField teachID;
+	protected JTextField teachID,choice;
 	private String[] optionsUpdate= {"Skills", "Training" };
-	private JComboBox optionListUpdate;
-	private	JButton addSkill, remSkill;
+	protected JComboBox <String> optionListUpdate;
+	protected JButton addSkill, remSkill;
 	
 	
 	
@@ -154,7 +154,7 @@ public class AdminPanel extends JPanel {
         optionListUpdate = new JComboBox(optionsUpdate);
 
         JLabel skillTrain= new JLabel("Enter skill/training to add/remove");
-        JTextField choice= new JTextField(25); //allows to enter skill/training to add/remove
+        choice= new JTextField(25); //allows to enter skill/training to add/remove
 
         addSkill = new JButton("Add"); //creates a button that adds skill/training
         addSkill.setToolTipText("Add skill/training");

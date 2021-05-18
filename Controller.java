@@ -85,7 +85,36 @@ public class Controller implements ActionListener {
 		
 		//1.4 ADMIN >> UPDATE INFORMATION FOR A SPECIFIC TEACHER
 		else if (e.getSource() == view.adminMain.updateTeach) {
-			System.out.println("update teacher");
+			
+			
+			if (e.getSource() == view.adminMain.addSkill) {
+				int iD = Integer.parseInt(view.adminMain.teachID.getText());
+				PTTeacher t = DataHandler.getLOP().getTeacherRef(iD);
+				int n = view.adminMain.optionListUpdate.getSelectedIndex();
+				String s = view.adminMain.choice.getText().trim();
+				
+				if (n == 0) {
+					t.addSkill(s);				
+				}
+				else if(n== 1) {
+					t.addTraining(s);
+				}
+			}
+			
+			else if (e.getSource() == view.adminMain.remSkill) {
+				int iD = Integer.parseInt(view.adminMain.teachID.getText());
+				PTTeacher t = DataHandler.getLOP().getTeacherRef(iD);
+				int n = view.adminMain.optionListUpdate.getSelectedIndex();
+				String s = view.adminMain.choice.getText().trim();
+				
+				if (n == 0) {
+					t.removeSkill(s);
+				}
+				else if (n ==1 ) {
+					t.removeTraining(s);
+				}
+			}
+			
 		}
 		
 		
