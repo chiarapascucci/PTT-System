@@ -4,7 +4,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 
 public class Controller implements ActionListener {
-	private DataHandler currentHandler = null;
+	//private DataHandler currentHandler = null;
 	private UserInterface view = null;
 	
 	public Controller (UserInterface v) {

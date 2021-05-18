@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 
 
 public class UserInterface extends JFrame {
-    private JPanel mainPanel;
+    protected JPanel mainPanel;
     private Controller controller;
     protected JButton exitButton, adminButton, courseButton;
     protected AdminPanel adminMain;
@@ -22,9 +22,12 @@ public class UserInterface extends JFrame {
         //creates start window and formats main JFrame
         setTitle("Requesto (powered by PoweRon)");
         setSize(800, 400);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        
 
-        exitButton.setToolTipText("Exits Program");
-        exitButton.addActionListener(controller);
+        mainPanel = new JPanel();
+        mainPanel.setLayout(new GridLayout(3,1));
+        
         //button that takes you to main Admin page
         adminButton = new JButton("Admin");
         adminButton.setToolTipText("Admin Page");
@@ -32,15 +35,15 @@ public class UserInterface extends JFrame {
         //button that takes you to main Course Director page
         courseButton = new JButton("Course Director");
         courseButton.setToolTipText("Course Director Page");
-
         courseButton.addActionListener(controller);
-
-        mainPanel.setLayout(new GridLayout(3,1));
+      
         mainPanel.add(adminButton);
         mainPanel.add(courseButton);
-        mainPanel.add(exitButton);
+        //mainPanel.add(exitButton);
         
         this.add(mainPanel,b.CENTER);
+        
+        controller = new Controller(this);
         
         cDPanel = new CDPanel(controller);
         adminMain = new AdminPanel(controller);
@@ -207,7 +210,8 @@ public class UserInterface extends JFrame {
     }
 
     public static void main(String[] args) {//instantiate and call UI
-        UserInterface ui= new UserInterface();
+        
+    	UserInterface ui= new UserInterface();
         ui.setVisible(true);
     }
     
