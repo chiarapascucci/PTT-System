@@ -1,5 +1,6 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
@@ -14,20 +15,26 @@ public class Controller implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
+		//1-GET TO ADMIN VIEW
 		if (e.getSource() == view.adminButton) {
 			System.out.println("view as Admin");
 			view.updateView(view.adminMain);
 		}
 		
+		//2-GET TO CD VIEW
 		else if (e.getSource() == view.courseButton) {
 			System.out.println("view as Course Director");
 			view.updateView(view.getCDPanel());
 		}
 		
+		//3.2 BACK BUTTON FOR BOTH ADMIN AND CD
 		else if (e.getSource() == view.adminMain.backButton || e.getSource() == view.cDPanel.backButton) {
 			if (e.getSource() == view.adminMain.backButton) view.backToMain(view.adminMain);
 			else view.backToMain(view.cDPanel);
 		}
+		
+		//1.1 ADMIN >> ASSIGN TEACHER TO REQUEST
 		else if (e.getSource() == view.adminMain.assignTeach) {
 			System.out.println("assign teacher");
 			view.adminMain.assignF.setEnabled(true);
@@ -51,41 +58,38 @@ public class Controller implements ActionListener {
 					view.adminMain.textArea.setText("assignment failed");
 				}
 			}
-			
-			
-			
 		}
 		
+		// 1.2 - ADMIN >> SEARCH TEACHERS BY DIFFERENT CRITERIA
 		else if (e.getSource() == view.adminMain.search) {
 			System.out.println("search");
 			
 			view.adminMain.searchF.setEnabled(true);
 			
-			if (view.adminMain.optionList.getSelectedIndex() == 0) {
-				
+			int i = view.adminMain.optionList.getSelectedIndex();
+			String s = view.adminMain.searchChoiceOne.getText().trim();
+			ArrayList <PTTeacher> result = DataHandler.getLOP().findTeacher(s, i);
+			for (PTTeacher p : result) {
+				view.adminMain.textArea.append(p.toString());
 			}
-			else if (view.adminMain.optionList.getSelectedIndex() == 1) {
-				
-			}
-			else if (view.adminMain.optionList.getSelectedIndex() == 2) {
-				
-			}
-			//need dh --> access ptt lists
 		}
 		
+		//1.3 ADMIN >> VIEW REQUESTS
 		else if (e.getSource() == view.adminMain.viewReqs) {
-			//need dh --> access reqs list
+			
 			System.out.println("view reqs");
 			String [] s =DataHandler.getLOR().printReqList();
 			for (String i : s) view.adminMain.textArea.append(i);
-			
-			//this would access the DH and from there LOR, then use print method of LOR (should return String[]) to display list in scroll pane
+
 		}
 		
+		//1.4 ADMIN >> UPDATE INFORMATION FOR A SPECIFIC TEACHER
 		else if (e.getSource() == view.adminMain.updateTeach) {
 			System.out.println("update teacher");
 		}
 		
+		
+		//2.1 CD >> VIEW STATUS OF REQUESTS IN THE SYSTEM
 		else if (e.getSource() == view.cDPanel.statCheck) {
 			System.out.println("view reqs");
 			String [] s =DataHandler.getLOR().printReqListStatus();

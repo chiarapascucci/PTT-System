@@ -24,13 +24,13 @@ public class AdminPanel extends JPanel {
 	//search by reqs elements
 	protected JPanel searchF;
 	protected JComboBox <String> optionList;
-	private JTextField searchChoiceOne, searchChoiceTwo, searchChoiceThree;
+	protected JTextField searchChoiceOne, searchChoiceTwo, searchChoiceThree;
 	private JButton searchButton;
 	private String[] options = {"Name","Skills", "Training" };
 	
 	//Update teacher information
 	protected JPanel updateF;
-	private JTextField teachNameS;
+	private JTextField teachID;
 	private String[] optionsUpdate= {"Skills", "Training" };
 	private JComboBox optionListUpdate;
 	private	JButton addSkill, remSkill;
@@ -99,11 +99,17 @@ public class AdminPanel extends JPanel {
         searchF = generateSearchF();
         searchF.setVisible(true);
         searchF.setEnabled(false);
+        
+        updateF = generateUpdateF();
+        updateF.setVisible(true);
+        updateF.setEnabled(false);
+        
        
         
         panelC.setLayout(l);
         panelC.add(assignF);
         panelC.add(searchF);
+        panelC.add(updateF);
        // panelC.add(textArea);
         panelR.add(scrollPane);
         
@@ -140,10 +146,10 @@ public class AdminPanel extends JPanel {
 	private JPanel generateUpdateF() {
 		JPanel updateTeach= new JPanel();
 		
-        JLabel teacher= new JLabel("Enter Teacher Name");
-        teachName= new JTextField(25); //allows to enter teacher name
+        JLabel teacher= new JLabel("Enter Teacher ID");
+        teachID= new JTextField(25); //allows to enter teacher name
 
-        JLabel option = new JLabel("Select Skill/Training");
+        JLabel optionUp = new JLabel("Select Skill/Training");
         
         optionListUpdate = new JComboBox(optionsUpdate);
 
@@ -161,9 +167,9 @@ public class AdminPanel extends JPanel {
         //adds all components to panel and formats them
         updateTeach.setLayout(new GridLayout(5,2));
         updateTeach.add(teacher);
-        updateTeach.add(teachName);
-        updateTeach.add(option);
-        updateTeach.add(optionList);
+        updateTeach.add(teachID);
+        updateTeach.add(optionUp);
+        updateTeach.add(optionListUpdate);
         updateTeach.add(skillTrain);
         updateTeach.add(choice);
         updateTeach.add(addSkill);
