@@ -11,7 +11,7 @@ public class UserInterface extends JFrame {
     private Controller controller;
     protected JButton exitButton, adminButton, courseButton;
     protected AdminPanel adminMain;
-    private CDPanel cDPanel;
+    protected CDPanel cDPanel;
     private BorderLayout b;
     
     //protected JButton backButton, viewReqs, assignTeach, search, updateTeach;
@@ -64,6 +64,12 @@ public class UserInterface extends JFrame {
     	mainPanel.setVisible(false);
     	this.add(j, b.CENTER);
     	//return this;
+    }
+    
+    protected void backToMain(JPanel j) {
+    	j.setVisible(false);
+    	mainPanel.setVisible(true);
+    	this.add(mainPanel);
     }
     
     public JPanel getAdminMain() {

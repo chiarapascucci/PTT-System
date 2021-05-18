@@ -72,6 +72,7 @@ public class AdminPanel extends JPanel {
         
         this.add(panelL);
         
+        GridLayout l = new GridLayout(4,1);
         panelC = new JPanel();
         panelR = new JPanel();
         JTextArea textArea = new JTextArea(50, 50);
@@ -80,19 +81,26 @@ public class AdminPanel extends JPanel {
         scrollPane.setPreferredSize(new Dimension(600,350));
         textArea.setEditable(false);
         textArea.setText("Select Action");
+        //creting function specific panels for admin
+        assignF = generateAssignF();
+        assignF.setVisible(true);
+        assignF.setEnabled(false);
         
+        searchF = generateSearchF();
+        searchF.setVisible(true);
+        searchF.setEnabled(false);
+       
+        
+        panelC.setLayout(l);
+        panelC.add(assignF);
+        panelC.add(searchF);
         panelC.add(textArea);
         panelR.add(scrollPane);
         
         this.add(panelC); this.add(panelR);
         
         
-        //creting function specific panels for admin
-        assignF = generateAssignF();
-        assignF.setVisible(false);
-        
-        searchF = generateSearchF();
-        searchF.setVisible(false);
+    
         
         
 	}
@@ -147,7 +155,7 @@ public class AdminPanel extends JPanel {
 	        searchMain.add(searchThree);
 	        searchMain.add(searchChoiceThree);
 	        searchMain.add(searchButton);
-	        searchMain.add(backButton);
+	      
 		
 		return searchMain;
 	}

@@ -1,6 +1,8 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JPanel;
+
 public class Controller implements ActionListener {
 	private DataHandler currentHandler = null;
 	private UserInterface view = null;
@@ -14,7 +16,7 @@ public class Controller implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == view.adminButton) {
 			System.out.println("view as Admin");
-			view.updateView(view.getAdminMain());
+			view.updateView(view.adminMain);
 		}
 		
 		else if (e.getSource() == view.courseButton) {
@@ -22,13 +24,15 @@ public class Controller implements ActionListener {
 			view.updateView(view.getCDPanel());
 		}
 		
-		
+		else if (e.getSource() == view.adminMain.backButton || e.getSource() == view.cDPanel.backButton) {
+			if (e.getSource() == view.adminMain.backButton) view.backToMain(view.adminMain);
+			else view.backToMain(view.cDPanel);
+		}
 		else if (e.getSource() == view.adminMain.assignTeach) {
 			System.out.println("assign teacher");
-			view.adminMain.assignF.setVisible(true);
-			view.adminMain.updatePanels(view.adminMain.assignF);
 			
-			//view.updateView(view.getAdminMain());
+			
+			
 			
 		}
 		
