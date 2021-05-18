@@ -27,8 +27,28 @@ public class PTTeacher {
 		nextTID ++;
 		available = true;
 		
+		this.skills 	= new ArrayList <String>(); 
+		this.training 	= new ArrayList<String>();
+
 		this.assign = new ArrayList <TeachRequest> ();
+	}
+	
+	// Overloaded constructor to use when loading data
+	public PTTeacher (String f, String l, int ID, ListOfPTT j) {
+		this.fName = f;
+		this.lName = l;
+		this.list = j;
+		this.list.addTeacher(this);
 		
+		// Setting ID from saved data 
+		this.tID = ID; 
+		nextTID = j.maxID(); 	// Max ID enforces that the nextID is set to the max after loading data 
+		available = true;
+		
+		this.skills 	= new ArrayList <String>(); 
+		this.training 	= new ArrayList<String>();
+		 
+		this.assign = new ArrayList <TeachRequest> ();
 	}
 
 	
