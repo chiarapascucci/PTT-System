@@ -27,10 +27,6 @@ public class PTTeacher {
 		nextTID ++;
 		available = true;
 		
-		
-		 // this.skills = new ArrayList <String>(); this.training = new ArrayList
-		 // <String>();
-		 
 		this.assign = new ArrayList <TeachRequest> ();
 		
 	}
