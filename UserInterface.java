@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 
 
 public class UserInterface extends JFrame {
-    protected JPanel mainPanel;
+    private JPanel mainPanel;
     private Controller controller;
     protected JButton exitButton, adminButton, courseButton;
     protected AdminPanel adminMain;
@@ -22,12 +22,20 @@ public class UserInterface extends JFrame {
         //creates start window and formats main JFrame
         setTitle("Requesto (powered by PoweRon)");
         setSize(800, 400);
+        setLocation(100, 100);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         
-
-        mainPanel = new JPanel();
-        mainPanel.setLayout(new GridLayout(3,1));
+        b = new BorderLayout();
+        this.setLayout(b);
         
+        this.setVisible(true);
+        
+        this.controller = new Controller(this);
+        mainPanel = new JPanel();
+        
+        exitButton = new JButton("Exit");
+        exitButton.setToolTipText("Exits Program");
+        exitButton.addActionListener(controller);
         //button that takes you to main Admin page
         adminButton = new JButton("Admin");
         adminButton.setToolTipText("Admin Page");
@@ -36,18 +44,16 @@ public class UserInterface extends JFrame {
         courseButton = new JButton("Course Director");
         courseButton.setToolTipText("Course Director Page");
         courseButton.addActionListener(controller);
-      
+
+        mainPanel.setLayout(new GridLayout(3,1));
         mainPanel.add(adminButton);
         mainPanel.add(courseButton);
-        //mainPanel.add(exitButton);
+        mainPanel.add(exitButton);
         
         this.add(mainPanel,b.CENTER);
         
-        controller = new Controller(this);
-        
         cDPanel = new CDPanel(controller);
         adminMain = new AdminPanel(controller);
-
     }
     
     public void setController(Controller c) {
@@ -59,13 +65,11 @@ public class UserInterface extends JFrame {
     	this.add(j, b.CENTER);
     	//return this;
     }
-
     
     protected void backToMain(JPanel j) {
     	j.setVisible(false);
     	mainPanel.setVisible(true);
     	this.add(mainPanel);
-
     }
     
     public JPanel getAdminMain() {
@@ -82,9 +86,9 @@ public class UserInterface extends JFrame {
   
 
 
-
-    private void updateTeacher() {//page for updating teacher information
-
+   
+    
+    private void updateTeacher() {
         setTitle("Update Teacher Information");
         setSize(800, 400);
         setLocationRelativeTo(null);
@@ -130,9 +134,13 @@ public class UserInterface extends JFrame {
         //contentPane.add(updateTeach);//add new JPanel
     }
 
+    private void controller() {
+        //generic hold for controller
+    }
+
+
 
     //course director functions
-    
     private void submitRequest(){
         //create new screen for search by requirements
         setTitle("Submit Request");
@@ -159,8 +167,8 @@ public class UserInterface extends JFrame {
         JLabel skill3= new JLabel("Third Requirement");
         JTextField skillThree= new JTextField(25);
 
-        subReq.setLayout(new GridLayout(5,2));// format layout
-        //add request submission components
+        subReq.setLayout(new GridLayout(5,2));
+
         subReq.add(teacher);
         subReq.add(teachNo);
         subReq.add(skill1);
@@ -177,13 +185,12 @@ public class UserInterface extends JFrame {
 
     }
     private void statusCheck(){
-    	//reformat window for status check screen
     	 setTitle("Check Request Status");
          setSize(800, 400);
          setLocationRelativeTo(null);
          setDefaultCloseOperation(EXIT_ON_CLOSE);
          
-         JPanel statCheck= new JPanel();//new main panel for status check function
+         JPanel statCheck= new JPanel();
 
          var backButton = new JButton("Back"); //creates a back button that returns to course director main page
          backButton.setToolTipText("Return to course director page");
@@ -199,24 +206,24 @@ public class UserInterface extends JFrame {
          JTextArea textArea = new JTextArea(1, 10);// text area for displaying status
          textArea.setEditable(false); // only displays requests
          
-         statCheck.setLayout(new GridLayout(3,2));//create page layout and add components
+         statCheck.setLayout(new GridLayout(3,2));
          statCheck.add(req);
          statCheck.add(reqNo);
          statCheck.add(check);
          statCheck.add(textArea);
          statCheck.add(backButton);
          
+         //contentPane.remove(0);//clear JFrame
+         //contentPane.add(statCheck);//add new JPanel
+         
+        
 
     }
+
 
     public static void main(String[] args) {//instantiate and call UI
-        
-    	UserInterface ui= new UserInterface();
+        UserInterface ui= new UserInterface();
         ui.setVisible(true);
-    }
-    
-    private void controller() {
-        //generic hold for controller
     }
 
 }
