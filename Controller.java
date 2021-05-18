@@ -4,11 +4,11 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 
 public class Controller implements ActionListener {
-	//private DataHandler currentHandler = null;
+	
 	private UserInterface view = null;
 	
 	public Controller (UserInterface v) {
-		//currentHandler = d;
+	
 		view = v;
 	}
 
@@ -30,8 +30,30 @@ public class Controller implements ActionListener {
 		}
 		else if (e.getSource() == view.adminMain.assignTeach) {
 			System.out.println("assign teacher");
-			
 			view.adminMain.assignF.setEnabled(true);
+			
+			if (e.getSource() == view.adminMain.assign) {
+				String name = view.adminMain.teachName.getText();
+				int iD = Integer.parseInt(view.adminMain.requestNo.getText()); 
+				TeachRequest t = DataHandler.getLOR().findReq(iD);
+				PTTeacher p = DataHandler.getLOP().getTeacherRef(name);
+				
+				boolean outcome = false;
+				if (t == null || p == null) {
+					view.adminMain.textArea.setText("invalid request number or teacher name");
+				}
+				else {
+					t.addTeacher(p);
+					outcome = p.assign(t);
+				
+				}
+				if (!outcome) {
+					view.adminMain.textArea.setText("assignment failed");
+				}
+			}
+			
+			
+			
 		}
 		
 		else if (e.getSource() == view.adminMain.search) {
@@ -44,12 +66,20 @@ public class Controller implements ActionListener {
 		else if (e.getSource() == view.adminMain.viewReqs) {
 			//need dh --> access reqs list
 			System.out.println("view reqs");
+			String [] s =DataHandler.getLOR().printReqList();
+			for (String i : s) view.adminMain.textArea.append(i);
 			
 			//this would access the DH and from there LOR, then use print method of LOR (should return String[]) to display list in scroll pane
 		}
 		
 		else if (e.getSource() == view.adminMain.updateTeach) {
 			System.out.println("update teacher");
+		}
+		
+		else if (e.getSource() == view.cDPanel.statCheck) {
+			System.out.println("view reqs");
+			String [] s =DataHandler.getLOR().printReqListStatus();
+			for (String i : s) view.cDPanel.displayField.append(i);
 		}
 	}
 }

@@ -15,11 +15,11 @@ public class AdminPanel extends JPanel {
 	protected JButton backButton, search, viewReqs, assignTeach, updateTeach;
 	//main panels
 	protected JPanel panelR, panelC, panelL;
-	
+	protected JTextArea textArea;
 	//assign teacher elements
 	protected JPanel assignF;
-	private JButton assign;
-	private JTextField teachName, requestNo;
+	protected JButton assign;
+	protected JTextField teachName, requestNo;
 	
 	//search by reqs elements
 	protected JPanel searchF;
@@ -28,11 +28,14 @@ public class AdminPanel extends JPanel {
 	private JButton searchButton;
 	private String[] options = {"Name","Skills", "Training" };
 	
+	//Update teacher information
 	protected JPanel updateF;
 	private JTextField teachNameS;
 	private String[] optionsUpdate= {"Skills", "Training" };
 	private JComboBox optionListUpdate;
 	private	JButton addSkill, remSkill;
+	
+	
 	
 	
 	//constructor
@@ -82,7 +85,7 @@ public class AdminPanel extends JPanel {
         GridLayout l = new GridLayout(4,1);
         panelC = new JPanel();
         panelR = new JPanel();
-        JTextArea textArea = new JTextArea(50, 50);
+        textArea = new JTextArea(50, 50);
         JScrollPane scrollPane = new JScrollPane(textArea);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setPreferredSize(new Dimension(600,350));
@@ -101,7 +104,7 @@ public class AdminPanel extends JPanel {
         panelC.setLayout(l);
         panelC.add(assignF);
         panelC.add(searchF);
-        panelC.add(textArea);
+       // panelC.add(textArea);
         panelR.add(scrollPane);
         
         this.add(panelC); this.add(panelR);

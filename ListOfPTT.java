@@ -50,5 +50,11 @@ public class ListOfPTT {
 		return null; 
 	}
 	
-	
+	public PTTeacher getTeacherRef(String n) {
+		for (PTTeacher t : list) {
+			if (t.getlName().equals(n)) return t;
+		}
+		
+		return null;
+	}
 }

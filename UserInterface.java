@@ -88,52 +88,7 @@ public class UserInterface extends JFrame {
 
    
     
-    private void updateTeacher() {
-        setTitle("Update Teacher Information");
-        setSize(800, 400);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-
-        JPanel updateTeach= new JPanel();// new JPanel for update functions
-
-        var backButton = new JButton("Back"); //creates a back button that returns to admin main page
-        backButton.setToolTipText("Return to previous page");
-        //backButton.addActionListener((event) -> adminMain());
-
-        JLabel teacher= new JLabel("Enter Teacher Name");
-        JTextField teachName= new JTextField(25); //allows to enter teacher name
-
-        JLabel option= new JLabel("Select Skill/Training");
-        String[] options= {"Skills", "Training" }; //creates a drop down menu of search criteria
-        JComboBox optionList= new JComboBox(options);
-
-        JLabel skillTrain= new JLabel("Enter skill/training to add/remove");
-        JTextField choice= new JTextField(25); //allows to enter skill/training to add/remove
-
-        var addSkill = new JButton("Add"); //creates a button that adds skill/training
-        addSkill.setToolTipText("Add skill/training");
-        addSkill.addActionListener((event) -> controller());
-
-        var remSkill = new JButton("Remove"); //creates a button that removes skill/training
-        remSkill.setToolTipText("Remove skill/training");
-        remSkill.addActionListener((event) -> controller());
-
-        //adds all components to panel and formats them
-        updateTeach.setLayout(new GridLayout(5,2));
-        updateTeach.add(teacher);
-        updateTeach.add(teachName);
-        updateTeach.add(option);
-        updateTeach.add(optionList);
-        updateTeach.add(skillTrain);
-        updateTeach.add(choice);
-        updateTeach.add(addSkill);
-        updateTeach.add(remSkill);
-        updateTeach.add(backButton);
-
-        //contentPane.remove(0);//clear JFrame
-        //contentPane.add(updateTeach);//add new JPanel
-    }
-
+    
     private void controller() {
         //generic hold for controller
     }
