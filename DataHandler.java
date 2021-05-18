@@ -19,6 +19,10 @@ public class DataHandler {
 	private static ListOfRequests 	LOR;
 	private static String filename = "PTTAppData.txt"; 
 	
+	
+	// Constructor (private for singleton)
+	private DataHandler() {}; 
+	
 	// Test method
 	public static void setRef() {
 		LOP = new ListOfPTT();
@@ -77,11 +81,13 @@ public class DataHandler {
 			
 			String exportString; 
 			
+			// Write the teachers to the file
 			for (int i = 0; i < LOP.getListReference().size(); i++) {
 				exportString = exportDataFormat(LOP.getListReference().get(i)); 
 				filewriter.write(exportString);
 			}
 			
+			// Write the active requests to the file 
 			for (int i = 0; i < LOR.getListReference().size(); i++) {
 				exportString = exportDataFormat(LOR.getListReference().get(i)); 
 				filewriter.write(exportString);
@@ -118,22 +124,29 @@ public class DataHandler {
 			splitData = data.split(",");
 
 			// Create a new teach entity (adds to list automatically in the constructor to satisfy class invariant)
-			PTTeacher p = new PTTeacher(splitData[0], splitData[1], LOP); 	
+			// Using constructor with ID to enforce constant ID for each teacher when loading in teacher data 
+			//							 First name,	last name  ,   			ID ,				List reference
+			PTTeacher p = new PTTeacher(splitData[0], splitData[1], Integer.parseInt(splitData[2]), LOP); 	
 
 
 			/* Extract and set rest of PTTeacher attributes */
 
 			// Normal attributes
-			// ID is set on creation. Might need a new constructor to allow for ID to be set by loaded data 
 			p.setAvailable(Boolean.parseBoolean(splitData[3]));	
 
 			// Skills 
-			String temp = splitData[4].substring(1,splitData[4].length()-1); 	// Remove out casing of Skills data (the curly brackets) 
-			p.addSkillArray(temp.split(","));
+			String temp = splitData[4].substring(1,splitData[4].length()-1); 	// Remove out casing of Skills data {}
+			String[] tempArray = temp.split(";");
+			for (int i = 0; i < tempArray.length; i++) {
+				p.getSkills().add(tempArray[i]);
+			}
 
 			// Training
-			temp = splitData[5].substring(1,splitData[5].length()-1); 	
-			p.addTrainingArray(temp.split(","));
+			temp = splitData[5].substring(1,splitData[5].length()-1); 
+			tempArray = temp.split(";");
+			for (int i = 0; i < tempArray.length; i++) {
+				p.getTraining().add(tempArray[i]);
+			}
 		}
 		// Parse line as a request data object
 		if (data.charAt(0) == 'R') {
@@ -145,21 +158,25 @@ public class DataHandler {
 			splitData = data.split(",");
 
 			// Create a new request entity (adds to list automatically in the constructor to satisfy class invariant)
-			TeachRequest r = new TeachRequest(splitData[2], Integer.parseInt(splitData[3]), splitData[4], LOR); 	
+			// Using constructor with ID to enforce constant ID for each teacher when loading in teacher data 
+			//											ID, 					CourseID, 			numTeachers, 		List ref,  Training required					
+			TeachRequest r = new TeachRequest(Integer.parseInt(splitData[0]), splitData[1], Integer.parseInt(splitData[3]),LOR,splitData[4] ); 	
 
 
 			/* Extract and set rest of TeachRequest attributes */
 
-			// Normal attributes
-			// ID is set on creation. Might need a new constructor to allow for ID to be set by loaded data 
 
 			// Teachers assigned to request
-			String temp = splitData[5].substring(1,splitData[5].length()-1); 	// Remove out casing of assigned teacher data (the curly brackets) 
+			String temp 		= splitData[5].substring(1,splitData[5].length()-1); 	// Remove out casing of assigned teacher data 
 			
+			// Splitting IDs assigned to the request (if multiple)
+			String[] tempArray 	= temp.split(";"); 
 			
-			// Currently null as need to change PTTeacher to PTTeacher ID
-			for (int i = 0; i < temp.length(); i++) {
-				r.getAssigned().add(null);
+			// Iterating over IDs to fetch references of PTTeachers to assign to request
+			for (int i = 0; i < tempArray.length; i++) {
+				if (! tempArray[i].isEmpty()) {
+					r.getAssigned().add(LOP.getTeacherRef(Integer.parseInt(tempArray[i])));
+				}
 			}
 		}			
 	}
@@ -174,17 +191,21 @@ public class DataHandler {
 		
 		String	 exportString = "T("; 
 		
-		
-		// Append class attributes
+		// Append class attributes 
+		// ArrayLists<> references toString() produces [String1, String 2] automatically. 
 		exportString += T.getfName() + "," + T.getlName() + "," + T.gettID() + "," + T.isAvailable(); 
 		
-		// Store arrays as a single string encapuslated in {} for clarity 
+		// Store arrays as a single string encapuslated in {} for clarity
+		// Using different delimiter for parsing (;)
 		// Skills
 		String temp = "{"; 
-		for (int i = 0; i < T.getSkills().length; i++) {
+		for (int i = 0; i < T.getSkills().size(); i++) {
 			
-			if (i < T.getSkills().length - 1) {
-				temp += T.getSkills()[i] + ",";
+			if (i < T.getSkills().size() - 1) {
+				temp += T.getSkills().get(i) + ";";
+			}
+			else { 
+				temp += T.getSkills().get(i);
 			}
 		}
 		temp += "}";
@@ -193,10 +214,13 @@ public class DataHandler {
 		
 		// Training string
 		temp = "{"; 
-		for (int i = 0; i < T.getTraining().length; i++) {
+		for (int i = 0; i < T.getTraining().size(); i++) {
 			
-			if (i < T.getTraining().length - 1) {
-				temp += T.getTraining()[i] + ",";
+			if (i < T.getTraining().size() - 1) {
+				temp += T.getTraining().get(i) + ";";
+			}
+			else {
+				temp += T.getTraining().get(i);
 			}
 		}
 		temp += "}";
@@ -214,15 +238,35 @@ public class DataHandler {
 		
 		
 		// Append class attributes
-		exportString += R.getReqID() + "," + R.getStatus() + "," + R.getCourseID() + "," + R.getTeachNo() + "," + R.getTrainingRequired(); 
+		exportString += R.getReqID() + "," + R.getStatus() + "," + R.getCourseID() + "," + R.getTeachNo();  
 		
-		// Store arrays as a single string encapuslated in {} for clarity 
-		// assigned teachers 
+		// Store arrays as a single string encapuslated in [] for clarity 
+		
+		// Training 
 		String temp = "{"; 
+		for (int i = 0; i < R.getTrainingRequired().size(); i++) {
+			
+			// Only storing ID as a string. Reference can be established on load. 
+			if (i < R.getTrainingRequired().size() - 1) {
+				temp += R.getTrainingRequired().get(i) + ";";
+			}
+			else {
+				temp += R.getTrainingRequired().get(i);
+			}
+		}
+		temp += "}";
+		exportString += "," + temp;
+		
+		// assigned teachers 
+		temp = "{"; 
 		for (int i = 0; i < R.getAssigned().size(); i++) {
 			
+			// Only storing ID as a string. Reference can be established on load. 
 			if (i < R.getAssigned().size() - 1) {
-				temp += R.getAssigned().get(i) + ",";
+				temp += R.getAssigned().get(i).gettID() + ";";
+			}
+			else {
+				temp += R.getAssigned().get(i).gettID();
 			}
 		}
 		temp += "}";
