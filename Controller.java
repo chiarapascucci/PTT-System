@@ -25,6 +25,10 @@ public class Controller implements ActionListener {
 		
 		else if (e.getSource() == view.adminMain.assignTeach) {
 			System.out.println("assign teacher");
+			view.adminMain.assignF.setVisible(true);
+			view.adminMain.updatePanels(view.adminMain.assignF);
+			
+			//view.updateView(view.getAdminMain());
 			
 		}
 		

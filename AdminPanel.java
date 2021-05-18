@@ -180,5 +180,10 @@ public class AdminPanel extends JPanel {
 		this.panelC = panelC;
 	}
 	
+	public void updatePanels(JPanel a) {
+		this.remove(panelC);
+		this.add(a);
+	}
+	
 	
 }
