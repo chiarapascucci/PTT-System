@@ -42,7 +42,7 @@ public class PTTeacher {
 		
 		// Setting ID from saved data 
 		this.tID = ID; 
-		nextTID = j.maxID(); 	// Max ID enforces that the nextID is set to the max after loading data 
+		nextTID = j.maxID() + 1; 	// Max ID enforces that the nextID is set to the max after loading data 
 		available = true;
 		
 		this.skills 	= new ArrayList <String>(); 
