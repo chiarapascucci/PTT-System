@@ -31,7 +31,8 @@ public class AdminPanel extends JPanel {
 	protected JPanel updateF;
 	private JTextField teachNameS;
 	private String[] optionsUpdate= {"Skills", "Training" };
-	JComboBox optionListUpdate;
+	private JComboBox optionListUpdate;
+	private	JButton addSkill, remSkill;
 	
 	
 	//constructor
@@ -131,6 +132,41 @@ public class AdminPanel extends JPanel {
         p.add(assign);
         
 		return p;
+	}
+	
+	private JPanel generateUpdateF() {
+		JPanel updateTeach= new JPanel();
+		
+        JLabel teacher= new JLabel("Enter Teacher Name");
+        teachName= new JTextField(25); //allows to enter teacher name
+
+        JLabel option = new JLabel("Select Skill/Training");
+        
+        optionListUpdate = new JComboBox(optionsUpdate);
+
+        JLabel skillTrain= new JLabel("Enter skill/training to add/remove");
+        JTextField choice= new JTextField(25); //allows to enter skill/training to add/remove
+
+        addSkill = new JButton("Add"); //creates a button that adds skill/training
+        addSkill.setToolTipText("Add skill/training");
+        addSkill.addActionListener(c);
+
+        remSkill = new JButton("Remove"); //creates a button that removes skill/training
+        remSkill.setToolTipText("Remove skill/training");
+        remSkill.addActionListener(c);
+
+        //adds all components to panel and formats them
+        updateTeach.setLayout(new GridLayout(5,2));
+        updateTeach.add(teacher);
+        updateTeach.add(teachName);
+        updateTeach.add(option);
+        updateTeach.add(optionList);
+        updateTeach.add(skillTrain);
+        updateTeach.add(choice);
+        updateTeach.add(addSkill);
+        updateTeach.add(remSkill);
+		
+		return updateTeach;
 	}
 	
 	private JPanel generateSearchF() {
