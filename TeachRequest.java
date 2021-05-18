@@ -12,21 +12,22 @@ public class TeachRequest {
 
 	// Pass: associated course, required no. of staff, required training
 	// Need to implement free-ID check later
-	public TeachRequest(String c, int no, String... t) {
+	public TeachRequest(String c, int no, ListOfRequests LOR, String... t) {
 		id = nextID;
 		nextID++;
-		requestSetup(c,no,t);
+		requestSetup(c,no,LOR,t);
 	}
 
 	// Alt. constructor sets a specific request ID
-	public TeachRequest(int i, String c, int no, String... t) {
+	public TeachRequest(int i, String c, int no, ListOfRequests LOR, String... t ) {
 		id = i;
-		requestSetup(c,no,t);
+		requestSetup(c,no,LOR,t);
+		nextID = LOR.maxRID();	
 	}
 
 	// Helper for common constructor content
 	// Exceptions to capture: arraylist constructor
-	private void requestSetup(String c, int no, String... t) {
+	private void requestSetup(String c, int no,ListOfRequests LOR, String... t) {
 		status = false;
 		courseID = c;
 		teachNo = no;
@@ -38,6 +39,9 @@ public class TeachRequest {
 			trainingRequired.add(arg);
 		}
 
+		// Adding request to list 
+		LOR.getListReference().add(this);
+		
 		this.statusCheck();
 	}
 
