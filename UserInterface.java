@@ -54,6 +54,8 @@ public class UserInterface extends JFrame {
         
         cDPanel = new CDPanel(controller);
         adminMain = new AdminPanel(controller);
+        
+        DataHandler.loadData("C:\\Users\\chpas\\git\\PTT-System");
     }
     
     public void setController(Controller c) {

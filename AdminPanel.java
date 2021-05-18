@@ -85,10 +85,8 @@ public class AdminPanel extends JPanel {
         GridLayout l = new GridLayout(4,1);
         panelC = new JPanel();
         panelR = new JPanel();
-        textArea = new JTextArea(50, 50);
-        JScrollPane scrollPane = new JScrollPane(textArea);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        scrollPane.setPreferredSize(new Dimension(600,350));
+        textArea = new JTextArea(100, 100);
+        
         textArea.setEditable(false);
         textArea.setText("Select Action");
         //creting function specific panels for admin
@@ -111,7 +109,7 @@ public class AdminPanel extends JPanel {
         panelC.add(searchF);
         panelC.add(updateF);
        // panelC.add(textArea);
-        panelR.add(scrollPane);
+        panelR.add(textArea);
         
         this.add(panelC); this.add(panelR);
         
