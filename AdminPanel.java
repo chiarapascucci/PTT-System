@@ -85,7 +85,7 @@ public class AdminPanel extends JPanel {
         GridLayout l = new GridLayout(4,1);
         panelC = new JPanel();
         panelR = new JPanel();
-        textArea = new JTextArea(100, 100);
+        textArea = new JTextArea(80, 30);
         
         textArea.setEditable(false);
         textArea.setText("Select Action");

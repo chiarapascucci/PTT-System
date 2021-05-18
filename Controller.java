@@ -82,8 +82,12 @@ public class Controller implements ActionListener {
 		else if (e.getSource() == view.adminMain.viewReqs) {
 			
 			System.out.println("view reqs");
+			view.adminMain.textArea.setText("");
 			String [] s =DataHandler.getLOR().printReqList();
-			for (String i : s) view.adminMain.textArea.append(i);
+			for (String i : s) {
+				view.adminMain.textArea.append(i);
+				System.out.println(i);
+			}
 
 		}
 		

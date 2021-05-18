@@ -164,7 +164,7 @@ public class DataHandler {
 			//											ID, 					CourseID, 			numTeachers, 		List ref,  Training required					
 			TeachRequest r = new TeachRequest(Integer.parseInt(splitData[0]), splitData[1], Integer.parseInt(splitData[3]),LOR,splitData[4] ); 	
 
-
+			System.out.println(r);
 			/* Extract and set rest of TeachRequest attributes */
 
 

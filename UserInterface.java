@@ -21,7 +21,7 @@ public class UserInterface extends JFrame {
     	
         //creates start window and formats main JFrame
         setTitle("Requesto (powered by PoweRon)");
-        setSize(800, 400);
+        setSize(1000, 500);
         setLocation(100, 100);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         
