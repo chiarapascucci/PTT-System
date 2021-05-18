@@ -81,50 +81,7 @@ public class UserInterface extends JFrame {
 
 
    
-    private void searchByReqs(){
-        //create new screen for search by requirements
-        setTitle("Search By Requirements");
-        setSize(800, 400);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-
-        JPanel searchMain= new JPanel();// new JPanel for search functions
-
-        var backButton = new JButton("Back"); //creates a back button that returns to admin main page
-        backButton.setToolTipText("Return to previous page");
-       // backButton.addActionListener((event) -> adminMain());
-
-        String[] options= {"Name","Skills", "Training" }; //creates a drop down menu of search criteria
-        JComboBox optionList= new JComboBox(options);
-        JLabel selectOption= new JLabel("Select Search Type");
-
-        JLabel searchOne= new JLabel("Enter first search requirement");
-        JTextField searchChoiceOne= new JTextField(25); //allows to enter search requirements
-        JLabel searchTwo= new JLabel("Enter second search requirement");
-        JTextField searchChoiceTwo= new JTextField(25);
-        JLabel searchThree= new JLabel("Enter third search requirement");
-        JTextField searchChoiceThree= new JTextField(25);
-
-        var searchButton = new JButton("Search"); //search button creation
-        searchButton.setToolTipText("Search on Requirement");
-        searchButton.addActionListener((event) -> controller());
-
-        //sets layout and adds all components to search JPanel
-        searchMain.setLayout(new GridLayout(5,2));
-        searchMain.add(selectOption);
-        searchMain.add(optionList);
-        searchMain.add(searchOne);
-        searchMain.add(searchChoiceOne);
-        searchMain.add(searchTwo);
-        searchMain.add(searchChoiceTwo);
-        searchMain.add(searchThree);
-        searchMain.add(searchChoiceThree);
-        searchMain.add(searchButton);
-        searchMain.add(backButton);
-
-        //contentPane.remove(0);//clear JFrame
-        //contentPane.add(searchMain);//add new JPanel
-    }
+    
     private void updateTeacher() {
         setTitle("Update Teacher Information");
         setSize(800, 400);

@@ -2,6 +2,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -10,11 +11,24 @@ import javax.swing.JTextField;
 
 public class AdminPanel extends JPanel {
 	private Controller c;
+	//main buttons
 	protected JButton backButton, search, viewReqs, assignTeach, updateTeach;
+	//main panels
 	protected JPanel panelR, panelC, panelL;
+	
+	//assign teacher elements
 	protected JPanel assignF;
 	private JButton assign;
 	private JTextField teachName, requestNo;
+	
+	//search by reqs elements
+	protected JPanel searchF;
+	private JComboBox optionList;
+	private JTextField searchChoiceOne, searchChoiceTwo, searchChoiceThree;
+	private JButton searchButton;
+	private String[] options = {"Name","Skills", "Training" };
+	
+	//constructor
 	public AdminPanel(Controller c) {
 		this.c = c;
 		
@@ -75,6 +89,10 @@ public class AdminPanel extends JPanel {
         
         //creting function specific panels for admin
         assignF = generateAssignF();
+        
+        searchF = generateSearchF();
+        
+        
 	}
 	
 	protected JPanel generateAssignF() {
@@ -97,6 +115,39 @@ public class AdminPanel extends JPanel {
         p.add(assign);
         
 		return p;
+	}
+	
+	private JPanel generateSearchF() {
+		JPanel searchMain = new JPanel();
+		
+		 	optionList= new JComboBox(options);
+	        JLabel selectOption= new JLabel("Select Search Type");
+
+	        JLabel searchOne= new JLabel("Enter first search requirement");
+	        searchChoiceOne= new JTextField(25); //allows to enter search requirements
+	        JLabel searchTwo= new JLabel("Enter second search requirement");
+	        searchChoiceTwo= new JTextField(25);
+	        JLabel searchThree= new JLabel("Enter third search requirement");
+	        searchChoiceThree= new JTextField(25);
+
+	        searchButton = new JButton("Search"); //search button creation
+	        searchButton.setToolTipText("Search on Requirement");
+	        searchButton.addActionListener(c);
+
+	        //sets layout and adds all components to search JPanel
+	        searchMain.setLayout(new GridLayout(5,2));
+	        searchMain.add(selectOption);
+	        searchMain.add(optionList);
+	        searchMain.add(searchOne);
+	        searchMain.add(searchChoiceOne);
+	        searchMain.add(searchTwo);
+	        searchMain.add(searchChoiceTwo);
+	        searchMain.add(searchThree);
+	        searchMain.add(searchChoiceThree);
+	        searchMain.add(searchButton);
+	        searchMain.add(backButton);
+		
+		return searchMain;
 	}
 
 	public JPanel getPanelR() {
