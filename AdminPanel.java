@@ -28,6 +28,12 @@ public class AdminPanel extends JPanel {
 	private JButton searchButton;
 	private String[] options = {"Name","Skills", "Training" };
 	
+	protected JPanel updateF;
+	private JTextField teachNameS;
+	private String[] optionsUpdate= {"Skills", "Training" };
+	JComboBox optionListUpdate;
+	
+	
 	//constructor
 	public AdminPanel(Controller c) {
 		this.c = c;
