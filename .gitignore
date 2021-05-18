@@ -6,4 +6,11 @@
 /DataHandler.class
 /Testbench.class
 /UserInterface.class
+
+/Controller.class
+/Model.class
+/AdminPanel.class
+/CDPanel.class
+
 /TestRequests.class
+
