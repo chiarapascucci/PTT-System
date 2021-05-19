@@ -12,29 +12,32 @@ import javax.swing.JTextField;
 public class AdminPanel extends JPanel {
 	private Controller c;
 	//main buttons
-	protected JButton backButton, search, viewReqs, assignTeach, updateTeach;
+	protected JButton viewReqs,backButton, viewPTT; 
+	private JLabel search, assignTeach, updateTeach;
 	//main panels
 	protected JPanel panelR, panelC, panelL;
-	
+	protected JTextArea textArea;
 	//assign teacher elements
 	protected JPanel assignF;
-	private JButton assign;
-	private JTextField teachName, requestNo;
+	protected JButton assign;
+	protected JTextField teachName, requestNo;
 	
 	//search by reqs elements
 	protected JPanel searchF;
-	private JComboBox optionList;
-	private JTextField searchChoiceOne, searchChoiceTwo, searchChoiceThree;
-	private JButton searchButton;
+	protected JComboBox <String> optionList;
+	protected JTextField searchChoiceOne, searchChoiceTwo, searchChoiceThree;
+	protected JButton searchButton;
 	private String[] options = {"Name","Skills", "Training" };
 	
+	//Update teacher information
 	protected JPanel updateF;
-	private JTextField teachNameS;
+	protected JTextField teachID,choice;
 	private String[] optionsUpdate= {"Skills", "Training" };
-	private JComboBox optionListUpdate;
-	private	JButton addSkill, remSkill;
+	protected JComboBox <String> optionListUpdate;
+	protected JButton addSkill, remSkill;
 	
-	
+	private JPanel titlePanelOne, titlePanelTwo, titlePanelThree;
+
 	//constructor
 	public AdminPanel(Controller c) {
 		this.c = c;
@@ -44,71 +47,90 @@ public class AdminPanel extends JPanel {
 		
 		this.panelL = new JPanel();
 		
+		searchF = generateSearchF();
 	    //button to return to home page
         backButton = new JButton("Back");
         backButton.setToolTipText("Return to previous page");
         backButton.addActionListener(c);
-
-        //button to search by requirements page
-        search = new JButton("Search By Requirements");
-        search.setToolTipText("Search by requirements");
-        search.addActionListener(c);
-
-        //button to go to view request page
-        viewReqs = new JButton("View Requests");
+        
+        viewReqs = new JButton ("View Requests");
         viewReqs.setToolTipText("View Requests");
         viewReqs.addActionListener(c);
+        
+        viewPTT = new JButton ("View Teachers");
+        viewPTT.setToolTipText("View teachers");
+        viewPTT.addActionListener(c);
+        
+        //button to search by requirements page
+       //search = new JLabel("Search By Requirements");
+       // search.setToolTipText("Search by requirements");
+        //search.addActionListener(c); 
 
         //button to go to page to assign teachers to request
-        assignTeach = new JButton("Assign Teacher");
-        assignTeach.setToolTipText("Assign Teacher");
-        assignTeach.addActionListener(c);
+       // assignTeach = new JLabel("Assign Teacher");
+        //assignTeach.setSize(100,50);
+       // assignTeach.setToolTipText("Assign Teacher");
+        //assignTeach.addActionListener(c);
 
         //button to go to page to update teacher's info
-        updateTeach = new JButton("Update Teacher Information");
-        updateTeach.setToolTipText("UpdateTeacher Information");
-        updateTeach.addActionListener(c);
+       // updateTeach = new JLabel("Update Teacher Information");
+       // updateTeach.setToolTipText("UpdateTeacher Information");
+        //updateTeach.addActionListener(c);
 
         //format components
-        panelL.setLayout(new GridLayout(5,1));
-        panelL.add(search);
+        panelL.setLayout(new GridLayout(3,1));
+      //  panelL.add(search);
+        //panelL.add(assignTeach);
+       // panelL.add(updateTeach);
+        panelL.add(viewPTT);
         panelL.add(viewReqs);
-        panelL.add(assignTeach);
-        panelL.add(updateTeach);
         panelL.add(backButton);
         
         this.add(panelL);
         
-        GridLayout l = new GridLayout(4,1);
+        GridLayout l = new GridLayout(5,1);
         panelC = new JPanel();
         panelR = new JPanel();
-        JTextArea textArea = new JTextArea(50, 50);
-        JScrollPane scrollPane = new JScrollPane(textArea);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        scrollPane.setPreferredSize(new Dimension(600,350));
+        textArea = new JTextArea(80, 30);
+        
         textArea.setEditable(false);
         textArea.setText("Select Action");
         //creting function specific panels for admin
         assignF = generateAssignF();
         assignF.setVisible(true);
-        assignF.setEnabled(false);
-        
-        searchF = generateSearchF();
-        searchF.setVisible(true);
-        searchF.setEnabled(false);
        
         
+      
+        searchF.setVisible(true);
+        //searchF.setEnabled(false);
+        
+        updateF = generateUpdateF();
+        updateF.setVisible(true);
+        //updateF.setEnabled(false);
+        
+       titlePanelOne = new JPanel();
+       titlePanelTwo = new JPanel();
+       titlePanelThree = new JPanel();
+       
+       JLabel tOne = new JLabel("SEARCH TEACHER");
+       JLabel tTwo = new JLabel("ASSIGN TEACHER");
+       JLabel tThree = new JLabel ("UPDATE TEACHER");
+       
+       titlePanelOne.add(tOne);
+       titlePanelTwo.add(tTwo);
+       titlePanelThree.add(tThree);
+        
         panelC.setLayout(l);
-        panelC.add(assignF);
+        panelC.add(titlePanelOne);
         panelC.add(searchF);
-        panelC.add(textArea);
-        panelR.add(scrollPane);
+        panelC.add(titlePanelTwo);
+        panelC.add(assignF);
+        panelC.add(titlePanelThree);
+        panelC.add(updateF);
+       // panelC.add(textArea);
+        panelR.add(textArea);
         
         this.add(panelC); this.add(panelR);
-        
-        
-    
-        
         
 	}
 	
@@ -137,15 +159,16 @@ public class AdminPanel extends JPanel {
 	private JPanel generateUpdateF() {
 		JPanel updateTeach= new JPanel();
 		
-        JLabel teacher= new JLabel("Enter Teacher Name");
-        teachName= new JTextField(25); //allows to enter teacher name
+		
+        JLabel teacher= new JLabel("Enter Teacher ID");
+        teachID= new JTextField(25); //allows to enter teacher name
 
-        JLabel option = new JLabel("Select Skill/Training");
+        JLabel optionUp = new JLabel("Select Skill/Training");
         
         optionListUpdate = new JComboBox(optionsUpdate);
 
         JLabel skillTrain= new JLabel("Enter skill/training to add/remove");
-        JTextField choice= new JTextField(25); //allows to enter skill/training to add/remove
+        choice= new JTextField(25); //allows to enter skill/training to add/remove
 
         addSkill = new JButton("Add"); //creates a button that adds skill/training
         addSkill.setToolTipText("Add skill/training");
@@ -158,9 +181,9 @@ public class AdminPanel extends JPanel {
         //adds all components to panel and formats them
         updateTeach.setLayout(new GridLayout(5,2));
         updateTeach.add(teacher);
-        updateTeach.add(teachName);
-        updateTeach.add(option);
-        updateTeach.add(optionList);
+        updateTeach.add(teachID);
+        updateTeach.add(optionUp);
+        updateTeach.add(optionListUpdate);
         updateTeach.add(skillTrain);
         updateTeach.add(choice);
         updateTeach.add(addSkill);
@@ -177,11 +200,7 @@ public class AdminPanel extends JPanel {
 
 	        JLabel searchOne= new JLabel("Enter first search requirement");
 	        searchChoiceOne= new JTextField(25); //allows to enter search requirements
-	        JLabel searchTwo= new JLabel("Enter second search requirement");
-	        searchChoiceTwo= new JTextField(25);
-	        JLabel searchThree= new JLabel("Enter third search requirement");
-	        searchChoiceThree= new JTextField(25);
-
+	        
 	        searchButton = new JButton("Search"); //search button creation
 	        searchButton.setToolTipText("Search on Requirement");
 	        searchButton.addActionListener(c);
@@ -192,10 +211,7 @@ public class AdminPanel extends JPanel {
 	        searchMain.add(optionList);
 	        searchMain.add(searchOne);
 	        searchMain.add(searchChoiceOne);
-	        searchMain.add(searchTwo);
-	        searchMain.add(searchChoiceTwo);
-	        searchMain.add(searchThree);
-	        searchMain.add(searchChoiceThree);
+	       
 	        searchMain.add(searchButton);
 	      
 		

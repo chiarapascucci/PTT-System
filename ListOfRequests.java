@@ -7,9 +7,25 @@ public class ListOfRequests {
 		reqList = new ArrayList <TeachRequest> ();
 	}
 
-	public void printReqList() {
-		for(TeachRequest t: reqList) System.out.println(t);
+	public String[] printReqListStatus() {
+		String [] s = new String [reqList.size()];
+		for (int i = 0; i<s.length; i++) {
+			String t = "request no. "+ reqList.get(i).getReqID() + " - " + reqList.get(i).getStatus() + "\n" ;
+			s[i] = t;
+		}
+		return s;
 	}
+	
+	public String[] printReqList() {
+		String [] s = new String [reqList.size()];
+		for (int i = 0; i<s.length; i++) {
+			String t = "request no. "+ reqList.get(i).getReqID() + " - number required: " + reqList.get(i).getTeachNo() +"\n" ;
+			s[i] = t;
+		}
+		
+		return s;
+	}
+	
 	
 	public  ArrayList <TeachRequest> getListReference() {
 		return reqList; 
@@ -29,5 +45,13 @@ public class ListOfRequests {
 		return maxRID; 
 	}
 	
+	public TeachRequest findReq(int i) {
+		for (TeachRequest t : reqList) {
+			if (t.getReqID() == i) return t;
+		
+		}
+		
+		return null;
+	}
 	
 }

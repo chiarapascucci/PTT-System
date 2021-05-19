@@ -8,6 +8,7 @@ public class CDPanel extends JPanel {
 	private Controller c;
 	protected JButton backButton, submitReq, statCheck;
 	private JPanel panel;
+	JTextArea displayField;
 	
 	public CDPanel(Controller c) {
 		this.c = c;
@@ -26,6 +27,8 @@ public class CDPanel extends JPanel {
         submitReq = new JButton("Submit Request");
         submitReq.setToolTipText("Submit Request");
         submitReq.addActionListener(c);
+        submitReq.setEnabled(false);
+        
 
         //button to page to check request status
         statCheck = new JButton("Check Request Status");
@@ -39,7 +42,8 @@ public class CDPanel extends JPanel {
         
         this.add(panel);
         
-        JTextArea displayField = new JTextArea();
+        displayField = new JTextArea();
+        displayField.setText("select action");
         
         this.add(displayField);
 	}
