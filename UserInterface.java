@@ -5,8 +5,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-
 public class UserInterface extends JFrame {
+    //generate attributes of class
     protected JPanel mainPanel;
     private Controller controller;
     protected JButton exitButton, adminButton, courseButton;
@@ -14,8 +14,6 @@ public class UserInterface extends JFrame {
     protected CDPanel cDPanel;
     private BorderLayout b;
     
-    //protected JButton backButton, viewReqs, assignTeach, search, updateTeach;
-
     //initialises UI
     public UserInterface()  {
     	
@@ -24,8 +22,7 @@ public class UserInterface extends JFrame {
         setSize(800, 400);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         
-
-        mainPanel = new JPanel();
+        mainPanel = new JPanel(); //main panel of user interface
         mainPanel.setLayout(new GridLayout(3,1));
         
         //button that takes you to main Admin page
@@ -37,37 +34,37 @@ public class UserInterface extends JFrame {
         courseButton.setToolTipText("Course Director Page");
         courseButton.addActionListener(controller);
       
-        mainPanel.add(adminButton);
-        mainPanel.add(courseButton);
+        mainPanel.add(adminButton);//adds button to go to admin page
+        mainPanel.add(courseButton); //adds button to go to course director page
         //mainPanel.add(exitButton);
         
-        this.add(mainPanel,b.CENTER);
+        this.add(mainPanel,b.CENTER); // adds main panel to centre of window
         
-        controller = new Controller(this);
+        controller = new Controller(this); //initialises the controller
         
-        cDPanel = new CDPanel(controller);
+        cDPanel = new CDPanel(controller); //initialises secondary pages
         adminMain = new AdminPanel(controller);
-
     }
     
+    //setter for controller
     public void setController(Controller c) {
     	this.controller =c;
     }
-    
+    //updates window to new panel view
     protected void updateView(JPanel j) {
     	mainPanel.setVisible(false);
     	this.add(j, b.CENTER);
     	//return this;
     }
 
-    
+    //returns to main page
     protected void backToMain(JPanel j) {
     	j.setVisible(false);
     	mainPanel.setVisible(true);
     	this.add(mainPanel);
-
     }
     
+    //getters
     public JPanel getAdminMain() {
     	return adminMain;
     }
@@ -80,12 +77,8 @@ public class UserInterface extends JFrame {
     	return mainPanel;
     }
   
-
-
-
     private void updateTeacher() {//page for updating teacher information
-
-        setTitle("Update Teacher Information");
+        setTitle("Update Teacher Information"); // reformats window
         setSize(800, 400);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -125,11 +118,7 @@ public class UserInterface extends JFrame {
         updateTeach.add(addSkill);
         updateTeach.add(remSkill);
         updateTeach.add(backButton);
-
-        //contentPane.remove(0);//clear JFrame
-        //contentPane.add(updateTeach);//add new JPanel
     }
-
 
     //course director functions
     
@@ -171,11 +160,8 @@ public class UserInterface extends JFrame {
         subReq.add(skillThree);
         subReq.add(submitReq);
         subReq.add(backButton);
-
-        //contentPane.remove(0);//clear JFrame
-        //contentPane.add(subReq);//add new JPanel
-
     }
+    
     private void statusCheck(){
     	//reformat window for status check screen
     	 setTitle("Check Request Status");
@@ -205,18 +191,10 @@ public class UserInterface extends JFrame {
          statCheck.add(check);
          statCheck.add(textArea);
          statCheck.add(backButton);
-         
-
     }
 
     public static void main(String[] args) {//instantiate and call UI
-        
     	UserInterface ui= new UserInterface();
         ui.setVisible(true);
     }
-    
-    private void controller() {
-        //generic hold for controller
-    }
-
 }
