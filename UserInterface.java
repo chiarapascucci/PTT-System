@@ -27,10 +27,12 @@ public class UserInterface extends JFrame {
         
         b = new BorderLayout();
         this.setLayout(b);
-        
         this.setVisible(true);
         
+        // Create the Controller object to control the application 
         this.controller = new Controller(this);
+       
+        
         mainPanel = new JPanel();
         
         exitButton = new JButton("Exit");

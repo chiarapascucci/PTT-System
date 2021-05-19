@@ -6,11 +6,16 @@ import javax.swing.JPanel;
 
 public class Controller implements ActionListener {
 	
+	// Controller attributes 
 	private UserInterface view = null;
 	
-	public Controller (UserInterface v) {
 	
+	// Constructor 
+	public Controller (UserInterface v, AbstractDataHandlerFactory data) {
+	
+		// Set view
 		view = v;
+		
 	}
 
 	@Override

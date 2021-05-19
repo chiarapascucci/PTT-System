@@ -12,32 +12,39 @@ import java.util.Scanner;
  */
 
 // Static class so only one instance can exist
-public class DataHandler {
+public class DataHandler extends AbstractDataHandlerFactory {
 	
 	// Attributes (references to key data variables) 
 	private static ListOfPTT 		LOP; 
 	private static ListOfRequests 	LOR;
-	private static String filename = "PTTAppData.txt"; 
 	
+	// Singleton attribute (to tell if one has been created yet)
+	private static DataHandler instance = null; 
 	
 	// Constructor (private for singleton)
-	private DataHandler() {}; 
-	
-	// Test method
-	public static void setRef() {
+	private DataHandler() {
+		
+		// Instanciate list on construction
 		LOP = new ListOfPTT();
 		LOR = new ListOfRequests();
+	}; 
+	
+	
+	// Singleton method to create only one instance
+	public static void generateDataHandlerInstance() {
+	
+		// Check if instance has been created yet. If not, create. 
+		if (instance == null) {
+			instance = new DataHandler(); 
+		}
 	}
 	
+	
 	// Class static methods 
-	public static void loadData(String path) {
-		
-		// Instantiate lists 
-		LOP = new ListOfPTT();
-		LOR = new ListOfRequests();
+	public static void loadData(String filenameAndPath) {
 		
 		// Need to check if file exists firsts and create it if it doesnt exist
-		File f = new File(path + "\\" + filename);
+		File f = new File(filenameAndPath);
 		
 		// If the file does not exist
 		if(!f.isFile()) {
@@ -56,7 +63,7 @@ public class DataHandler {
 		Scanner	input		  	= null;
 		
 		try {
-			filereader = new FileReader(path + "\\" + filename); 
+			filereader = new FileReader(filenameAndPath); 
 			input = new Scanner(filereader); 
 			
 			// Loop over file lines
@@ -88,11 +95,11 @@ public class DataHandler {
 		}
 	}
 
-	public static void saveData(String path) { 
+	public static void saveData(String filenameAndPath) { 
 		
 		FileWriter filewriter = null;
 		try {
-			filewriter = new FileWriter(path + "\\" + filename); 
+			filewriter = new FileWriter(filenameAndPath); 
 			
 			String exportString; 
 			
@@ -120,6 +127,7 @@ public class DataHandler {
 			}
 		}
 	}
+	
 	
 	
 	
@@ -290,6 +298,9 @@ public class DataHandler {
 		return exportString; 
 	}
 
+	
+
+	
 
 	// Getters
 	public static ListOfPTT getLOP() {
