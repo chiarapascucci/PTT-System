@@ -37,6 +37,19 @@ public class DataHandler {
 		LOR = new ListOfRequests();
 		
 		// Need to check if file exists firsts and create it if it doesnt exist
+		File f = new File(path + "\\" + filename);
+		
+		// If the file does not exist
+		if(!f.isFile()) {
+			
+			// Create a file 
+			try {
+				f.createNewFile();
+			}
+			catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 		
 		// Read from file
 		FileReader filereader 	= null;
