@@ -10,98 +10,89 @@ public class TeachRequest {
 	private ArrayList <String> trainingRequired;
 	private ArrayList <PTTeacher> assigned;
 
-	// Pass: associated course, required no. of staff, required training
-	// Need to implement free-ID check later
 	public TeachRequest(String c, int no, ListOfRequests LOR, String... t) {
-		id = nextID;
-		nextID++;
+		this.id = nextID;
+		this.nextID++;
 		requestSetup(c,no,LOR,t);
 	}
 
 	// Alt. constructor sets a specific request ID
 	public TeachRequest(int i, String c, int no, ListOfRequests LOR, String... t ) {
-		id = i;
+		this.id = i;
 		requestSetup(c,no,LOR,t);
-		nextID = LOR.maxRID() + 1;	
+		this.nextID = LOR.maxRID() + 1;	
 	}
 
 	// Helper for common constructor content
 	// Exceptions to capture: arraylist constructor
 	private void requestSetup(String c, int no,ListOfRequests LOR, String... t) {
-		status = false;
-		courseID = c;
-		teachNo = no;
-		assigned = new ArrayList <PTTeacher> (no);
+		this.courseID = c;
+		this.teachNo = no;
+		this.assigned = new ArrayList <PTTeacher> ();
 
-		//Process training args
-		trainingRequired = new ArrayList <String> ();
-		for(String arg: t) {
-			trainingRequired.add(arg);
-		}
-
-		// Adding request to list 
+		// Add request to list 
 		LOR.getListReference().add(this);
+
+		// Add training(s)
+		this.trainingRequired = new ArrayList <String> ();
+		for(String arg: t) {
+			this.trainingRequired.add(arg);
+		}
 		
+		// Set status
 		this.statusCheck();
 	}
 
 	
 
 	public void addTeacher(PTTeacher target) {
-		assigned.add(target);
+		this.assigned.add(target);
 		this.statusCheck();
 	}
 
 	public void removeTeacher(PTTeacher target) {
-		assigned.remove(target);
+		this.assigned.remove(target);
 		this.statusCheck();
 	}
 
-	// Checks fulfillment of request requirements
+	// Update request fulfillment
 	public void statusCheck() {
 
+		this.assigned.trimToSize();
+		int invalidTeacher = 0;
 		boolean passCheck = true;
 
-		// Check for enough assigned teachers.
-		assigned.trimToSize();
-		if(assigned.size() < teachNo){
-			status = false;	
-			passCheck = false;
-		} 
-
-		// Per assigned PTT, check for required training/skill. Note excess teachers must be trained too.
+		// Count teachers without required training ('invalid')
 		// Missing check for null skill/training array(?)
-		else {
-			for(PTTeacher t: assigned) {
-				boolean teachersOK = false;
-				for(String s: trainingRequired) {
-					if(t.getTraining().isEmpty() && t.getSkills().isEmpty()) {
-						break;
-					}else if ((t.getTraining()).contains(s) || (t.getSkills()).contains(s)) {
-						teachersOK = true;
-						break;
-					}
-				}
-				if(!teachersOK) {
-					status = false;
-					passCheck = false;
-					break;
-				}
+		// Needs exception handling for arraylist methods
+		for(PTTeacher t: this.assigned) {
+			ArrayList <String> allTS = new ArrayList <String> ();
+			allTS.addAll(t.getTraining()); allTS.addAll(t.getSkills());
+
+			if(!(allTS.containsAll(this.trainingRequired))) {
+				invalidTeacher++;
 			}
 		}
 
-		if(passCheck) { status = true; }
+		// Check quantity of valid teachers
+		if((this.assigned.size() - invalidTeacher) < this.teachNo) {
+			passCheck = false;
+		} 
+
+		// Set status
+		if(passCheck) { this.status = true; }
+		else { this.status = false; }
 	}
 
 	public void printTrainingRequired() {
-		if(trainingRequired != null) {
-			for(String s: trainingRequired) {	System.out.print(s + " ");	}
+		if(!(this.trainingRequired.isEmpty())) {
+			for(String s: this.trainingRequired) {	System.out.print(s + " ");	}
 		}
 	}
 
 	public void printTeachers() {
-		if(assigned != null) {
-			for(PTTeacher t: assigned) {	System.out.println(t);	}
+		if(!(this.assigned.isEmpty())) {
+			for(PTTeacher t: this.assigned) {	System.out.println(t);	}
 		}
 	}
 
