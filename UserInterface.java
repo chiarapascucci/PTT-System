@@ -141,41 +141,7 @@ public class UserInterface extends JFrame {
         //contentPane.add(subReq);//add new JPanel
 
     }
-    private void statusCheck(){
-    	 setTitle("Check Request Status");
-         setSize(800, 400);
-         setLocationRelativeTo(null);
-         setDefaultCloseOperation(EXIT_ON_CLOSE);
-         
-         JPanel statCheck= new JPanel();
-
-         var backButton = new JButton("Back"); //creates a back button that returns to course director main page
-         backButton.setToolTipText("Return to course director page");
-         //backButton.addActionListener((event) -> cdMain());
-         
-         JLabel req= new JLabel("Enter request number");
-         JTextField reqNo= new JTextField(5); //allows to enter request number
-         
-         var check = new JButton("Check"); //creates a button that allows to check status
-         check.setToolTipText("Check request status");
-         check.addActionListener((event) -> controller());
-         
-         JTextArea textArea = new JTextArea(1, 10);// text area for displaying status
-         textArea.setEditable(false); // only displays requests
-         
-         statCheck.setLayout(new GridLayout(3,2));
-         statCheck.add(req);
-         statCheck.add(reqNo);
-         statCheck.add(check);
-         statCheck.add(textArea);
-         statCheck.add(backButton);
-         
-         //contentPane.remove(0);//clear JFrame
-         //contentPane.add(statCheck);//add new JPanel
-         
-        
-
-    }
+    
 
 
     public static void main(String[] args) {//instantiate and call UI

@@ -43,6 +43,7 @@ public class CDPanel extends JPanel {
         this.add(panel);
         
         displayField = new JTextArea();
+        displayField.setText("select action");
         
         this.add(displayField);
 	}

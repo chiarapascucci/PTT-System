@@ -12,7 +12,8 @@ import javax.swing.JTextField;
 public class AdminPanel extends JPanel {
 	private Controller c;
 	//main buttons
-	protected JButton backButton, search, viewReqs, assignTeach, updateTeach;
+	protected JButton viewReqs,backButton, viewPTT; 
+	private JLabel search, assignTeach, updateTeach;
 	//main panels
 	protected JPanel panelR, panelC, panelL;
 	protected JTextArea textArea;
@@ -25,7 +26,7 @@ public class AdminPanel extends JPanel {
 	protected JPanel searchF;
 	protected JComboBox <String> optionList;
 	protected JTextField searchChoiceOne, searchChoiceTwo, searchChoiceThree;
-	private JButton searchButton;
+	protected JButton searchButton;
 	private String[] options = {"Name","Skills", "Training" };
 	
 	//Update teacher information
@@ -34,10 +35,7 @@ public class AdminPanel extends JPanel {
 	private String[] optionsUpdate= {"Skills", "Training" };
 	protected JComboBox <String> optionListUpdate;
 	protected JButton addSkill, remSkill;
-	
-	
-	
-	
+
 	//constructor
 	public AdminPanel(Controller c) {
 		this.c = c;
@@ -51,33 +49,37 @@ public class AdminPanel extends JPanel {
         backButton = new JButton("Back");
         backButton.setToolTipText("Return to previous page");
         backButton.addActionListener(c);
-
-        //button to search by requirements page
-        search = new JButton("Search By Requirements");
-        search.setToolTipText("Search by requirements");
-        search.addActionListener(c);
-
-        //button to go to view request page
-        viewReqs = new JButton("View Requests");
+        
+        viewReqs = new JButton ("View Requests");
         viewReqs.setToolTipText("View Requests");
         viewReqs.addActionListener(c);
+        
+        viewPTT = new JButton ("View Teachers");
+        viewPTT.setToolTipText("View teachers");
+        viewPTT.addActionListener(c);
+        
+        //button to search by requirements page
+        search = new JLabel("Search By Requirements");
+        search.setToolTipText("Search by requirements");
+        //search.addActionListener(c); 
 
         //button to go to page to assign teachers to request
-        assignTeach = new JButton("Assign Teacher");
+        assignTeach = new JLabel("Assign Teacher");
         assignTeach.setToolTipText("Assign Teacher");
-        assignTeach.addActionListener(c);
+        //assignTeach.addActionListener(c);
 
         //button to go to page to update teacher's info
-        updateTeach = new JButton("Update Teacher Information");
+        updateTeach = new JLabel("Update Teacher Information");
         updateTeach.setToolTipText("UpdateTeacher Information");
-        updateTeach.addActionListener(c);
+        //updateTeach.addActionListener(c);
 
         //format components
-        panelL.setLayout(new GridLayout(5,1));
+        panelL.setLayout(new GridLayout(6,1));
         panelL.add(search);
-        panelL.add(viewReqs);
         panelL.add(assignTeach);
         panelL.add(updateTeach);
+        panelL.add(viewPTT);
+        panelL.add(viewReqs);
         panelL.add(backButton);
         
         this.add(panelL);
@@ -92,30 +94,26 @@ public class AdminPanel extends JPanel {
         //creting function specific panels for admin
         assignF = generateAssignF();
         assignF.setVisible(true);
-        assignF.setEnabled(false);
+       // assignF.setEnabled(false);
         
         searchF = generateSearchF();
         searchF.setVisible(true);
-        searchF.setEnabled(false);
+        //searchF.setEnabled(false);
         
         updateF = generateUpdateF();
         updateF.setVisible(true);
-        updateF.setEnabled(false);
+        //updateF.setEnabled(false);
         
        
         
         panelC.setLayout(l);
-        panelC.add(assignF);
         panelC.add(searchF);
+        panelC.add(assignF);
         panelC.add(updateF);
        // panelC.add(textArea);
         panelR.add(textArea);
         
         this.add(panelC); this.add(panelR);
-        
-        
-    
-        
         
 	}
 	

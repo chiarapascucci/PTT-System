@@ -59,7 +59,7 @@ public class ListOfPTT {
 		}
 		
 		else if (i == 1) {
-			for (PTTeacher p : list) if (p.getTraining().contains(s)) result.add(p);
+			for (PTTeacher p : list) if (p.getSkills().contains(s)) result.add(p);
 		}
 		else if (i ==2) {
 			for (PTTeacher p : list) if (p.getTraining().contains(s)) result.add(p);			
@@ -70,7 +70,8 @@ public class ListOfPTT {
 	
 	public PTTeacher getTeacherRef(String n) {
 		for (PTTeacher t : list) {
-			if (t.getlName().equals(n)) return t;
+			System.out.println(t.getfName() + " - " + n);
+			if (t.getfName().trim().equals(n)) return t;
 		}
 		
 		return null;

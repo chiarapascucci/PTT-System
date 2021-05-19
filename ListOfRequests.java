@@ -10,7 +10,8 @@ public class ListOfRequests {
 	public String[] printReqListStatus() {
 		String [] s = new String [reqList.size()];
 		for (int i = 0; i<s.length; i++) {
-			String t = "request no. "+ String.valueOf(reqList.get(i).getReqID()) + " - " + reqList.get(i).getStatus() ;
+			String t = "request no. "+ reqList.get(i).getReqID() + " - " + reqList.get(i).getStatus() + "\n" ;
+			s[i] = t;
 		}
 		return s;
 	}

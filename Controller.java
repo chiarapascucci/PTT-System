@@ -28,6 +28,12 @@ public class Controller implements ActionListener {
 			view.updateView(view.getCDPanel());
 		}
 		
+		//3 - EXIT BUTTON
+		else if (e.getSource() == view.exitButton) {
+			//write to file?
+			System.exit(0);
+		}
+		
 		//3.2 BACK BUTTON FOR BOTH ADMIN AND CD
 		else if (e.getSource() == view.adminMain.backButton || e.getSource() == view.cDPanel.backButton) {
 			if (e.getSource() == view.adminMain.backButton) view.backToMain(view.adminMain);
@@ -35,11 +41,8 @@ public class Controller implements ActionListener {
 		}
 		
 		//1.1 ADMIN >> ASSIGN TEACHER TO REQUEST
-		else if (e.getSource() == view.adminMain.assignTeach) {
-			System.out.println("assign teacher");
-			view.adminMain.assignF.setEnabled(true);
-			
-			if (e.getSource() == view.adminMain.assign) {
+		else if (e.getSource() == view.adminMain.assign) {		
+			view.adminMain.textArea.setText("");
 				String name = view.adminMain.teachName.getText();
 				int iD = Integer.parseInt(view.adminMain.requestNo.getText()); 
 				TeachRequest t = DataHandler.getLOR().findReq(iD);
@@ -57,25 +60,32 @@ public class Controller implements ActionListener {
 				if (!outcome) {
 					view.adminMain.textArea.setText("assignment failed");
 				}
-			}
 			
-			view.adminMain.assignF.setEnabled(false);
+			
+			//view.adminMain.assignF.setEnabled(false);
 		}
 		
 		// 1.2 - ADMIN >> SEARCH TEACHERS BY DIFFERENT CRITERIA
-		else if (e.getSource() == view.adminMain.search) {
-			System.out.println("search");
+		else if (e.getSource() == view.adminMain.searchButton) {
 			
-			view.adminMain.searchF.setEnabled(true);
+			view.adminMain.textArea.setText("");
 			
 			int i = view.adminMain.optionList.getSelectedIndex();
+			
+			System.out.println("search - int:" + i );
+			
 			String s = view.adminMain.searchChoiceOne.getText().trim();
+			
 			ArrayList <PTTeacher> result = DataHandler.getLOP().findTeacher(s, i);
+			
 			for (PTTeacher p : result) {
 				view.adminMain.textArea.append(p.toString());
 			}
+			if (result.size() == 0) {
+				view.adminMain.textArea.setText("no results");
+			}
 			
-			view.adminMain.searchF.setEnabled(false);
+			//view.adminMain.searchF.setEnabled(false);
 		}
 		
 		//1.3 ADMIN >> VIEW REQUESTS
@@ -92,47 +102,58 @@ public class Controller implements ActionListener {
 		}
 		
 		//1.4 ADMIN >> UPDATE INFORMATION FOR A SPECIFIC TEACHER
-		else if (e.getSource() == view.adminMain.updateTeach) {
+		//1.4.1 ADMIN >> add skill/training
+		else if (e.getSource() == view.adminMain.addSkill) {
+			view.adminMain.textArea.setText("");
 			
-			view.adminMain.updateF.setEnabled(true);
-			
-			if (e.getSource() == view.adminMain.addSkill) {
-				int iD = Integer.parseInt(view.adminMain.teachID.getText());
-				PTTeacher t = DataHandler.getLOP().getTeacherRef(iD);
-				int n = view.adminMain.optionListUpdate.getSelectedIndex();
-				String s = view.adminMain.choice.getText().trim();
+			int iD = Integer.parseInt(view.adminMain.teachID.getText());
+			PTTeacher t = DataHandler.getLOP().getTeacherRef(iD);
+			int n = view.adminMain.optionListUpdate.getSelectedIndex();
+			String s = view.adminMain.choice.getText().trim();
 				
-				if (n == 0) {
-					t.addSkill(s);				
-				}
-				else if(n== 1) {
-					t.addTraining(s);
-				}
+			if (n == 0) {
+				t.addSkill(s);				
 			}
-			
-			else if (e.getSource() == view.adminMain.remSkill) {
-				int iD = Integer.parseInt(view.adminMain.teachID.getText());
-				PTTeacher t = DataHandler.getLOP().getTeacherRef(iD);
-				int n = view.adminMain.optionListUpdate.getSelectedIndex();
-				String s = view.adminMain.choice.getText().trim();
-				
-				if (n == 0) {
-					t.removeSkill(s);
-				}
-				else if (n ==1 ) {
-					t.removeTraining(s);
-				}
+			else if(n== 1) {
+				t.addTraining(s);
 			}
-			view.adminMain.updateF.setEnabled(false);
+		}
+		//1.4.2 ADMIN >> remove skill/training	
+		else if (e.getSource() == view.adminMain.remSkill) {
+			view.adminMain.textArea.setText("");
+			int iD = Integer.parseInt(view.adminMain.teachID.getText());
+			PTTeacher t = DataHandler.getLOP().getTeacherRef(iD);
+			int n = view.adminMain.optionListUpdate.getSelectedIndex();
+			String s = view.adminMain.choice.getText().trim();
 			
+			if (n == 0) {
+				t.removeSkill(s);
+			}
+			else if (n ==1 ) {
+				t.removeTraining(s);
+			}
 		}
 		
-		
+		//1.5 ADMIN >> view list of teachers
+		else if (e.getSource() == view.adminMain.viewPTT) {
+			 
+			view.adminMain.textArea.setText("");
+			
+			for (PTTeacher p : DataHandler.getLOP().getListReference()) {
+				String s = p.toString();
+				view.adminMain.textArea.append(s);
+			}
+		}
+	
 		//2.1 CD >> VIEW STATUS OF REQUESTS IN THE SYSTEM
 		else if (e.getSource() == view.cDPanel.statCheck) {
-			System.out.println("view reqs");
+			System.out.println("view reqs status");
+			view.cDPanel.displayField.setText("");
 			String [] s =DataHandler.getLOR().printReqListStatus();
-			for (String i : s) view.cDPanel.displayField.append(i);
+			for (String i : s) {
+				System.out.println(i);
+				view.cDPanel.displayField.append(i);
+			}
 		}
 	}
 }

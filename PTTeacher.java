@@ -55,7 +55,7 @@ public class PTTeacher {
 	//CLASS METHODS//
 	
 	public String toString() {
-		String s = ""+ fName + " " + lName + ", "+ tID;
+		String s = ""+ fName + " " + lName + ", "+ tID +"\n";
 		return s;
 	}
 	
@@ -102,9 +102,17 @@ public class PTTeacher {
 	
 	// Added this here so i dont need a loop during the load process// @@ do we still need this if the array list are initialised in the constructor?@@
 	
-	public void addSkillArray(ArrayList <String> sArray) { skills = sArray; }
+	public void addSkillArray(ArrayList <String> sArray) { 
+		for (String i : sArray) i = i.trim();
+		skills = sArray; 
+		
+		
+	}
 	  
-	public void addTrainingArray(ArrayList <String> tArray) { training = tArray;}
+	public void addTrainingArray(ArrayList <String> tArray) { 
+		for (String i : tArray) i = i.trim();
+		training = tArray;
+	}
 	 
 	
 	
