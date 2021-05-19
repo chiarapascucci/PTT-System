@@ -14,37 +14,42 @@ import java.util.Scanner;
 // Static class so only one instance can exist
 public class DataHandler extends AbstractDataHandlerFactory {
 	
+	
 	// Attributes (references to key data variables) 
-	private static ListOfPTT 		LOP; 
-	private static ListOfRequests 	LOR;
+	private  ListOfPTT 		LOP; 
+	private  ListOfRequests LOR;
 	
 	// Singleton attribute (to tell if one has been created yet)
 	private static DataHandler instance = null; 
+	
+	
 	
 	// Constructor (private for singleton)
 	private DataHandler() {
 		
 		// Instanciate list on construction
 		LOP = new ListOfPTT();
-		LOR = new ListOfRequests();
+		LOR = new ListOfRequests();	
 	}; 
 	
 	
 	// Singleton method to create only one instance
-	public static void generateDataHandlerInstance() {
+	public static DataHandler getDataHandlerInstance() {
 	
 		// Check if instance has been created yet. If not, create. 
 		if (instance == null) {
 			instance = new DataHandler(); 
 		}
+		return instance;
 	}
 	
 	
-	// Class static methods 
-	public static void loadData(String filenameAndPath) {
+	/* AbstractDataHandlerFactory class method implementations */
+
+	public void loadData(String filepathAndName) {
 		
 		// Need to check if file exists firsts and create it if it doesnt exist
-		File f = new File(filenameAndPath);
+		File f = new File(filepathAndName);
 		
 		// If the file does not exist
 		if(!f.isFile()) {
@@ -63,7 +68,7 @@ public class DataHandler extends AbstractDataHandlerFactory {
 		Scanner	input		  	= null;
 		
 		try {
-			filereader = new FileReader(filenameAndPath); 
+			filereader = new FileReader(filepathAndName); 
 			input = new Scanner(filereader); 
 			
 			// Loop over file lines
@@ -95,11 +100,11 @@ public class DataHandler extends AbstractDataHandlerFactory {
 		}
 	}
 
-	public static void saveData(String filenameAndPath) { 
+	public void saveData(String filepathAndName) { 
 		
 		FileWriter filewriter = null;
 		try {
-			filewriter = new FileWriter(filenameAndPath); 
+			filewriter = new FileWriter(filepathAndName); 
 			
 			String exportString; 
 			
@@ -128,13 +133,23 @@ public class DataHandler extends AbstractDataHandlerFactory {
 		}
 	}
 	
+	public ListOfPTT getLOP() {
+		return LOP; 
+	}
+	
+	public ListOfRequests getLOR() {
+		return LOR; 
+	}
 	
 	
 	
+	
+	/* Unique class methods (DatabaseDataHandler will likely do something entirely different) */
+
 	// Parse data being imported
-	private static void parseDataAndSet(String data) {
+	private void parseDataAndSet(String data) {
 
-
+		// Create string array container to hold data the line data in its tokens
 		String [] splitData;
 
 		// Parse line as a teacher data object
@@ -185,9 +200,8 @@ public class DataHandler extends AbstractDataHandlerFactory {
 			//											ID, 					CourseID, 			numTeachers, 		List ref,  Training required					
 			TeachRequest r = new TeachRequest(Integer.parseInt(splitData[0]), splitData[1], Integer.parseInt(splitData[3]),LOR,splitData[4] ); 	
 
-			System.out.println(r);
-			/* Extract and set rest of TeachRequest attributes */
 
+			/* Extract and set rest of TeachRequest attributes */
 
 			// Teachers assigned to request
 			String temp 		= splitData[5].substring(1,splitData[5].length()-1); 	// Remove out casing of assigned teacher data 
@@ -204,9 +218,8 @@ public class DataHandler extends AbstractDataHandlerFactory {
 		}			
 	}
 
-	
 	// Format teacher data for exporting data 
-	private static String exportDataFormat(PTTeacher T) {
+	private String exportDataFormat(PTTeacher T) {
 		
 		
 		// Create string to store all teacher data and instantiate to be returned. 
@@ -253,12 +266,11 @@ public class DataHandler extends AbstractDataHandlerFactory {
 	}
 
 	// Format request data for export
-	private static String exportDataFormat(TeachRequest R) {
+	private String exportDataFormat(TeachRequest R) {
 		// Create string to store all teacher data and instantiate to be returned. 
 		// Data is encapsulated in an indicator for its respective class and brackets
 		
 		String	 exportString = "R("; 
-		
 		
 		// Append class attributes
 		exportString += R.getReqID() + "," + R.getStatus() + "," + R.getCourseID() + "," + R.getTeachNo();  
@@ -298,16 +310,5 @@ public class DataHandler extends AbstractDataHandlerFactory {
 		return exportString; 
 	}
 
-	
 
-	
-
-	// Getters
-	public static ListOfPTT getLOP() {
-		return LOP; 
-	}
-	
-	public static ListOfRequests getLOR() {
-		return LOR; 
-	}
 }

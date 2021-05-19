@@ -7,6 +7,13 @@ public abstract class AbstractDataHandlerFactory {
 	     defined and passed to the controller without any change to the controller. 
 	*/
 	
+	public abstract void loadData(String filepathAndName);
+	public abstract void saveData(String filepathAndName);
+	public abstract ListOfPTT 		getLOP(); 
+	public abstract ListOfRequests 	getLOR();
+	
+	
+	
 //	public abstract PTTeacher 		getPTTData(); 
 //	public abstract TeachRequest 	getTRDAta(); 
 	
