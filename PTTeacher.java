@@ -1,8 +1,5 @@
 import java.util.ArrayList;
 
-//PTT teach class
-//committ test
-
 public class PTTeacher {
 	
 	//class variables
@@ -14,14 +11,17 @@ public class PTTeacher {
 	private ArrayList <String> skills;
 	private ArrayList <String> training;
 	private ArrayList <TeachRequest> assign;
-	private  ListOfPTT list; //-- invariant may be that if a teacher exists then it must belong to a list
 	
-	//constructor
+	//PTT TEACHER CLASS INVARIANTS//
+	//1.A teacher must always belong to a list
+	//2.A teacher can only be assigned to maximum of 5 teaching requests at one time
+	//3.A teacher's ID is unique
+	
+	//constructor used when loading a new file
 	public PTTeacher (String f, String l, ListOfPTT j) {
 		this.fName = f;
 		this.lName = l;
-		this.list = j;
-		this.list.addTeacher(this);
+		j.addTeacher(this);
 		
 		this.tID = nextTID;
 		nextTID ++;
@@ -33,12 +33,11 @@ public class PTTeacher {
 		this.assign = new ArrayList <TeachRequest> ();
 	}
 	
-	// Overloaded constructor to use when loading data
+	// Overloaded constructor to use when loading data saved previously
 	public PTTeacher (String f, String l, int ID, ListOfPTT j) {
 		this.fName = f;
 		this.lName = l;
-		this.list = j;
-		this.list.addTeacher(this);
+		j.addTeacher(this);
 		
 		// Setting ID from saved data 
 		this.tID = ID; 
@@ -53,6 +52,8 @@ public class PTTeacher {
 
 	
 	//CLASS METHODS//
+	
+	//----------------//printing methods//--------------//
 	
 	public String toString() {
 		String s = ""+ fName + " " + lName + ", "+ tID +"\n";
@@ -77,6 +78,8 @@ public class PTTeacher {
 		return s;
 	}
 	
+	//-----------------//Training and Skills Methods//--------------//
+	
 	public void addTraining(String s) {
 		training.add(s);
 	}
@@ -93,31 +96,15 @@ public class PTTeacher {
 		skills.remove(s);
 	}
 	
-	// keeping the training completion option:
+	// specialised training/skill method: when training is completed the teacher is recorded as having acquired the skill
 	public void completeTraining(int i) {
 		skills.add(training.get(i));
 		training.remove(training.get(i));
 	}
+
+	//--------//TEACHER ASSIGMENT AND AVAILABILITY METHODS//--------//
 	
-	
-	// Added this here so i dont need a loop during the load process// @@ do we still need this if the array list are initialised in the constructor?@@
-	
-	public void addSkillArray(ArrayList <String> sArray) { 
-		for (String i : sArray) i = i.trim();
-		skills = sArray; 
-		
-		
-	}
-	  
-	public void addTrainingArray(ArrayList <String> tArray) { 
-		for (String i : tArray) i = i.trim();
-		training = tArray;
-	}
-	 
-	
-	
-	//availability - assumed limit of classes a teacher can cover is 5. if no limit there is little use of availability as class var
-	
+	//availability check
 	public boolean isAvailable() {
 		if (assign.size() >= 5) available = false;
 		return available;
@@ -127,14 +114,14 @@ public class PTTeacher {
 		this.available = available;
 	}
 	
-	//assign
-
+	//method to assing a teacher to a request
+	
 	protected boolean assign(TeachRequest q) {
-		if (this.assign == null) this.assign = new ArrayList <TeachRequest>();
+		if (this.assign == null) this.assign = new ArrayList <TeachRequest>();//not sure if to keep?
 		
-		if (this.isAvailable()) {
-			this.assign.add(q);
-			}
+		if (this.isAvailable() == false) return false ;
+		else if (this.isAvailable()) this.assign(q);
+			
 		if (this.assign.size()>= 5) {	
 			this.setAvailable(false);
 			return true;
@@ -163,25 +150,33 @@ public class PTTeacher {
 		this.lName = lName;
 	}
 
-	
-
 	public ArrayList <String> getSkills() {
 		return skills;
 	}
-
-
 
 	public ArrayList <String> getTraining() {
 		return training;
 	}
 
-	
-	public ListOfPTT getList(){
-		return list;
-	}
-
 	public int gettID() {
 		return tID;
+	}
+	
+	
+	//--------//Data Handler Helper Methods//-------//
+	//methods to help data loading and writing by DataHandler class. 
+	//strings are trimmed
+	
+	protected void addSkillArray(ArrayList <String> sArray) { 
+		for (String i : sArray) i = i.trim();
+		skills = sArray; 
+		
+		
+	}
+	  
+	public void addTrainingArray(ArrayList <String> tArray) { 
+		for (String i : tArray) i = i.trim();
+		training = tArray;
 	}
 	
 	
