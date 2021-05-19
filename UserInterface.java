@@ -87,12 +87,6 @@ public class UserInterface extends JFrame {
     public JPanel getMainPanel() {
     	return mainPanel;
     }
-  
-
-    private void controller() {
-        //generic hold for controller
-    }
-
 
     //course director functions
     private void submitRequest(){

@@ -7,15 +7,12 @@ public abstract class AbstractDataHandlerFactory {
 	     defined and passed to the controller without any change to the controller. 
 	*/
 	
+	// Load PTTeacher and Teach request entities and populate Lists of these entities 
 	public abstract void loadData(String filepathAndName);
 	public abstract void saveData(String filepathAndName);
+	
+	// Return a reference to these lists for ACCESS and OPERATIONS over data. 
 	public abstract ListOfPTT 		getLOP(); 
 	public abstract ListOfRequests 	getLOR();
-	
-	
-	
-//	public abstract PTTeacher 		getPTTData(); 
-//	public abstract TeachRequest 	getTRDAta(); 
-	
 	
 }

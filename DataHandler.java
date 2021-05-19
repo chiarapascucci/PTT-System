@@ -18,10 +18,9 @@ public class DataHandler extends AbstractDataHandlerFactory {
 	// Attributes (references to key data variables) 
 	private  ListOfPTT 		LOP; 
 	private  ListOfRequests LOR;
-	
+
 	// Singleton attribute (to tell if one has been created yet)
 	private static DataHandler instance = null; 
-	
 	
 	
 	// Constructor (private for singleton)

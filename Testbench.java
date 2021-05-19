@@ -19,7 +19,12 @@ public class Testbench {
 //		DataHandler.loadData("D:\\");
 ////		
 //		DataHandler.getLOR().printReqList();
-////		
+////	
+		AbstractDataHandlerFactory data = DataHandler.getDataHandlerInstance(); 
+		
+		data.loadData("D:\\PTTAppData.txt");
+		
+		data.getLOP().toString();
 //		
 		
 	}

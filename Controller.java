@@ -8,24 +8,36 @@ public class Controller implements ActionListener {
 	
 	public static void main(String[] args) {
 		
-		AbstractDataHandlerFactory data = DataHandler.getDataHandlerInstance(); 
-		Controller control = new Controller(data);
+		// Create a DataHandler object in a AbstractDHFactory reference
+		// (getDataHandlerInstance creates the instance and allows only 1 to exist) 
+		AbstractDataHandlerFactory dataHandlerFactory = DataHandler.getDataHandlerInstance(); 
+		
+		// Create a Controller object to begin the application and control code flow 
+		Controller control = new Controller(dataHandlerFactory);
 	}
 	
 	
-	// Controller attributes 
+	// Controller attributes
 	private UserInterface view = null;
 	private AbstractDataHandlerFactory data; 
+	String filepathAndName; 
+	
 	
 	// Constructor 
-	public Controller (AbstractDataHandlerFactory data) {
+	public Controller (AbstractDataHandlerFactory dataHandlerFactory) {
 	
 		// Set view
 		view = new UserInterface(this);
 		view.setVisible(true);
 		
 		// Set the data handler
-		this.data = data; 
+		this.data = dataHandlerFactory; 
+		
+		// ---------------Prompt user for filename and path? 
+		
+		// Load data for application 
+		filepathAndName = "D:\\PTTAppData.txt";
+		data.loadData(filepathAndName);
 	}
 
 	@Override
@@ -46,6 +58,7 @@ public class Controller implements ActionListener {
 		//3 - EXIT BUTTON
 		else if (e.getSource() == view.exitButton) {
 			//write to file?
+			data.saveData(filepathAndName);
 			System.exit(0);
 		}
 		
