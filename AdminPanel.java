@@ -35,6 +35,8 @@ public class AdminPanel extends JPanel {
 	private String[] optionsUpdate= {"Skills", "Training" };
 	protected JComboBox <String> optionListUpdate;
 	protected JButton addSkill, remSkill;
+	
+	private JPanel titlePanelOne, titlePanelTwo, titlePanelThree;
 
 	//constructor
 	public AdminPanel(Controller c) {
@@ -45,6 +47,7 @@ public class AdminPanel extends JPanel {
 		
 		this.panelL = new JPanel();
 		
+		searchF = generateSearchF();
 	    //button to return to home page
         backButton = new JButton("Back");
         backButton.setToolTipText("Return to previous page");
@@ -59,32 +62,33 @@ public class AdminPanel extends JPanel {
         viewPTT.addActionListener(c);
         
         //button to search by requirements page
-        search = new JLabel("Search By Requirements");
-        search.setToolTipText("Search by requirements");
+       //search = new JLabel("Search By Requirements");
+       // search.setToolTipText("Search by requirements");
         //search.addActionListener(c); 
 
         //button to go to page to assign teachers to request
-        assignTeach = new JLabel("Assign Teacher");
-        assignTeach.setToolTipText("Assign Teacher");
+       // assignTeach = new JLabel("Assign Teacher");
+        //assignTeach.setSize(100,50);
+       // assignTeach.setToolTipText("Assign Teacher");
         //assignTeach.addActionListener(c);
 
         //button to go to page to update teacher's info
-        updateTeach = new JLabel("Update Teacher Information");
-        updateTeach.setToolTipText("UpdateTeacher Information");
+       // updateTeach = new JLabel("Update Teacher Information");
+       // updateTeach.setToolTipText("UpdateTeacher Information");
         //updateTeach.addActionListener(c);
 
         //format components
-        panelL.setLayout(new GridLayout(6,1));
-        panelL.add(search);
-        panelL.add(assignTeach);
-        panelL.add(updateTeach);
+        panelL.setLayout(new GridLayout(3,1));
+      //  panelL.add(search);
+        //panelL.add(assignTeach);
+       // panelL.add(updateTeach);
         panelL.add(viewPTT);
         panelL.add(viewReqs);
         panelL.add(backButton);
         
         this.add(panelL);
         
-        GridLayout l = new GridLayout(4,1);
+        GridLayout l = new GridLayout(5,1);
         panelC = new JPanel();
         panelR = new JPanel();
         textArea = new JTextArea(80, 30);
@@ -94,9 +98,9 @@ public class AdminPanel extends JPanel {
         //creting function specific panels for admin
         assignF = generateAssignF();
         assignF.setVisible(true);
-       // assignF.setEnabled(false);
+       
         
-        searchF = generateSearchF();
+      
         searchF.setVisible(true);
         //searchF.setEnabled(false);
         
@@ -104,11 +108,24 @@ public class AdminPanel extends JPanel {
         updateF.setVisible(true);
         //updateF.setEnabled(false);
         
+       titlePanelOne = new JPanel();
+       titlePanelTwo = new JPanel();
+       titlePanelThree = new JPanel();
        
+       JLabel tOne = new JLabel("SEARCH TEACHER");
+       JLabel tTwo = new JLabel("ASSIGN TEACHER");
+       JLabel tThree = new JLabel ("UPDATE TEACHER");
+       
+       titlePanelOne.add(tOne);
+       titlePanelTwo.add(tTwo);
+       titlePanelThree.add(tThree);
         
         panelC.setLayout(l);
+        panelC.add(titlePanelOne);
         panelC.add(searchF);
+        panelC.add(titlePanelTwo);
         panelC.add(assignF);
+        panelC.add(titlePanelThree);
         panelC.add(updateF);
        // panelC.add(textArea);
         panelR.add(textArea);
@@ -141,6 +158,7 @@ public class AdminPanel extends JPanel {
 	
 	private JPanel generateUpdateF() {
 		JPanel updateTeach= new JPanel();
+		
 		
         JLabel teacher= new JLabel("Enter Teacher ID");
         teachID= new JTextField(25); //allows to enter teacher name
