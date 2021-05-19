@@ -155,5 +155,16 @@ public class Controller implements ActionListener {
 				view.cDPanel.displayField.append(i);
 			}
 		}
+		
+		else if (e.getSource() == view.cDPanel.submitReq) {
+			view.cDPanel.displayField.setText("");
+			String n = view.cDPanel.courseName.getText();
+			int i = Integer.parseInt(view.cDPanel.noReq.getText());
+			String s = view.cDPanel.skills.getText();
+			String [] skills = s.split(",");
+			TeachRequest r = new TeachRequest (n,i,DataHandler.getLOR(), skills);
+			
+			view.cDPanel.displayField.setText("new request created: \n"+ r.toString());
+		}
 	}
 }
