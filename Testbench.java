@@ -10,16 +10,16 @@ public class Testbench {
 //		PTTeacher b = new PTTeacher("dob", "dobb", DataHandler.getLOP());
 //		PTTeacher c = new PTTeacher("fob", "fobb", DataHandler.getLOP());
 //	
-		TeachRequest a = new TeachRequest("d",1,"training1", DataHandler.getLOR());
-		TeachRequest b = new TeachRequest("b",2,"training2", DataHandler.getLOR());
-		TeachRequest c = new TeachRequest("c",3,"training3", DataHandler.getLOR());
-
-		DataHandler.saveData("D:\\");
-		
+//		TeachRequest a = new TeachRequest("d",1,"training1", DataHandler.getLOR());
+//		TeachRequest b = new TeachRequest("b",2,"training2", DataHandler.getLOR());
+//		TeachRequest c = new TeachRequest("c",3,"training3", DataHandler.getLOR());
+//
+//		DataHandler.saveData("D:\\");
+//		
 		DataHandler.loadData("D:\\");
-		
+//		
 		DataHandler.getLOR().printReqList();
-		
+//		
 		
 		
 	}
