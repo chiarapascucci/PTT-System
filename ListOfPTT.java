@@ -4,23 +4,16 @@ public class ListOfPTT {
 	private ArrayList <PTTeacher> list;
 	
 	//constructor
-	public ListOfPTT () {
+	protected ListOfPTT () {
 		list = new ArrayList <PTTeacher>();
 	}
 	
-		
+	//method to add a teacher to the list, only visibile to classes in the same package	
 	protected void addTeacher(PTTeacher t) {
 		list.add(t);
 	}
 	
-	public String[] printList() {
-		String [] s = (String[]) list.toArray();
-		return s;
-	}
 	
-	public ArrayList<PTTeacher> getListReference() {
-		return list;
-	}
 	
 	// Adding to ensure nextTID is always the highest
 	protected int maxID() {
@@ -36,7 +29,7 @@ public class ListOfPTT {
 		return maxID; 
 	}
 	
-	// Adding a getPTTeacherReference function to find a teacher for a request
+	// Adding a getPTTeacherReference function to find a teacher with their ID number
 	protected PTTeacher getTeacherRef(int ID) {
 		
 		// Iterate over list
@@ -50,7 +43,20 @@ public class ListOfPTT {
 		return null; 
 	}
 	
-	public ArrayList <PTTeacher> findTeacher(String s, int i){
+	//method to find teacher by their first name
+	public PTTeacher getTeacherRef(String n) {
+		for (PTTeacher t : list) {
+			
+			if (t.getfName().trim().equals(n)) return t;
+		}
+		
+		return null;
+	}
+	
+	//supporter method used by controller: this method takes the search string and search criteria input from the user
+	//depending on the search criteria a different kind of search is done: on teacher ID, on skills, or training
+	protected ArrayList <PTTeacher> findTeacher(String s, int i){
+		
 		ArrayList <PTTeacher> result = new ArrayList <PTTeacher>();
 		
 		if ( i == 0) {
@@ -68,12 +74,5 @@ public class ListOfPTT {
 	}
 	
 	
-	public PTTeacher getTeacherRef(String n) {
-		for (PTTeacher t : list) {
-			System.out.println(t.getfName() + " - " + n);
-			if (t.getfName().trim().equals(n)) return t;
-		}
-		
-		return null;
-	}
+	
 }
