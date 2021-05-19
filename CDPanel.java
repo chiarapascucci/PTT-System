@@ -1,5 +1,4 @@
 import java.awt.GridLayout;
-
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -33,15 +32,15 @@ public class CDPanel extends JPanel {
         statCheck.addActionListener(c);
         //format components
         panel.setLayout(new GridLayout(5,1));
-        panel.add(submitReq);
+	//adds components to panel	
+        panel.add(submitReq); 
         panel.add(statCheck);
         panel.add(backButton);
         
-        this.add(panel);
+        this.add(panel);//adds cd panel to main window
         
-        JTextArea displayField = new JTextArea();
+        JTextArea displayField = new JTextArea(); //creates new text area for displaying results 
         
-        this.add(displayField);
+        this.add(displayField); //adds text area to main window
 	}
-
 }
