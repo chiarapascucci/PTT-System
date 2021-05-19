@@ -73,6 +73,8 @@ public class ListOfPTT {
 		return result;
 	}
 	
-	
+	protected ArrayList <PTTeacher> getListReference(){
+		return this.list;
+	}
 	
 }
