@@ -24,7 +24,6 @@ public class TeachRequest {
 	}
 
 	// Helper for common constructor content
-	// Exceptions to capture: arraylist constructor
 	private void requestSetup(String c, int no,ListOfRequests LOR, String... t) {
 		this.courseID = c;
 		this.teachNo = no;
@@ -48,7 +47,9 @@ public class TeachRequest {
 	public boolean addTeacher(PTTeacher target) {
 		if(this.assigned.contains(target)) {
 			return false;
-		} else {
+		} else if (this.assigned.size() >= teachNo) {
+			return false;
+		}else{
 			this.assigned.add(target);
 			this.statusCheck();
 			return true;
@@ -65,15 +66,14 @@ public class TeachRequest {
 		}
 	}
 
-	// Update request fulfillment, may need to update to public
-	private void statusCheck() {
+	// Update request fulfilment, may need to update to public
+	protected void statusCheck() {
 
 		this.assigned.trimToSize();
 		int invalidTeacher = 0;
 		boolean passCheck = true;
 
 		// Count teachers without required training ('invalid')
-		// Missing check for null skill/training array(?)
 		for(PTTeacher t: this.assigned) {
 			ArrayList <String> allTS = new ArrayList <String> ();
 			allTS.addAll(t.getTraining()); allTS.addAll(t.getSkills());
@@ -102,10 +102,13 @@ public class TeachRequest {
 		return s;
 	}
 
-	public void printTeachers() {
+	public String printTeachers() {
+		String s = "";
 		if(!(this.assigned.isEmpty())) {
-			for(PTTeacher t: this.assigned) {	System.out.println(t);	}
+			for(PTTeacher t: this.assigned) {	s = " " + t;	}
 		}
+		
+		return s;
 	}
 
 	// Update this with something more useful if necessary

@@ -25,7 +25,7 @@ public class DataHandler extends AbstractDataHandlerFactory {
 	// Constructor (private for singleton)
 	private DataHandler() {
 		
-		// Instanciate list on construction
+		// Instantiate list on construction
 		LOP = new ListOfPTT();
 		LOR = new ListOfRequests();	
 	}; 

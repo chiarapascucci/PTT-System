@@ -114,7 +114,7 @@ public class PTTeacher {
 		this.available = available;
 	}
 	
-	//method to assing a teacher to a request
+	//method to assign a teacher to a request
 	
 	protected boolean assignTeacher(TeachRequest q) {
 		
