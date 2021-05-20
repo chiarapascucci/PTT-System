@@ -84,10 +84,13 @@ public class TeachRequest {
 		else { this.status = false; }
 	}
 
-	public void printTrainingRequired() {
+	public String printTrainingRequired() {
+		String s = "";
 		if(!(this.trainingRequired.isEmpty())) {
-			for(String s: this.trainingRequired) {	System.out.print(s + " ");	}
+			for(String i: this.trainingRequired) {	s = " " + i;	}
 		}
+		
+		return s;
 	}
 
 	public void printTeachers() {
@@ -98,7 +101,11 @@ public class TeachRequest {
 
 	// Update this with something more useful if necessary
 	public String toString() {
-		String output = "ID: " + id + " | Complete?: " + status;
+		
+		for (int i = 0; i <= trainingRequired.size(); i++) {
+			
+		}
+		String output = "ID: " + id + " | Complete?: " + status + "skills: " + this.printTrainingRequired();
 		return output;
 	}
 
