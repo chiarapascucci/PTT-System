@@ -95,22 +95,30 @@ public class Controller implements ActionListener {
 				view.adminMain.textArea.setText(inputguard.ensureIntegerMsg); 
 				return; 
 			}
-
+			
+			// Get teacher and request references 
 			TeachRequest t = data.getLOR().findReq(RID);
 			PTTeacher p = data.getLOP().getTeacherRef(TID);
 			
 			boolean outcome = false;
-			if (t == null || p == null) {
-				view.adminMain.textArea.setText("invalid request number or teacher name");
+			if (inputguard.ensureNotNullReference(p) && inputguard.ensureNotNullReference(t)) {
+				
+				outcome = p.assignTeacher(t);
+				if (!outcome) {
+					view.adminMain.textArea.setText("request cannot be assigned to teacher");				
+				} else {
+					outcome = t.addTeacher(p);
+					if(!outcome) {
+						view.adminMain.textArea.setText("teacher cannot be assigned to request");
+					}
+				}
 			}
 			else {
-				t.addTeacher(p);
-				outcome = p.assignTeacher(t);
-			
+				view.adminMain.textArea.setText("invalid request number or teacher name");
+				return; 
 			}
-			if (!outcome) {
-				view.adminMain.textArea.setText("assignment failed");
-			}
+		
+		//view.adminMain.assignF.setEnabled(false);
 	}
 		
 		// 1.2 - ADMIN >> SEARCH TEACHERS BY DIFFERENT CRITERIA
