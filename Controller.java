@@ -110,8 +110,9 @@ public class Controller implements ActionListener {
 					outcome = t.addTeacher(p);
 					if(!outcome) {
 						view.adminMain.textArea.setText("teacher cannot be assigned to request");
+					} else {
+						view.adminMain.textArea.setText("success! teacher assigned to request");
 					}
-					view.adminMain.textArea.setText("success! teacher assigned to request");
 					
 				}
 			}
