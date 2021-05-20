@@ -163,13 +163,9 @@ public class Controller implements ActionListener {
 			 
 			view.adminMain.textArea.setText("");
 			
-			for (PTTeacher p : data.getLOP().getListReference()) {
-				String i = p.toString();
-				for (String s : p.getSkills()) {
-					i = i + s + ", ";
-				}
-				
-				view.adminMain.textArea.append(i);
+			for ( int i = 0; i< data.getLOP().getListReference().size(); i++) {
+				String s = data.getLOP().getListReference().get(i).toString() + " " + data.getLOP().getListReference().get(i).printSkills()+ "\n\n";
+				view.adminMain.textArea.append(s);
 			}
 		}
 		
