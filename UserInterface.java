@@ -7,17 +7,18 @@ import javax.swing.JPanel;
 
 
 public class UserInterface extends JFrame {
-    private JPanel mainPanel;
-    private Controller controller;
-    protected JButton exitButton, adminButton, courseButton;
-    protected AdminPanel adminMain;
-    protected CDPanel cDPanel;
-    private BorderLayout b;
+   
+	private 	JPanel 			mainPanel;
+    private 	Controller 		controller;
+    protected	JButton 		exitButton, adminButton, courseButton;
+    protected 	AdminPanel 		adminMain;
+    protected 	CDPanel 		cDPanel;
+    private 	BorderLayout 	b;
     
     //protected JButton backButton, viewReqs, assignTeach, search, updateTeach;
-
+    
     //initialises UI
-    public UserInterface()  {
+    public UserInterface(Controller controller)  {
     	
         //creates start window and formats main JFrame
         setTitle("Requesto (powered by PoweRon)");
@@ -27,10 +28,12 @@ public class UserInterface extends JFrame {
         
         b = new BorderLayout();
         this.setLayout(b);
-        
         this.setVisible(true);
         
-        this.controller = new Controller(this);
+
+        // Set  controller reference
+        this.controller = controller;
+       
         mainPanel = new JPanel();
         
         exitButton = new JButton("Exit");
@@ -55,7 +58,6 @@ public class UserInterface extends JFrame {
         cDPanel = new CDPanel(controller);
         adminMain = new AdminPanel(controller);
         
-        DataHandler.loadData("C:\\Users\\chpas\\git\\PTT-System");
     }
     
     public void setController(Controller c) {
@@ -85,17 +87,6 @@ public class UserInterface extends JFrame {
     public JPanel getMainPanel() {
     	return mainPanel;
     }
-  
-
-
-   
-    
-    
-    private void controller() {
-        //generic hold for controller
-    }
-
-
 
     //course director functions
     private void submitRequest(){
@@ -140,13 +131,6 @@ public class UserInterface extends JFrame {
         //contentPane.remove(0);//clear JFrame
         //contentPane.add(subReq);//add new JPanel
 
-    }
-    
-
-
-    public static void main(String[] args) {//instantiate and call UI
-        UserInterface ui= new UserInterface();
-        ui.setVisible(true);
     }
 
 }

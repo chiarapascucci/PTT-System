@@ -6,11 +6,38 @@ import javax.swing.JPanel;
 
 public class Controller implements ActionListener {
 	
+	public static void main(String[] args) {
+		
+		// Create a DataHandler object in a AbstractDHFactory reference
+		// (getDataHandlerInstance creates the instance and allows only 1 to exist) 
+		AbstractDataHandlerFactory dataHandlerFactory = DataHandler.getDataHandlerInstance(); 
+		
+		// Create a Controller object to begin the application and control code flow 
+		Controller control = new Controller(dataHandlerFactory);
+	}
+	
+	
+	// Controller attributes
 	private UserInterface view = null;
+	private AbstractDataHandlerFactory data; 
+	String filepathAndName; 
 	
-	public Controller (UserInterface v) {
 	
-		view = v;
+	// Constructor 
+	public Controller (AbstractDataHandlerFactory dataHandlerFactory) {
+	
+		// Set view
+		view = new UserInterface(this);
+		view.setVisible(true);
+		
+		// Set the data handler
+		this.data = dataHandlerFactory; 
+		
+		// ---------------Prompt user for filename and path? 
+		
+		// Load data for application 
+		filepathAndName = "D:\\PTTAppData.txt";
+		data.loadData(filepathAndName);
 	}
 
 	@Override
@@ -31,6 +58,7 @@ public class Controller implements ActionListener {
 		//3 - EXIT BUTTON
 		else if (e.getSource() == view.exitButton) {
 			//write to file?
+			data.saveData(filepathAndName);
 			System.exit(0);
 		}
 		
@@ -45,8 +73,8 @@ public class Controller implements ActionListener {
 			view.adminMain.textArea.setText("");
 				String name = view.adminMain.teachName.getText();
 				int iD = Integer.parseInt(view.adminMain.requestNo.getText()); 
-				TeachRequest t = DataHandler.getLOR().findReq(iD);
-				PTTeacher p = DataHandler.getLOP().getTeacherRef(name);
+				TeachRequest t = data.getLOR().findReq(iD);
+				PTTeacher p = data.getLOP().getTeacherRef(name);
 				
 				boolean outcome = false;
 				if (t == null || p == null) {
@@ -76,7 +104,7 @@ public class Controller implements ActionListener {
 			
 			String s = view.adminMain.searchChoiceOne.getText().trim();
 			
-			ArrayList <PTTeacher> result = DataHandler.getLOP().findTeacher(s, i);
+			ArrayList <PTTeacher> result = data.getLOP().findTeacher(s, i);
 			
 			for (PTTeacher p : result) {
 				view.adminMain.textArea.append(p.toString());
@@ -93,7 +121,7 @@ public class Controller implements ActionListener {
 			
 			System.out.println("view reqs");
 			view.adminMain.textArea.setText("");
-			String [] s =DataHandler.getLOR().printReqList();
+			String [] s = data.getLOR().printReqList();
 			for (String i : s) {
 				view.adminMain.textArea.append(i);
 				System.out.println(i);
@@ -107,7 +135,7 @@ public class Controller implements ActionListener {
 			view.adminMain.textArea.setText("");
 			
 			int iD = Integer.parseInt(view.adminMain.teachID.getText());
-			PTTeacher t = DataHandler.getLOP().getTeacherRef(iD);
+			PTTeacher t = data.getLOP().getTeacherRef(iD);
 			int n = view.adminMain.optionListUpdate.getSelectedIndex();
 			String s = view.adminMain.choice.getText().trim();
 				
@@ -122,7 +150,7 @@ public class Controller implements ActionListener {
 		else if (e.getSource() == view.adminMain.remSkill) {
 			view.adminMain.textArea.setText("");
 			int iD = Integer.parseInt(view.adminMain.teachID.getText());
-			PTTeacher t = DataHandler.getLOP().getTeacherRef(iD);
+			PTTeacher t = data.getLOP().getTeacherRef(iD);
 			int n = view.adminMain.optionListUpdate.getSelectedIndex();
 			String s = view.adminMain.choice.getText().trim();
 			
@@ -139,7 +167,7 @@ public class Controller implements ActionListener {
 			 
 			view.adminMain.textArea.setText("");
 			
-			for (PTTeacher p : DataHandler.getLOP().getListReference()) {
+			for (PTTeacher p : data.getLOP().getListReference()) {
 				String s = p.toString();
 				view.adminMain.textArea.append(s);
 			}
@@ -149,7 +177,7 @@ public class Controller implements ActionListener {
 		else if (e.getSource() == view.cDPanel.statCheck) {
 			System.out.println("view reqs status");
 			view.cDPanel.displayField.setText("");
-			String [] s =DataHandler.getLOR().printReqListStatus();
+			String [] s = data.getLOR().printReqListStatus();
 			for (String i : s) {
 				System.out.println(i);
 				view.cDPanel.displayField.append(i);
@@ -162,7 +190,7 @@ public class Controller implements ActionListener {
 			int i = Integer.parseInt(view.cDPanel.noReq.getText());
 			String s = view.cDPanel.skills.getText();
 			String [] skills = s.split(",");
-			TeachRequest r = new TeachRequest (n,i,DataHandler.getLOR(), skills);
+			TeachRequest r = new TeachRequest (n,i,data.getLOR(), skills);
 			
 			view.cDPanel.displayField.setText("new request created: \n"+ r.toString());
 		}
