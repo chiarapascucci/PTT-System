@@ -60,19 +60,19 @@ public class PTTeacher {
 		return s;
 	}
 	
-	public String[] printSkills() {
-		String [] s = new String[skills.size()];
-		for(int i = 0; i<s.length; i++) {
-			s[i] = skills.get(i);
+	public String printSkills() {
+		String s = "";
+		for(int i = 0; i<this.skills.size(); i++) {
+			s = " " + skills.get(i);
 		}
 		
 		return s;
 	}
 	
-	public String [] printTraining() {
-		String [] s = new String[training.size()];
-		for(int i = 0; i<s.length; i++) {
-			s[i] = training.get(i);
+	public String printTraining() {
+		String s = "";
+		for(int i = 0; i<=this.training.size(); i++) {
+			s = " " + training.get(i);
 		}
 		
 		return s;
@@ -116,11 +116,10 @@ public class PTTeacher {
 	
 	//method to assing a teacher to a request
 	
-	protected boolean assign(TeachRequest q) {
-		if (this.assign == null) this.assign = new ArrayList <TeachRequest>();//not sure if to keep?
+	protected boolean assignTeacher(TeachRequest q) {
 		
 		if (this.isAvailable() == false) return false ;
-		else if (this.isAvailable()) this.assign(q);
+		else if (this.isAvailable()) this.assignTeacher(q);
 			
 		if (this.assign.size()>= 5) {	
 			this.setAvailable(false);

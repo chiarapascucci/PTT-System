@@ -13,9 +13,8 @@ public class Controller implements ActionListener {
 		AbstractDataHandlerFactory dataHandlerFactory = DataHandler.getDataHandlerInstance(); 
 		
 		// Create a Controller object to begin the application and control code flow 
-		Controller control = new Controller(dataHandlerFactory);
+		Controller control = new Controller(dataHandlerFactory);	
 	}
-	
 	
 	// Controller attributes
 	private UserInterface view = null;
@@ -32,10 +31,10 @@ public class Controller implements ActionListener {
 		// Set the data handler
 		this.data = dataHandlerFactory; 
 		
-		// ---------------Prompt user for filename and path? 
+		
 		
 		// Load data for application 
-		filepathAndName = "D:\\PTTAppData.txt";
+		filepathAndName = "C:\\Users\\chpas\\git\\PTT-System\\PTTAppData.txt";
 		data.loadData(filepathAndName);
 	}
 
@@ -51,7 +50,7 @@ public class Controller implements ActionListener {
 		//2-GET TO CD VIEW
 		else if (e.getSource() == view.courseButton) {
 			System.out.println("view as Course Director");
-			view.updateView(view.getCDPanel());
+			view.updateView(view.cDPanel);
 		}
 		
 		//3 - EXIT BUTTON
@@ -81,15 +80,12 @@ public class Controller implements ActionListener {
 				}
 				else {
 					t.addTeacher(p);
-					outcome = p.assign(t);
+					outcome = p.assignTeacher(t);
 				
 				}
 				if (!outcome) {
 					view.adminMain.textArea.setText("assignment failed");
 				}
-			
-			
-			//view.adminMain.assignF.setEnabled(false);
 		}
 		
 		// 1.2 - ADMIN >> SEARCH TEACHERS BY DIFFERENT CRITERIA
@@ -166,10 +162,20 @@ public class Controller implements ActionListener {
 			 
 			view.adminMain.textArea.setText("");
 			
-			for (PTTeacher p : data.getLOP().getListReference()) {
-				String s = p.toString();
+			for ( int i = 0; i< data.getLOP().getListReference().size(); i++) {
+				String s = data.getLOP().getListReference().get(i).toString() + " " + data.getLOP().getListReference().get(i).printSkills()+ "\n\n";
 				view.adminMain.textArea.append(s);
 			}
+		}
+		
+		//1.6 ADMIN >> add teacher to the system
+		else if (e.getSource() == view.adminMain.addT) {
+			String fname = view.adminMain.addFName.getText();
+			String lname = view.adminMain.addLName.getText();
+			
+			PTTeacher t = new PTTeacher (fname, lname, data.getLOP());
+			
+			view.adminMain.textArea.setText("new teacher record created \n \n" + t);
 		}
 	
 		//2.1 CD >> VIEW STATUS OF REQUESTS IN THE SYSTEM
@@ -183,6 +189,7 @@ public class Controller implements ActionListener {
 			}
 		}
 		
+		//2.2 CD >> ADD A REQUEST TO THE SYSTEM MANUALLY
 		else if (e.getSource() == view.cDPanel.submitReq) {
 			view.cDPanel.displayField.setText("");
 			String n = view.cDPanel.courseName.getText();

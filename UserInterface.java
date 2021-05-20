@@ -66,8 +66,9 @@ public class UserInterface extends JFrame {
     
     protected void updateView(JPanel j) {
     	mainPanel.setVisible(false);
+    	j.setVisible(true);
     	this.add(j, b.CENTER);
-    	//return this;
+    	
     }
     
     protected void backToMain(JPanel j) {
@@ -76,61 +77,9 @@ public class UserInterface extends JFrame {
     	this.add(mainPanel);
     }
     
-    public JPanel getAdminMain() {
-    	return adminMain;
-    }
-
-    public JPanel getCDPanel() {  
-    	return cDPanel;
-    }
-    
-    public JPanel getMainPanel() {
-    	return mainPanel;
-    }
+   
 
     //course director functions
-    private void submitRequest(){
-        //create new screen for search by requirements
-        setTitle("Submit Request");
-        setSize(800, 400);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-
-        JPanel subReq= new JPanel();
-
-        var backButton = new JButton("Back"); //creates a back button that returns to course director main page
-        backButton.setToolTipText("Return to course director page");
-        //backButton.addActionListener((event) -> cdMain());
-
-        var submitReq = new JButton("Submit Request"); //creates a back button that returns to course director main page
-        submitReq.setToolTipText("Return to course director page");
-       // submitReq.addActionListener((event) -> cdMain());
-
-        JLabel teacher= new JLabel("Enter teacher number");
-        JTextField teachNo= new JTextField(25); //allows to enter teacher number
-        JLabel skill1= new JLabel("First Requirement");
-        JTextField skillOne= new JTextField(25); //allows to enter search requirements
-        JLabel skill2= new JLabel("Second Requirement");
-        JTextField skillTwo= new JTextField(25);
-        JLabel skill3= new JLabel("Third Requirement");
-        JTextField skillThree= new JTextField(25);
-
-        subReq.setLayout(new GridLayout(5,2));
-
-        subReq.add(teacher);
-        subReq.add(teachNo);
-        subReq.add(skill1);
-        subReq.add(skillOne);
-        subReq.add(skill2);
-        subReq.add(skillTwo);
-        subReq.add(skill3);
-        subReq.add(skillThree);
-        subReq.add(submitReq);
-        subReq.add(backButton);
-
-        //contentPane.remove(0);//clear JFrame
-        //contentPane.add(subReq);//add new JPanel
-
-    }
+    
 
 }

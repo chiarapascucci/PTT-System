@@ -36,7 +36,12 @@ public class AdminPanel extends JPanel {
 	protected JComboBox <String> optionListUpdate;
 	protected JButton addSkill, remSkill;
 	
-	private JPanel titlePanelOne, titlePanelTwo, titlePanelThree;
+	//add teacher to system
+	protected JPanel addTeacherF;
+	protected JTextField addFName, addLName, addTSkills;
+	protected JButton addT;
+
+	private JPanel titlePanelOne, titlePanelTwo, titlePanelThree, titlePanelFour;
 
 	//constructor
 	public AdminPanel(Controller c) {
@@ -61,34 +66,15 @@ public class AdminPanel extends JPanel {
         viewPTT.setToolTipText("View teachers");
         viewPTT.addActionListener(c);
         
-        //button to search by requirements page
-       //search = new JLabel("Search By Requirements");
-       // search.setToolTipText("Search by requirements");
-        //search.addActionListener(c); 
-
-        //button to go to page to assign teachers to request
-       // assignTeach = new JLabel("Assign Teacher");
-        //assignTeach.setSize(100,50);
-       // assignTeach.setToolTipText("Assign Teacher");
-        //assignTeach.addActionListener(c);
-
-        //button to go to page to update teacher's info
-       // updateTeach = new JLabel("Update Teacher Information");
-       // updateTeach.setToolTipText("UpdateTeacher Information");
-        //updateTeach.addActionListener(c);
-
         //format components
         panelL.setLayout(new GridLayout(3,1));
-      //  panelL.add(search);
-        //panelL.add(assignTeach);
-       // panelL.add(updateTeach);
         panelL.add(viewPTT);
         panelL.add(viewReqs);
         panelL.add(backButton);
         
         this.add(panelL);
         
-        GridLayout l = new GridLayout(5,1);
+        GridLayout l = new GridLayout(5,2);
         panelC = new JPanel();
         panelR = new JPanel();
         textArea = new JTextArea(80, 30);
@@ -99,7 +85,7 @@ public class AdminPanel extends JPanel {
         assignF = generateAssignF();
         assignF.setVisible(true);
        
-        
+        addTeacherF = generateAddTeacherF();
       
         searchF.setVisible(true);
         //searchF.setEnabled(false);
@@ -111,14 +97,17 @@ public class AdminPanel extends JPanel {
        titlePanelOne = new JPanel();
        titlePanelTwo = new JPanel();
        titlePanelThree = new JPanel();
+       titlePanelFour = new JPanel();
        
        JLabel tOne = new JLabel("SEARCH TEACHER");
        JLabel tTwo = new JLabel("ASSIGN TEACHER");
        JLabel tThree = new JLabel ("UPDATE TEACHER");
+       JLabel tFour = new JLabel ("ADD TEACHER");
        
        titlePanelOne.add(tOne);
        titlePanelTwo.add(tTwo);
        titlePanelThree.add(tThree);
+       titlePanelFour.add(tFour);
         
         panelC.setLayout(l);
         panelC.add(titlePanelOne);
@@ -127,6 +116,8 @@ public class AdminPanel extends JPanel {
         panelC.add(assignF);
         panelC.add(titlePanelThree);
         panelC.add(updateF);
+        panelC.add(titlePanelFour);
+        panelC.add(addTeacherF);
        // panelC.add(textArea);
         panelR.add(textArea);
         
@@ -136,7 +127,7 @@ public class AdminPanel extends JPanel {
 	
 	protected JPanel generateAssignF() {
 		JPanel p = new JPanel();
-		JLabel teacher= new JLabel("Enter teacher name");
+		JLabel teacher= new JLabel("Enter teacher ID");
         teachName= new JTextField(25); //allows to enter teacher name
         JLabel request= new JLabel("Enter request number");
         requestNo= new JTextField(25); //allows to enter request number
@@ -216,6 +207,31 @@ public class AdminPanel extends JPanel {
 	      
 		
 		return searchMain;
+	}
+	
+	public JPanel generateAddTeacherF() {
+		JPanel j = new JPanel();
+			
+		GridLayout g = new GridLayout(3,2);
+		
+		j.setLayout(g);
+		
+		JLabel fName = new JLabel ("Add first name");
+		addFName = new JTextField();
+		JLabel lName = new JLabel("Add second name");
+		addLName = new JTextField();
+		addT = new JButton("Create record");
+		addT.addActionListener(c);
+		
+		j.add(fName);
+		j.add(addFName);
+		j.add(lName);
+		j.add(addLName);
+		j.add(addT);
+		
+		return j;
+		
+		
 	}
 
 	public JComboBox getOptionList() {
