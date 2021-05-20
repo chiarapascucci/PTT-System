@@ -47,7 +47,7 @@ public class DataHandler extends AbstractDataHandlerFactory {
 	public void loadData(String filepathAndName) {
 		
 		// Need to check if file exists firsts and create it if it doesnt exist
-		File f = new File(filepathAndName);
+//		File f = new File(filepathAndName);
 		
 		// If the file does not exist
 //		if(!f.isFile()) {
@@ -187,22 +187,28 @@ public class DataHandler extends AbstractDataHandlerFactory {
 		// Parse line as a request data object
 		if (data.charAt(0) == 'R') {
 
+			// Temp string container to store data
+			String temp;
+			
 			// Remove outer casing of the data 
 			data = data.substring(2,data.length()-1); 		// Removing "R(" at start and ")" at end. Could change this to calculate ( position first
 
 			// Split data by commas and store into a string array 
 			splitData = data.split(",");
 
+			// For training data to be passed to request (remove outer curly brackets
+			temp = splitData[4].substring(1,splitData[4].length()-1);
+			
 			// Create a new request entity (adds to list automatically in the constructor to satisfy class invariant)
 			// Using constructor with ID to enforce constant ID for each teacher when loading in teacher data 
 			//											ID, 					CourseID, 			numTeachers, 		List ref,  Training required					
-			TeachRequest r = new TeachRequest(Integer.parseInt(splitData[0]), splitData[1], Integer.parseInt(splitData[3]),LOR,splitData[4] ); 	
+			TeachRequest r = new TeachRequest(Integer.parseInt(splitData[0]), splitData[1], Integer.parseInt(splitData[3]),LOR,		temp ); 	
 
 
 			/* Extract and set rest of TeachRequest attributes */
 
 			// Teachers assigned to request
-			String temp 		= splitData[5].substring(1,splitData[5].length()-1); 	// Remove out casing of assigned teacher data 
+			temp 		= splitData[5].substring(1,splitData[5].length()-1); 	// Remove out casing of assigned teacher data 
 			
 			// Splitting IDs assigned to the request (if multiple)
 			String[] tempArray 	= temp.split(";"); 

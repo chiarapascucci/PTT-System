@@ -118,15 +118,18 @@ public class PTTeacher {
 	
 	protected boolean assignTeacher(TeachRequest q) {
 		
-		if (this.isAvailable() == false) return false ;
-		else if (this.isAvailable()) this.assignTeacher(q);
+		if (this.isAvailable() == false) {
+			return false;
+		}
+		else if (this.isAvailable()) {
+			this.assign.add(q);
+		}
 			
 		if (this.assign.size()>= 5) {	
 			this.setAvailable(false);
 			return true;
 		}
-		
-		return false;
+		return true;
 	}
 
 	
