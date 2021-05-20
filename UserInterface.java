@@ -16,7 +16,7 @@ public class UserInterface extends JFrame {
     private 	BorderLayout 	b;
     
     //protected JButton backButton, viewReqs, assignTeach, search, updateTeach;
-
+    
     //initialises UI
     public UserInterface(Controller controller)  {
     	
