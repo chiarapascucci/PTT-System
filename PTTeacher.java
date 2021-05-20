@@ -63,7 +63,7 @@ public class PTTeacher {
 	public String[] printSkills() {
 		String [] s = new String[skills.size()];
 		for(int i = 0; i<s.length; i++) {
-			s[i] = skills.get(i);
+			s[i] = " " + skills.get(i);
 		}
 		
 		return s;

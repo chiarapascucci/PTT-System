@@ -164,13 +164,24 @@ public class Controller implements ActionListener {
 			view.adminMain.textArea.setText("");
 			
 			for (PTTeacher p : data.getLOP().getListReference()) {
-				String s = p.toString();
-				view.adminMain.textArea.append(s);
+				String i = p.toString();
+				for (String s : p.getSkills()) {
+					i = i + s + ", ";
+				}
+				
+				view.adminMain.textArea.append(i);
 			}
 		}
 		
 		//1.6 ADMIN >> add teacher to the system
-		
+		else if (e.getSource() == view.adminMain.addT) {
+			String fname = view.adminMain.addFName.getText();
+			String lname = view.adminMain.addLName.getText();
+			
+			PTTeacher t = new PTTeacher (fname, lname, data.getLOP());
+			
+			view.adminMain.textArea.setText("new teacher record created \n \n" + t);
+		}
 	
 		//2.1 CD >> VIEW STATUS OF REQUESTS IN THE SYSTEM
 		else if (e.getSource() == view.cDPanel.statCheck) {
