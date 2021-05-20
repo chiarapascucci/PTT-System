@@ -50,17 +50,17 @@ public class DataHandler extends AbstractDataHandlerFactory {
 		File f = new File(filepathAndName);
 		
 		// If the file does not exist
-		if(!f.isFile()) {
-			
-			// Create a file 
-			try {
-				f.createNewFile();
-			}
-			catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		
+//		if(!f.isFile()) {
+//			
+//			// Create a file 
+//			try {
+//				f.createNewFile();
+//			}
+//			catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//		}
+
 		// Read from file
 		FileReader filereader 	= null;
 		Scanner	input		  	= null;

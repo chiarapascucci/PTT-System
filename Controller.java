@@ -22,7 +22,6 @@ public class Controller implements ActionListener {
 	private AbstractDataHandlerFactory data; 
 	String filepathAndName; 
 	
-	
 	// Constructor 
 	public Controller (AbstractDataHandlerFactory dataHandlerFactory) {
 	
@@ -70,7 +69,7 @@ public class Controller implements ActionListener {
 		
 		//1.1 ADMIN >> ASSIGN TEACHER TO REQUEST
 		else if (e.getSource() == view.adminMain.assign) {		
-			view.adminMain.textArea.setText("");
+				view.adminMain.textArea.setText("");
 				String name = view.adminMain.teachName.getText();
 				int iD = Integer.parseInt(view.adminMain.requestNo.getText()); 
 				TeachRequest t = data.getLOR().findReq(iD);
@@ -194,5 +193,8 @@ public class Controller implements ActionListener {
 			
 			view.cDPanel.displayField.setText("new request created: \n"+ r.toString());
 		}
+		
+		// Automatically save data after every operation 
+		data.saveData(filepathAndName);
 	}
 }
