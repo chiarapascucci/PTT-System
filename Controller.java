@@ -81,7 +81,7 @@ public class Controller implements ActionListener {
 				}
 				else {
 					t.addTeacher(p);
-					outcome = p.assign(t);
+					outcome = p.assignTeacher(t);
 				
 				}
 				if (!outcome) {

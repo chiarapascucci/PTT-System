@@ -116,11 +116,10 @@ public class PTTeacher {
 	
 	//method to assing a teacher to a request
 	
-	protected boolean assign(TeachRequest q) {
-		if (this.assign == null) this.assign = new ArrayList <TeachRequest>();//not sure if to keep?
+	protected boolean assignTeacher(TeachRequest q) {
 		
 		if (this.isAvailable() == false) return false ;
-		else if (this.isAvailable()) this.assign(q);
+		else if (this.isAvailable()) this.assignTeacher(q);
 			
 		if (this.assign.size()>= 5) {	
 			this.setAvailable(false);

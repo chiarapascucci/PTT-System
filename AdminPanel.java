@@ -127,7 +127,7 @@ public class AdminPanel extends JPanel {
 	
 	protected JPanel generateAssignF() {
 		JPanel p = new JPanel();
-		JLabel teacher= new JLabel("Enter teacher name");
+		JLabel teacher= new JLabel("Enter teacher ID");
         teachName= new JTextField(25); //allows to enter teacher name
         JLabel request= new JLabel("Enter request number");
         requestNo= new JTextField(25); //allows to enter request number
