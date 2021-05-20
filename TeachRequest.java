@@ -45,18 +45,28 @@ public class TeachRequest {
 
 	
 
-	public void addTeacher(PTTeacher target) {
-		this.assigned.add(target);
-		this.statusCheck();
+	public boolean addTeacher(PTTeacher target) {
+		if(this.assigned.contains(target)) {
+			return false;
+		} else {
+			this.assigned.add(target);
+			this.statusCheck();
+			return true;
+		}
 	}
 
-	public void removeTeacher(PTTeacher target) {
-		this.assigned.remove(target);
-		this.statusCheck();
+	public boolean removeTeacher(PTTeacher target) {
+		if(!(this.assigned.contains(target))) {
+			return false;
+		} else {
+			this.assigned.remove(target);
+			this.statusCheck();
+			return true;			
+		}
 	}
 
-	// Update request fulfillment
-	public void statusCheck() {
+	// Update request fulfillment, may need to update to public
+	private void statusCheck() {
 
 		this.assigned.trimToSize();
 		int invalidTeacher = 0;
@@ -64,7 +74,6 @@ public class TeachRequest {
 
 		// Count teachers without required training ('invalid')
 		// Missing check for null skill/training array(?)
-		// Needs exception handling for arraylist methods
 		for(PTTeacher t: this.assigned) {
 			ArrayList <String> allTS = new ArrayList <String> ();
 			allTS.addAll(t.getTraining()); allTS.addAll(t.getSkills());
