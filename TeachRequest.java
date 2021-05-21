@@ -51,6 +51,7 @@ public class TeachRequest {
 			return false;
 		}else{
 			this.assigned.add(target);
+			target.assignTeacher(this);
 			this.statusCheck();
 			return true;
 		}
@@ -96,7 +97,7 @@ public class TeachRequest {
 	public String printTrainingRequired() {
 		String s = "";
 		if(!(this.trainingRequired.isEmpty())) {
-			for(String i: this.trainingRequired) {	s = " " + i;	}
+			for(String i: this.trainingRequired) {	s = s + "\n- " + i	;}
 		}
 		
 		return s;

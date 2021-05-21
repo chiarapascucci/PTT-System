@@ -19,12 +19,14 @@ public class ListOfRequests {
 	public String[] printReqList() {
 		String [] s = new String [reqList.size()];
 		for (int i = 0; i<s.length; i++) {
-			String t = "Request ID: "+ reqList.get(i).getReqID() + " - Number of teachers required: " + reqList.get(i).getTeachNo() +"\n" +"Skills required: " + reqList.get(i).printTrainingRequired() +"\n\n" ;
+			String t = "Request ID: "+ reqList.get(i).getReqID() +"\n"+ "No. of teachers required: " + reqList.get(i).getTeachNo() +"\n" +"Skills required: " + reqList.get(i).printTrainingRequired() +"\n" ;
 			s[i] = t;
 		}
 		
 		return s;
 	}
+	
+
 	
 	
 	public  ArrayList <TeachRequest> getListReference() {
