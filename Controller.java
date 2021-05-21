@@ -121,7 +121,7 @@ public class Controller implements ActionListener {
 				return; 
 			}
 		
-		//view.adminMain.assignF.setEnabled(false);
+		
 	}
 		
 		// 1.2 - ADMIN >> SEARCH TEACHERS BY DIFFERENT CRITERIA
@@ -140,6 +140,7 @@ public class Controller implements ActionListener {
 			if (inputguard.ensureNotNullReference(result.get(0))) {
 				for (PTTeacher p : result) {
 					view.adminMain.textArea.append(p.toString());
+					view.adminMain.textArea.append("\n");
 				}
 			}
 			else { 
@@ -160,7 +161,9 @@ public class Controller implements ActionListener {
 				
 				// Add these strings to the view
 				view.adminMain.textArea.append(i);
-				System.out.println(i);
+				view.adminMain.textArea.append("\n");
+				
+				
 			}
 
 		}
@@ -243,10 +246,13 @@ public class Controller implements ActionListener {
 		//1.5 ADMIN >> view list of teachers
 		else if (e.getSource() == view.adminMain.viewPTT) {
 			 
-			// Using a print list method instead cause trying to format via max char length of each name... 
+			
 			view.adminMain.textArea.setText("");
-			String s = data.getLOP().printList();
-			view.adminMain.textArea.append(s);
+			for (PTTeacher i : data.getLOP().getListReference()) {
+				view.adminMain.textArea.append(i.toString());
+				view.adminMain.textArea.append("\n");
+			}
+			
 		}
 		
 		//1.6 ADMIN >> add teacher to the system

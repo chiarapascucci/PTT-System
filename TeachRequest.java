@@ -96,7 +96,7 @@ public class TeachRequest {
 	public String printTrainingRequired() {
 		String s = "";
 		if(!(this.trainingRequired.isEmpty())) {
-			for(String i: this.trainingRequired) {	s = " " + i;	}
+			for(String i: this.trainingRequired) {	s = "\n- " + i+"\n";	System.out.println(s + " " + this.trainingRequired.size());}
 		}
 		
 		return s;

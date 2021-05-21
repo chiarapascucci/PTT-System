@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 
 public class AdminPanel extends JPanel {
 	private Controller c;
@@ -17,6 +18,7 @@ public class AdminPanel extends JPanel {
 	//main panels
 	protected JPanel panelR, panelC, panelL; //right, centre and left panels
 	protected JTextArea textArea;//text area for displaying results
+	protected JScrollPane scroll;
 	//assign teacher elements
 	protected JPanel assignF;//assign function panel
 	protected JButton assign; //button to assign teacher to request
@@ -54,13 +56,13 @@ public class AdminPanel extends JPanel {
 		
 		searchF = generateSearchF();
 	    	
-       		backButton = new JButton("Back"); // button to return to previous page
-       		backButton.setToolTipText("Return to previous page");
-        	backButton.addActionListener(c);
+       	backButton = new JButton("Back"); // button to return to previous page
+       	backButton.setToolTipText("Return to previous page");
+        backButton.addActionListener(c);
         
-        	viewReqs = new JButton ("View Requests");//button to view existing requests
-        	viewReqs.setToolTipText("View Requests");
-        	viewReqs.addActionListener(c);
+        viewReqs = new JButton ("View Requests");//button to view existing requests
+        viewReqs.setToolTipText("View Requests");
+        viewReqs.addActionListener(c);
         
 		viewPTT = new JButton ("View Teachers");// button to view teacher list
 		viewPTT.setToolTipText("View teachers");
@@ -77,10 +79,14 @@ public class AdminPanel extends JPanel {
 		GridLayout l = new GridLayout(5,2); //formatting centre and right panels and adding text area for results display
 		panelC = new JPanel();
 		panelR = new JPanel();
-		textArea = new JTextArea(80, 30);
+		textArea = new JTextArea(20,20);
+		scroll = new JScrollPane(textArea);
+		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
 		textArea.setEditable(false); 
-		textArea.setText("Select Action");
+		textArea.setLineWrap(true);
+		textArea.setWrapStyleWord(true);
+		
 		//creating function specific panels for admin
 		assignF = generateAssignF(); //create assign panel
 		assignF.setVisible(true);
@@ -120,8 +126,10 @@ public class AdminPanel extends JPanel {
 		panelC.add(titlePanelFour);
 		panelC.add(addTeacherF);
 		// panelC.add(textArea);
-		panelR.add(textArea);
-
+		
+		panelR.add(scroll);
+		//panelR.add(textArea);
+		
 		this.add(panelC); this.add(panelR);
 	}
 	
