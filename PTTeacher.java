@@ -57,15 +57,17 @@ public class PTTeacher {
 	
 	public String toString() {
 		
-		String s = "  First name: "+ fName +"\n"+ "  Last name: " + lName  + "\n" + "  ID: "+ tID + "\n";
+		String s = "  First name: "+ fName +"\n"+ "  Last name: " + lName  + "\n" + "  ID: "+ tID + "\n" + this.printSkills() + "\n";
 		
 		return s;
 	}
 	
 	public String printSkills() {
 		String s = "";
-		for(int i = 0; i<this.skills.size(); i++) {
-			s = " " + skills.get(i);
+		if (!this.skills.isEmpty()) {
+			for(int i = 0; i<this.skills.size(); i++) {
+				s = "  - " + skills.get(i)+"\n";
+			}
 		}
 		
 		return s;
