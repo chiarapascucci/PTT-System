@@ -117,7 +117,7 @@ public class TeachRequest {
 		for (int i = 0; i <= trainingRequired.size(); i++) {
 			
 		}
-		String output = "ID: " + id + " | Complete?: " + status + "skills: " + this.printTrainingRequired();
+		String output = "ID: " + id + "\nComplete: " + status + "\nSkills: " + this.printTrainingRequired();
 		return output;
 	}
 
