@@ -199,10 +199,12 @@ public class DataHandler extends AbstractDataHandlerFactory {
 			// For training data to be passed to request (remove outer curly brackets
 			temp = splitData[4].substring(1,splitData[4].length()-1);
 			
+			String [] train = temp.split(";");
+			
 			// Create a new request entity (adds to list automatically in the constructor to satisfy class invariant)
 			// Using constructor with ID to enforce constant ID for each teacher when loading in teacher data 
 			//											ID, 					CourseID, 			numTeachers, 		List ref,  Training required					
-			TeachRequest r = new TeachRequest(Integer.parseInt(splitData[0]), splitData[1], Integer.parseInt(splitData[3]),LOR,		temp ); 	
+			TeachRequest r = new TeachRequest(Integer.parseInt(splitData[0]), splitData[1], Integer.parseInt(splitData[3]),LOR,		train ); 	
 
 
 			/* Extract and set rest of TeachRequest attributes */
