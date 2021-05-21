@@ -25,7 +25,7 @@ public class AdminPanel extends JPanel {
 	//search by reqs elements
 	protected JPanel searchF; //panel for search functions
 	protected JComboBox <String> optionList; //list for selecting requirements
-	protected JTextField searchChoiceOne, searchChoiceTwo, searchChoiceThree  
+	protected JTextField searchChoiceOne, searchChoiceTwo, searchChoiceThree;  
 	protected JButton searchButton; //button for searching
 	private String[] options = {"Name","Skills", "Training" }; //list of requirement choices
 	

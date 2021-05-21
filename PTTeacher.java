@@ -56,7 +56,9 @@ public class PTTeacher {
 	//----------------//printing methods//--------------//
 	
 	public String toString() {
-		String s = ""+ fName + " " + lName + ", "+ tID +"\n";
+		
+		String s = "First name: "+ fName + "\nLast name: " + lName + "ID: "+ tID +"\n";
+		//String s = String.format("%-" + "s %s %5d",fName,lName,tID);
 		return s;
 	}
 	

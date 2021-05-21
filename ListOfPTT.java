@@ -1,9 +1,11 @@
 import java.util.ArrayList;
 
 public class ListOfPTT {
+	
+	// Attributes
 	private ArrayList <PTTeacher> list;
 	
-	//constructor
+	// Constructor
 	protected ListOfPTT () {
 		list = new ArrayList <PTTeacher>();
 	}
@@ -12,8 +14,6 @@ public class ListOfPTT {
 	protected void addTeacher(PTTeacher t) {
 		list.add(t);
 	}
-	
-	
 	
 	// Adding to ensure nextTID is always the highest
 	protected int maxID() {
@@ -77,4 +77,31 @@ public class ListOfPTT {
 		return this.list;
 	}
 	
+	
+	protected String printList() {
+		
+		String returnString = ""; 
+		
+		// Calculate the max fName and lName chars
+		int fName_maxChar = 0; 
+		int lName_maxChar = 0; 
+		for (PTTeacher p : list) {
+			if (p.getfName().length() > fName_maxChar) {
+				fName_maxChar = p.getfName().length(); 
+			}
+			
+			if (p.getlName().length() > lName_maxChar) {
+				lName_maxChar = p.getlName().length(); 
+			}
+		}
+		
+		// Generate string of list
+		for (PTTeacher p : list) {
+			returnString += String.format("%-" + (fName_maxChar+5) + "s%s%d\n", p.getfName(), p.getlName(), p.gettID());
+		}
+		
+		
+		return returnString; 
+	}
+
 }

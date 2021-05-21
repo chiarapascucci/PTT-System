@@ -10,7 +10,7 @@ public class ListOfRequests {
 	public String[] printReqListStatus() {
 		String [] s = new String [reqList.size()];
 		for (int i = 0; i<s.length; i++) {
-			String t = "request no. "+ reqList.get(i).getReqID() + " - " + reqList.get(i).getStatus() + "\n" ;
+			String t = "Request ID: "+ reqList.get(i).getReqID() + " - " + reqList.get(i).getStatus() + "\n" ;
 			s[i] = t;
 		}
 		return s;
@@ -19,7 +19,7 @@ public class ListOfRequests {
 	public String[] printReqList() {
 		String [] s = new String [reqList.size()];
 		for (int i = 0; i<s.length; i++) {
-			String t = "request no. "+ reqList.get(i).getReqID() + " - number required: " + reqList.get(i).getTeachNo() +"\n" +"skills req: " +reqList.get(i).printTrainingRequired() +"\n\n" ;
+			String t = "Request ID: "+ reqList.get(i).getReqID() + " - Number of teachers required: " + reqList.get(i).getTeachNo() +"\n" +"Skills required: " + reqList.get(i).printTrainingRequired() +"\n\n" ;
 			s[i] = t;
 		}
 		

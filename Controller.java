@@ -105,19 +105,19 @@ public class Controller implements ActionListener {
 				
 				outcome = p.assignTeacher(t);
 				if (!outcome) {
-					view.adminMain.textArea.setText("request cannot be assigned to teacher");				
+					view.adminMain.textArea.setText("Request cannot be assigned to teacher as teacher unavailable.");				
 				} else {
 					outcome = t.addTeacher(p);
 					if(!outcome) {
-						view.adminMain.textArea.setText("teacher cannot be assigned to request");
+						view.adminMain.textArea.setText("Teacher cannot be assigned to request as does not fulfil request requirments.");
 					} else {
-						view.adminMain.textArea.setText("success! teacher assigned to request");
+						view.adminMain.textArea.setText("Success! teacher assigned to request.");
 					}
 					
 				}
 			}
 			else {
-				view.adminMain.textArea.setText("invalid request number or teacher name");
+				view.adminMain.textArea.setText("Invalid request number or teacher name");
 				return; 
 			}
 		
@@ -137,11 +137,14 @@ public class Controller implements ActionListener {
 			// Store results in array list
 			ArrayList <PTTeacher> result = data.getLOP().findTeacher(s, i);
 			
-			for (PTTeacher p : result) {
-				view.adminMain.textArea.append(p.toString());
+			if (inputguard.ensureNotNullReference(result.get(0))) {
+				for (PTTeacher p : result) {
+					view.adminMain.textArea.append(p.toString());
+				}
 			}
-			if (result.size() == 0) {
+			else { 
 				view.adminMain.textArea.setText("No results.");
+				return;
 			}
 		}
 		
@@ -190,10 +193,12 @@ public class Controller implements ActionListener {
 				
 				// Based on option list choice, add String to skills or training
 				if (n == 0) {
-					t.addSkill(s);				
+					t.addSkill(s);
+					view.adminMain.textArea.setText("Skill: " + s + " added to teacher ID " + TID);
 				}
 				else if(n== 1) {
 					t.addTraining(s);
+					view.adminMain.textArea.setText("Training: " + s + " added to teacher ID " + TID);
 				}
 			}
 			else {
@@ -238,12 +243,10 @@ public class Controller implements ActionListener {
 		//1.5 ADMIN >> view list of teachers
 		else if (e.getSource() == view.adminMain.viewPTT) {
 			 
+			// Using a print list method instead cause trying to format via max char length of each name... 
 			view.adminMain.textArea.setText("");
-			
-			for ( int i = 0; i< data.getLOP().getListReference().size(); i++) {
-				String s = data.getLOP().getListReference().get(i).toString() + " " + data.getLOP().getListReference().get(i).printSkills()+ "\n\n";
-				view.adminMain.textArea.append(s);
-			}
+			String s = data.getLOP().printList();
+			view.adminMain.textArea.append(s);
 		}
 		
 		//1.6 ADMIN >> add teacher to the system
@@ -253,12 +256,14 @@ public class Controller implements ActionListener {
 			
 			PTTeacher t = new PTTeacher (fname, lname, data.getLOP());
 			
-			view.adminMain.textArea.setText("new teacher record created \n \n" + t);
+			view.adminMain.textArea.setText("New teacher record created: \n \n" + t);
 		}
 	
 		//2.1 CD >> VIEW STATUS OF REQUESTS IN THE SYSTEM
 		else if (e.getSource() == view.cDPanel.statCheck) {
-			System.out.println("view reqs status");
+			
+			System.out.println("View request statuses:");
+			
 			view.cDPanel.displayField.setText("");
 			String [] s = data.getLOR().printReqListStatus();
 			for (String i : s) {
@@ -286,7 +291,7 @@ public class Controller implements ActionListener {
 			String [] skills = s.split(",");
 			TeachRequest r = new TeachRequest (n,i,data.getLOR(), skills);
 			
-			view.cDPanel.displayField.setText("new request created: \n"+ r.toString());
+			view.cDPanel.displayField.setText("New request created: \n"+ r.toString());
 		}
 		
 		// Automatically save data after every operation 
