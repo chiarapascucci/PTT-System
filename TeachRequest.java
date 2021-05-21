@@ -51,6 +51,7 @@ public class TeachRequest {
 			return false;
 		}else{
 			this.assigned.add(target);
+			target.assignTeacher(this);
 			this.statusCheck();
 			return true;
 		}

@@ -219,6 +219,7 @@ public class DataHandler extends AbstractDataHandlerFactory {
 			for (int i = 0; i < tempArray.length; i++) {
 				if (! tempArray[i].isEmpty()) {
 					r.getAssigned().add(LOP.getTeacherRef(Integer.parseInt(tempArray[i])));
+					
 				}
 			}
 		}			
