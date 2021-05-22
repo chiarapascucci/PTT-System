@@ -74,7 +74,7 @@ public class CDPanel extends JPanel {
 		displayField.setText("Select Action");
         	scroll = new JScrollPane(displayField);
         	scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		rPanel.add(displayField);
+		rPanel.add(scroll);
 		
 		this.add(lPanel);
 		this.add(cPanel);
