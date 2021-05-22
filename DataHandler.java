@@ -184,18 +184,22 @@ public class DataHandler extends AbstractDataHandlerFactory {
 			String temp = splitData[4].substring(1,splitData[4].length()-1); 	// Remove out casing of Skills data {}
 			String[] tempArray = temp.split(";");
 			for (int i = 0; i < tempArray.length; i++) {
-				p.getSkills().add(tempArray[i]);
+				if (!tempArray[i].isEmpty()) {
+					p.getSkills().add(tempArray[i]);
+				}
 			}
 
 			// Training
 			temp = splitData[5].substring(1,splitData[5].length()-1); 
 			tempArray = temp.split(";");
 			for (int i = 0; i < tempArray.length; i++) {
-				p.getTraining().add(tempArray[i]);
+				if (!tempArray[i].isEmpty()) {
+					p.getTraining().add(tempArray[i]);
+				}
 			}
 		}
 		// Parse line as a request data object
-		if (data.charAt(0) == 'R') {
+		else if (data.charAt(0) == 'R') {
 
 			// Temp string container to store data
 			String temp;
