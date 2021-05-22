@@ -67,14 +67,14 @@ public class CDPanel extends JPanel {
 
 
 		//create a display for results and add to panel
-		displayField = new JTextArea();
+		displayField = new JTextArea(20,20);
 		displayField.setText("select action");
+        	scroll = new JScrollPane(displayField);
+        	scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		rPanel.add(displayField);
-
+		
 		this.add(lPanel);
 		this.add(cPanel);
 		this.add(rPanel);
-
 	}
-
 }
