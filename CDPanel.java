@@ -68,7 +68,7 @@ public class CDPanel extends JPanel {
 
 		//create a display for results and add to panel
 		displayField = new JTextArea(20,20);
-		displayField.setText("select action");
+		displayField.setText("Select Action");
         	scroll = new JScrollPane(displayField);
         	scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		rPanel.add(displayField);
