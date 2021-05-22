@@ -88,7 +88,7 @@ public class DataHandler extends AbstractDataHandlerFactory {
 		finally {
 			
 			//Set PTT assigned to match retrieved request objects
-			//Has to be done after all Teachers + Requests instantiated
+			//Has to be done after all Teachers + Requests loaded
 			for(TeachRequest r: LOR.getListReference()) {
 				if(!(r.getAssigned().isEmpty())) {	//ignore request if no assigned teachers
 					for(PTTeacher p: r.getAssigned()) {
@@ -96,7 +96,7 @@ public class DataHandler extends AbstractDataHandlerFactory {
 					}
 				}
 			}
-
+			
 			// Close file reader and Scanner
 			try {
 				filereader.close(); 
@@ -218,9 +218,6 @@ public class DataHandler extends AbstractDataHandlerFactory {
 
 
 			/* Extract and set rest of TeachRequest attributes */
-
-			// Set request status
-			r.setStatus(Boolean.parseBoolean(splitData[1]));
 			
 			// Teachers assigned to request
 			temp 		= splitData[5].substring(1,splitData[5].length()-1); 	// Remove out casing of assigned teacher data 
@@ -231,8 +228,7 @@ public class DataHandler extends AbstractDataHandlerFactory {
 			// Iterating over IDs to fetch references of PTTeachers to assign to request
 			for (int i = 0; i < tempArray.length; i++) {
 				if (! tempArray[i].isEmpty()) {
-					r.getAssigned().add(LOP.getTeacherRef(Integer.parseInt(tempArray[i])));
-					
+					r.addTeacher(LOP.getTeacherRef(Integer.parseInt(tempArray[i])));	
 				}
 			}
 		}			
