@@ -111,7 +111,7 @@ public class Controller implements ActionListener {
 				/* If one assignment failed due to checks, remove successful *
 				 * one as Teacher/Request references mirror each other.		 */
 				if ((!outcome1) || (!outcome2)) {
-					if(outcome1) {		// note to self, introduce if(getter.contains to shorten memory probs
+					if(outcome1) {		
 						p.removeRequest(t);
 					} else if(outcome2) {
 						t.removeTeacher(p);
