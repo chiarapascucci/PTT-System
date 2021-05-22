@@ -366,7 +366,7 @@ public class Controller implements ActionListener {
 			view.cDPanel.displayField.setText("");
 			
 			// Get course name
-			String n = view.cDPanel.courseName.getText().trim();
+			String n = view.cDPanel.courseName.getText().trim().toLowerCase();
 		
 			// Get number of teachers required
 			int i; 
@@ -379,7 +379,7 @@ public class Controller implements ActionListener {
 			}
 			
 			//  Get entered skills
-			String s = view.cDPanel.skills.getText();
+			String s = view.cDPanel.skills.getText().toLowerCase();
 			String [] skills = s.split(",");
 			
 			// Ensure each skill has no white spaces which affect results
