@@ -57,7 +57,7 @@ public class PTTeacher {
 	
 	public String toString() {
 		
-		String s = "  First name: "+ fName +"\n"+ "  Last name: " + lName  + "\n" + "  ID: "+ tID + "\n" + this.printSkills() + "\n";
+		String s = "  First name: "+ fName +"\n"+ "  Last name: " + lName  + "\n" + "  ID: "+ tID + "\n" +"  Skills:"+"\n"+ this.printSkills() + "\n";
 		
 		return s;
 	}
