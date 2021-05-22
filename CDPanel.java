@@ -5,6 +5,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.JScrollPane;
 
 public class CDPanel extends JPanel {
 	private Controller c;
@@ -13,6 +14,7 @@ public class CDPanel extends JPanel {
 	protected JTextField courseName, noReq, skills; 
 	private JLabel cName, nRq, rSkills;
 	protected JTextArea displayField;
+	protected JScrollPane scroll;
 	
 	public CDPanel(Controller c) {
 		this.c = c;
