@@ -13,6 +13,7 @@ public class CDPanel extends JPanel {
 	protected JTextField courseName, noReq, skills; 
 	private JLabel cName, nRq, rSkills;
 	protected JTextArea displayField;
+	protected JScrollPanel scroll;
 	
 	public CDPanel(Controller c) {
 		this.c = c;
@@ -67,7 +68,7 @@ public class CDPanel extends JPanel {
 
 
 		//create a display for results and add to panel
-		displayField = new JTextArea(20,20);
+		displayField = new JTextArea(40,20);
 		displayField.setText("Select Action");
         	scroll = new JScrollPane(displayField);
         	scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
