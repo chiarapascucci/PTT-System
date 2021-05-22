@@ -14,7 +14,6 @@ public class CDPanel extends JPanel {
 	protected JTextField courseName, noReq, skills; 
 	private JLabel cName, nRq, rSkills;
 	protected JTextArea displayField;
-	protected JScrollPane scroll;
 	
 	public CDPanel(Controller c) {
 		this.c = c;
