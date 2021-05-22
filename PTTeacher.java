@@ -85,8 +85,8 @@ public class PTTeacher {
 	//-----------------//Training and Skills Methods//--------------//
 	
 	public boolean addTraining(String s) {
-		s.trim().toLowerCase();
-		if (training.contains(s)) return false;
+		s= s.trim().toLowerCase();
+		if (training.contains(s) || skills.contains(s)) return false;
 		else {
 			training.add(s);
 			return true;
@@ -95,7 +95,7 @@ public class PTTeacher {
 	}
 	
 	public boolean addSkill(String s) {
-		s.trim().toLowerCase();
+		s= s.trim().toLowerCase();
 		if (skills.contains(s)) return false;
 		else {
 			skills.add(s);
@@ -104,7 +104,7 @@ public class PTTeacher {
 	}
 	
 	public boolean removeTraining(String s) {
-		s.trim().toLowerCase();
+		s = s.trim().toLowerCase();
 		if (training.contains(s)) {
 			training.remove(s);
 			invalidCheck(s);
@@ -116,7 +116,7 @@ public class PTTeacher {
 	}
 	
 	public boolean removeSkill(String s) {
-		s.trim().toLowerCase();
+		s = s.trim().toLowerCase();
 		if (skills.contains(s)) {
 			skills.remove(s);
 			invalidCheck(s);
@@ -128,6 +128,7 @@ public class PTTeacher {
 	
 	// specialised training/skill method: when training is completed the teacher is recorded as having acquired the skill
 	public boolean completeTraining(String s) {
+		s = s.toLowerCase().trim();
 		boolean res = false;
 		int index = training.indexOf(s);
 		if (index == -1) return res;

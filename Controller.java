@@ -202,12 +202,18 @@ public class Controller implements ActionListener {
 				
 				// Based on option list choice, add String to skills or training
 				if (n == 0) {
-					t.addSkill(s);
-					view.adminMain.textArea.setText("Skill: " + s + " added to teacher ID " + TID);
+					boolean res = t.addSkill(s);
+					if (res) {
+						view.adminMain.textArea.setText("Skill: " + s + " added to teacher ID " + TID);
+					}
+					else view.adminMain.textArea.setText("The selected teacher already has skill: " + s);
 				}
 				else if(n== 1) {
-					t.addTraining(s);
-					view.adminMain.textArea.setText("Training: " + s + " added to teacher ID " + TID);
+					boolean res = t.addTraining(s);
+					if (res) {
+						view.adminMain.textArea.setText("Training: " + s + " added to teacher ID " + TID);
+					}
+					else view.adminMain.textArea.setText("The selected teacher already has training/skill: " + s);
 				}
 			}
 			else {
