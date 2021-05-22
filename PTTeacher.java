@@ -103,9 +103,16 @@ public class PTTeacher {
 	}
 	
 	// specialised training/skill method: when training is completed the teacher is recorded as having acquired the skill
-	public void completeTraining(int i) {
-		skills.add(training.get(i));
-		training.remove(training.get(i));
+	public boolean completeTraining(String s) {
+		boolean res = false;
+		int index = training.indexOf(s);
+		if (index == -1) return res;
+		else {
+			skills.add(training.get(index));
+			training.remove(training.get(index));
+			res=true;
+			return res;
+		}
 	}
 	
 	// Checks whether removed training/skill invalidates PTTeacher's assigned requests

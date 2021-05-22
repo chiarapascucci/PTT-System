@@ -248,6 +248,43 @@ public class Controller implements ActionListener {
 				}
 			}
 		}
+		//1.4.3 ADMIN >> mark training as complete: training gets removed from trainig list and added as a skill for the target teacher
+		else if(e.getSource()==view.adminMain.compTraining) {
+			view.adminMain.textArea.setText("");
+			
+			// Get teacher ID from input field
+			int TID; 
+			if (inputguard.ensureInteger(view.adminMain.teachID.getText())) {
+				TID = Integer.parseInt(view.adminMain.teachID.getText());
+			}
+			else {
+				view.adminMain.textArea.setText(inputguard.ensureIntegerMsg);
+				return; 
+			}
+			
+			// Get teacher reference
+			PTTeacher t = data.getLOP().getTeacherRef(TID);
+			
+			// Ensure reference is not null 
+			if (inputguard.ensureNotNullReference(t)) {
+				
+				int n = view.adminMain.optionListUpdate.getSelectedIndex();
+				String s = view.adminMain.choice.getText().trim();
+				
+				if (n == 0) {
+					view.adminMain.textArea.setText("You have selected skills, please select training");
+				}
+				else if (n ==1 ) {
+					boolean res = t.completeTraining(s);
+					if (res == false) {
+						view.adminMain.textArea.setText("The selected teacher does not have this training assigned. \n please check your input");
+					}
+					else {
+						view.adminMain.textArea.setText("teacher with ID: " + t.gettID() +"\n"+ "training ["+s+"] completed");
+					}
+				}
+			}
+		}
 		
 		//1.5 ADMIN >> view list of teachers
 		else if (e.getSource() == view.adminMain.viewPTT) {
