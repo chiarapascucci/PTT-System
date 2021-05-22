@@ -33,7 +33,7 @@ public class Controller implements ActionListener {
 		// Set the data handler
 		this.data = dataHandlerFactory; 
 			
-		// Load data for application 
+		// Load data for application (File name hard coded and assumed to be in directory of program) 
 		filepathAndName = "PTTAppData.txt";
 		data.loadData(filepathAndName);
 		
@@ -61,6 +61,7 @@ public class Controller implements ActionListener {
 			
 			// Save file before exiting 
 			data.saveData(filepathAndName);
+			
 			System.exit(0);
 		}
 		
@@ -116,14 +117,14 @@ public class Controller implements ActionListener {
 					} else if(outcome2) {
 						t.removeTeacher(p);
 					}
-					view.adminMain.textArea.setText("could not assign teacher");				
+					view.adminMain.textArea.setText("Could not assign teacher.");				
 				} else {
-					view.adminMain.textArea.setText("success! teacher assigned to request");
+					view.adminMain.textArea.setText("Success! teacher assigned to request.");
 					
 				}
 			}
 			else {
-				view.adminMain.textArea.setText("invalid request number or teacher name");
+				view.adminMain.textArea.setText("Invalid request number or teacher name.");
 				return; 
 			}
 		
@@ -138,19 +139,29 @@ public class Controller implements ActionListener {
 			// Start option list 
 			int i = view.adminMain.optionList.getSelectedIndex();
 			System.out.println("search - int:" + i );
+			
+			// Get user input (trim.() to ensure any spaces dont ruin input)
 			String s = view.adminMain.searchChoiceOne.getText().trim();
 			
-			// Store results in array list
-			ArrayList <PTTeacher> result = data.getLOP().findTeacher(s, i);
-			
-			if (inputguard.ensureNotNullReference(result.get(0))) {
-				for (PTTeacher p : result) {
-					view.adminMain.textArea.append(p.toString());
-					view.adminMain.textArea.append("\n");
+			// Check if string is suitable (not empty for this case) 
+			if (inputguard.ensureSuitableString(s)) {
+				
+				// Store results in array list
+				ArrayList <PTTeacher> result = data.getLOP().findTeacher(s, i);
+				
+				if (!result.isEmpty()) {
+					for (PTTeacher p : result) {
+						view.adminMain.textArea.append(p.toString());
+						view.adminMain.textArea.append("\n");
+					}
+				}
+				else { 
+					view.adminMain.textArea.setText("No results.");
+					return;
 				}
 			}
 			else { 
-				view.adminMain.textArea.setText("No results.");
+				view.adminMain.textArea.setText(inputguard.ensureStringNotEmptyMsg);
 				return;
 			}
 		}
@@ -168,10 +179,7 @@ public class Controller implements ActionListener {
 				// Add these strings to the view
 				view.adminMain.textArea.append(i);
 				view.adminMain.textArea.append("\n");
-				
-				
 			}
-
 		}
 		
 		//1.4 ADMIN >> UPDATE INFORMATION FOR A SPECIFIC TEACHER
@@ -200,6 +208,7 @@ public class Controller implements ActionListener {
 				int n 		= view.adminMain.optionListUpdate.getSelectedIndex();
 				String s 	= view.adminMain.choice.getText().trim();
 				
+
 				// Based on option list choice, add String to skills or training
 				if (n == 0) {
 					boolean res = t.addSkill(s);
@@ -214,6 +223,24 @@ public class Controller implements ActionListener {
 						view.adminMain.textArea.setText("Training: " + s + " added to teacher ID " + TID);
 					}
 					else view.adminMain.textArea.setText("The selected teacher already has training/skill: " + s);
+
+				// Ensure string is not empty
+				if (inputguard.ensureSuitableString(s)) {
+					
+						if (n == 0) {
+					boolean res = t.addSkill(s);
+					if (res) {
+						view.adminMain.textArea.setText("Skill: " + s + " added to teacher ID " + TID);
+					}
+					else view.adminMain.textArea.setText("The selected teacher already has skill: " + s);
+				}
+				else if(n== 1) {
+					boolean res = t.addTraining(s);
+					if (res) {
+						view.adminMain.textArea.setText("Training: " + s + " added to teacher ID " + TID);
+					}
+					else view.adminMain.textArea.setText("The selected teacher already has training/skill: " + s);
+
 				}
 			}
 			else {
@@ -246,6 +273,7 @@ public class Controller implements ActionListener {
 				int n = view.adminMain.optionListUpdate.getSelectedIndex();
 				String s = view.adminMain.choice.getText().trim();
 				
+
 				if (n == 0) {
 					boolean res = t.removeSkill(s);
 					if (!res) view.adminMain.textArea.setText("Oh dear! this teacher does not have the skill entered");
@@ -294,7 +322,12 @@ public class Controller implements ActionListener {
 					else {
 						view.adminMain.textArea.setText("teacher with ID: " + t.gettID() +"\n"+ "training ["+s+"] completed");
 					}
+
 				}
+			}
+			else {
+				view.adminMain.textArea.setText("Teacher ID does not exist.");
+				return;
 			}
 		}
 		
@@ -312,12 +345,18 @@ public class Controller implements ActionListener {
 		
 		//1.6 ADMIN >> add teacher to the system
 		else if (e.getSource() == view.adminMain.addT) {
-			String fname = view.adminMain.addFName.getText();
-			String lname = view.adminMain.addLName.getText();
+			String fname = view.adminMain.addFName.getText().trim();
+			String lname = view.adminMain.addLName.getText().trim();
 			
-			PTTeacher t = new PTTeacher (fname, lname, data.getLOP());
-			
-			view.adminMain.textArea.setText("New teacher record created: \n \n" + t);
+			if (inputguard.ensureSuitableString(fname) && inputguard.ensureSuitableString(lname)) {
+				PTTeacher t = new PTTeacher (fname, lname, data.getLOP());
+				view.adminMain.textArea.setText("New teacher record created: \n \n" + t);
+			}
+			else { 
+				view.adminMain.textArea.setText(inputguard.ensureStringNotEmptyMsg); 
+				return;
+			}
+
 		}
 	
 		//2.1 CD >> VIEW STATUS OF REQUESTS IN THE SYSTEM
@@ -337,8 +376,11 @@ public class Controller implements ActionListener {
 		else if (e.getSource() == view.cDPanel.submitReq) {
 			
 			view.cDPanel.displayField.setText("");
-			String n = view.cDPanel.courseName.getText();
-				
+			
+			// Get course name
+			String n = view.cDPanel.courseName.getText().trim();
+		
+			// Get number of teachers required
 			int i; 
 			if (inputguard.ensureInteger(view.cDPanel.noReq.getText())) {
 				i = Integer.parseInt(view.cDPanel.noReq.getText());
@@ -347,15 +389,28 @@ public class Controller implements ActionListener {
 				view.cDPanel.displayField.setText(inputguard.ensureIntegerMsg);
 				return;
 			}
-						
+			
+			//  Get entered skills
 			String s = view.cDPanel.skills.getText();
 			String [] skills = s.split(",");
-			TeachRequest r = new TeachRequest (n,i,data.getLOR(), skills);
 			
-			view.cDPanel.displayField.setText("New request created: \n"+ r.toString());
+			// Ensure each skill has no white spaces which affect results
+			for (int j = 0; j < skills.length; j++) {
+				skills[j] = skills[j].trim(); 
+			}
+			
+			if (inputguard.ensureSuitableString(n)) {
+				TeachRequest r = new TeachRequest (n,i,data.getLOR(), skills);
+				view.cDPanel.displayField.setText("New request created: \n"+ r.toString());
+			} 
+			else {
+				view.cDPanel.displayField.setText(inputguard.ensureStringNotEmptyMsg + "in Course Name.");
+				return;
+			}
+			
 		}
 		
-		// Automatically save data after every operation 
+		// Automatically save data after every operation to ensure data is preserved in the event of a crash
 		data.saveData(filepathAndName);
 	}
 }

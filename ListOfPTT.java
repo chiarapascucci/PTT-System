@@ -62,8 +62,12 @@ public class ListOfPTT {
 		s.toLowerCase().trim();
 		
 		if ( i == 0) {
+			
 			PTTeacher p = this.getTeacherRef(s);
-			result.add(p);
+			
+			if (p != null) {
+				result.add(p);
+			}
 		}
 		
 		else if (i == 1) {
