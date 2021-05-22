@@ -87,6 +87,16 @@ public class DataHandler extends AbstractDataHandlerFactory {
 		}
 		finally {
 			
+			//Set PTT assigned to match retrieved request objects
+			//Has to be done after all Teachers + Requests instantiated
+			for(TeachRequest r: LOR.getListReference()) {
+				if(!(r.getAssigned().isEmpty())) {	//ignore request if no assigned teachers
+					for(PTTeacher p: r.getAssigned()) {
+						p.getAssigned().add(r);
+					}
+				}
+			}
+
 			// Close file reader and Scanner
 			try {
 				filereader.close(); 
@@ -204,11 +214,14 @@ public class DataHandler extends AbstractDataHandlerFactory {
 			// Create a new request entity (adds to list automatically in the constructor to satisfy class invariant)
 			// Using constructor with ID to enforce constant ID for each teacher when loading in teacher data 
 			//											ID, 					CourseID, 			numTeachers, 		List ref,  Training required					
-			TeachRequest r = new TeachRequest(Integer.parseInt(splitData[0]), splitData[1], Integer.parseInt(splitData[3]),LOR,		train ); 	
+			TeachRequest r = new TeachRequest(Integer.parseInt(splitData[0]), splitData[2], Integer.parseInt(splitData[3]),LOR,		train ); 	
 
 
 			/* Extract and set rest of TeachRequest attributes */
 
+			// Set request status
+			r.setStatus(Boolean.parseBoolean(splitData[1]));
+			
 			// Teachers assigned to request
 			temp 		= splitData[5].substring(1,splitData[5].length()-1); 	// Remove out casing of assigned teacher data 
 			
