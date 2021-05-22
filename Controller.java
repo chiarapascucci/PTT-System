@@ -241,13 +241,19 @@ public class Controller implements ActionListener {
 				String s = view.adminMain.choice.getText().trim();
 				
 				if (n == 0) {
-					t.removeSkill(s);
+					boolean res = t.removeSkill(s);
+					if (!res) view.adminMain.textArea.setText("Oh dear! this teacher does not have the skill entered");
+					else view.adminMain.textArea.setText("skill ["+s+"] has been removed from teacher ID: "+t.gettID());
 				}
 				else if (n ==1 ) {
-					t.removeTraining(s);
+					boolean res = t.removeTraining(s);
+					if (!res) view.adminMain.textArea.setText("Oh dear! this teacher does not have the training entered");
+					else view.adminMain.textArea.setText("training ["+s+"] has been removed from teacher ID: "+t.gettID());
 				}
 			}
 		}
+		
+		
 		//1.4.3 ADMIN >> mark training as complete: training gets removed from trainig list and added as a skill for the target teacher
 		else if(e.getSource()==view.adminMain.compTraining) {
 			view.adminMain.textArea.setText("");

@@ -84,22 +84,46 @@ public class PTTeacher {
 	
 	//-----------------//Training and Skills Methods//--------------//
 	
-	public void addTraining(String s) {
-		training.add(s);
+	public boolean addTraining(String s) {
+		s.trim().toLowerCase();
+		if (training.contains(s)) return false;
+		else {
+			training.add(s);
+			return true;
+		}
+		
 	}
 	
-	public void addSkill(String s) {
-		skills.add(s);		
+	public boolean addSkill(String s) {
+		s.trim().toLowerCase();
+		if (skills.contains(s)) return false;
+		else {
+			skills.add(s);
+			return true;
+		}	
 	}
 	
-	public void removeTraining(String s) {
-		training.remove(s);
-		invalidCheck(s);
+	public boolean removeTraining(String s) {
+		s.trim().toLowerCase();
+		if (training.contains(s)) {
+			training.remove(s);
+			invalidCheck(s);
+			return true;
+		}
+		
+		else return false;
+		
 	}
 	
-	public void removeSkill(String s) {
-		skills.remove(s);
-		invalidCheck(s);
+	public boolean removeSkill(String s) {
+		s.trim().toLowerCase();
+		if (skills.contains(s)) {
+			skills.remove(s);
+			invalidCheck(s);
+			return true;
+		}
+		
+		else return false;
 	}
 	
 	// specialised training/skill method: when training is completed the teacher is recorded as having acquired the skill
@@ -209,17 +233,17 @@ public class PTTeacher {
 	
 	//--------//Data Handler Helper Methods//-------//
 	//methods to help data loading and writing by DataHandler class. 
-	//strings are trimmed
+	//strings are trimmed and set to lower cases
 	
 	protected void addSkillArray(ArrayList <String> sArray) { 
-		for (String i : sArray) i = i.trim();
+		for (String i : sArray) i = i.trim().toLowerCase();
 		skills = sArray; 
 		
 		
 	}
 	  
 	public void addTrainingArray(ArrayList <String> tArray) { 
-		for (String i : tArray) i = i.trim();
+		for (String i : tArray) i = i.trim().toLowerCase();
 		training = tArray;
 	}
 	

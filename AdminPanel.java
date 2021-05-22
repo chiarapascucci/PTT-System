@@ -179,7 +179,7 @@ public class AdminPanel extends JPanel {
 		
 		compTraining = new JButton("Complete");
 		compTraining.addActionListener(c);
-		//compTraining.setEnabled(false);
+		
 
 		//adds all components to panel and formats them
 		updateTeach.setLayout(new GridLayout(5,2));
