@@ -1,8 +1,9 @@
+package DataHandling;
 
 // Import statements 
 import java.io.*;
 import java.util.Scanner;
-
+import ModelViewController.*;
 /* 
  * Class Objective: 
  * - Read program data from a .txt file 

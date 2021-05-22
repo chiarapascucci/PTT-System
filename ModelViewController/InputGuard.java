@@ -1,4 +1,4 @@
-
+package ModelViewController;
 public class InputGuard {
 
 	// Attributes
