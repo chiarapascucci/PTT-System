@@ -210,42 +210,28 @@ public class Controller implements ActionListener {
 				
 
 				// Based on option list choice, add String to skills or training
-				if (n == 0) {
-					boolean res = t.addSkill(s);
-					if (res) {
-						view.adminMain.textArea.setText("Skill: " + s + " added to teacher ID " + TID);
-					}
-					else view.adminMain.textArea.setText("The selected teacher already has skill: " + s);
-				}
-				else if(n== 1) {
-					boolean res = t.addTraining(s);
-					if (res) {
-						view.adminMain.textArea.setText("Training: " + s + " added to teacher ID " + TID);
-					}
-					else view.adminMain.textArea.setText("The selected teacher already has training/skill: " + s);
-
-				// Ensure string is not empty
+				//ensure string is not empty
 				if (inputguard.ensureSuitableString(s)) {
-					
-						if (n == 0) {
-					boolean res = t.addSkill(s);
-					if (res) {
-						view.adminMain.textArea.setText("Skill: " + s + " added to teacher ID " + TID);
+					if (n == 0) {
+						boolean res = t.addSkill(s);
+						if (res) {
+							view.adminMain.textArea.setText("Skill: " + s + " added to teacher ID " + TID);
+						}
+						else view.adminMain.textArea.setText("The selected teacher already has skill: " + s);
 					}
-					else view.adminMain.textArea.setText("The selected teacher already has skill: " + s);
+					else if(n== 1) {
+						boolean res = t.addTraining(s);
+						if (res) {
+							view.adminMain.textArea.setText("Training: " + s + " added to teacher ID " + TID);
+						}
+						else view.adminMain.textArea.setText("The selected teacher already has training/skill: " + s);
+					}	
 				}
-				else if(n== 1) {
-					boolean res = t.addTraining(s);
-					if (res) {
-						view.adminMain.textArea.setText("Training: " + s + " added to teacher ID " + TID);
-					}
-					else view.adminMain.textArea.setText("The selected teacher already has training/skill: " + s);
-
-				}
+				else view.adminMain.textArea.setText("Please enter a skill or training");
 			}
 			else {
 				view.adminMain.textArea.setText("Teacher ID does not exist.");
-				return; 
+				
 			}
 
 		}
@@ -273,17 +259,19 @@ public class Controller implements ActionListener {
 				int n = view.adminMain.optionListUpdate.getSelectedIndex();
 				String s = view.adminMain.choice.getText().trim();
 				
-
-				if (n == 0) {
-					boolean res = t.removeSkill(s);
-					if (!res) view.adminMain.textArea.setText("Oh dear! this teacher does not have the skill entered");
-					else view.adminMain.textArea.setText("skill ["+s+"] has been removed from teacher ID: "+t.gettID());
+				if (inputguard.ensureSuitableString(s)) {
+					if (n == 0) {
+						boolean res = t.removeSkill(s);
+						if (!res) view.adminMain.textArea.setText("Oh dear! this teacher does not have the skill entered");
+						else view.adminMain.textArea.setText("skill ["+s+"] has been removed from teacher ID: "+t.gettID());
+					}
+					else if (n ==1 ) {
+						boolean res = t.removeTraining(s);
+						if (!res) view.adminMain.textArea.setText("Oh dear! this teacher does not have the training entered");
+						else view.adminMain.textArea.setText("training ["+s+"] has been removed from teacher ID: "+t.gettID());
+					}
 				}
-				else if (n ==1 ) {
-					boolean res = t.removeTraining(s);
-					if (!res) view.adminMain.textArea.setText("Oh dear! this teacher does not have the training entered");
-					else view.adminMain.textArea.setText("training ["+s+"] has been removed from teacher ID: "+t.gettID());
-				}
+				else view.adminMain.textArea.setText("Please enter a skill/training to remove");				
 			}
 		}
 		
