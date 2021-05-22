@@ -157,7 +157,7 @@ public class TeachRequest {
 		return status;
 	}
 	
-	protected void setStatus(boolean status) {
+	public void setStatus(boolean status) {
 		this.status = status;
 	}
 

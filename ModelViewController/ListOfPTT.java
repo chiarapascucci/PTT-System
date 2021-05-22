@@ -7,7 +7,7 @@ public class ListOfPTT {
 	private ArrayList <PTTeacher> list;
 	
 	// Constructor
-	protected ListOfPTT () {
+	public ListOfPTT () {
 		list = new ArrayList <PTTeacher>();
 	}
 	
@@ -31,7 +31,7 @@ public class ListOfPTT {
 	}
 	
 	// Adding a getPTTeacherReference function to find a teacher with their ID number
-	protected PTTeacher getTeacherRef(int ID) {
+	public PTTeacher getTeacherRef(int ID) {
 		
 		// Iterate over list
 		for (int i = 0; i < list.size(); i++) {
@@ -80,7 +80,7 @@ public class ListOfPTT {
 		return result;
 	}
 	
-	protected ArrayList <PTTeacher> getListReference(){
+	public ArrayList <PTTeacher> getListReference(){
 		return this.list;
 	}
 	
