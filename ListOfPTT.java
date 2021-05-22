@@ -46,8 +46,8 @@ public class ListOfPTT {
 	//method to find teacher by their first name
 	public PTTeacher getTeacherRef(String n) {
 		for (PTTeacher t : list) {
-			
-			if (t.getfName().trim().equals(n)) return t;
+			n.toLowerCase();
+			if (t.getfName().trim().toLowerCase().equals(n)) return t;
 		}
 		
 		return null;
@@ -58,6 +58,8 @@ public class ListOfPTT {
 	protected ArrayList <PTTeacher> findTeacher(String s, int i){
 		
 		ArrayList <PTTeacher> result = new ArrayList <PTTeacher>();
+		
+		s.toLowerCase().trim();
 		
 		if ( i == 0) {
 			

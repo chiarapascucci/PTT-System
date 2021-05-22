@@ -36,7 +36,7 @@ public class AdminPanel extends JPanel {
 	protected JTextField teachID,choice; 
 	private String[] optionsUpdate= {"Skills", "Training" };
 	protected JComboBox <String> optionListUpdate; //options for updating teacher data
-	protected JButton addSkill, remSkill; //button to add or remove skill/training
+	protected JButton addSkill, remSkill,compTraining; //button to add or remove skill/training and button to mark training as complete
 	
 	//add teacher to system
 	protected JPanel addTeacherF; //add new teacher panel
@@ -176,6 +176,10 @@ public class AdminPanel extends JPanel {
 		remSkill = new JButton("Remove"); //creates a button that removes skill/training
 		remSkill.setToolTipText("Remove skill/training");
 		remSkill.addActionListener(c);
+		
+		compTraining = new JButton("Complete");
+		compTraining.addActionListener(c);
+		
 
 		//adds all components to panel and formats them
 		updateTeach.setLayout(new GridLayout(5,2));
@@ -187,6 +191,7 @@ public class AdminPanel extends JPanel {
 		updateTeach.add(choice);
 		updateTeach.add(addSkill);
 		updateTeach.add(remSkill);
+		updateTeach.add(compTraining);
 
 		return updateTeach;
 	}

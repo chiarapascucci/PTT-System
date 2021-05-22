@@ -208,22 +208,39 @@ public class Controller implements ActionListener {
 				int n 		= view.adminMain.optionListUpdate.getSelectedIndex();
 				String s 	= view.adminMain.choice.getText().trim();
 				
+
+				// Based on option list choice, add String to skills or training
+				if (n == 0) {
+					boolean res = t.addSkill(s);
+					if (res) {
+						view.adminMain.textArea.setText("Skill: " + s + " added to teacher ID " + TID);
+					}
+					else view.adminMain.textArea.setText("The selected teacher already has skill: " + s);
+				}
+				else if(n== 1) {
+					boolean res = t.addTraining(s);
+					if (res) {
+						view.adminMain.textArea.setText("Training: " + s + " added to teacher ID " + TID);
+					}
+					else view.adminMain.textArea.setText("The selected teacher already has training/skill: " + s);
+
 				// Ensure string is not empty
 				if (inputguard.ensureSuitableString(s)) {
 					
-					// Based on option list choice, add String to skills or training
-					if (n == 0) {
-						t.addSkill(s);
+						if (n == 0) {
+					boolean res = t.addSkill(s);
+					if (res) {
 						view.adminMain.textArea.setText("Skill: " + s + " added to teacher ID " + TID);
 					}
-					else if(n== 1) {
-						t.addTraining(s);
+					else view.adminMain.textArea.setText("The selected teacher already has skill: " + s);
+				}
+				else if(n== 1) {
+					boolean res = t.addTraining(s);
+					if (res) {
 						view.adminMain.textArea.setText("Training: " + s + " added to teacher ID " + TID);
 					}
-				}
-				else {
-					view.adminMain.textArea.setText(inputguard.ensureStringNotEmptyMsg);
-					return;
+					else view.adminMain.textArea.setText("The selected teacher already has training/skill: " + s);
+
 				}
 			}
 			else {
@@ -256,17 +273,56 @@ public class Controller implements ActionListener {
 				int n = view.adminMain.optionListUpdate.getSelectedIndex();
 				String s = view.adminMain.choice.getText().trim();
 				
-				if (inputguard.ensureSuitableString(s)) {
-					if (n == 0) {
-						t.removeSkill(s);
-					}
-					else if (n == 1) {
-						t.removeTraining(s);
-					}
+
+				if (n == 0) {
+					boolean res = t.removeSkill(s);
+					if (!res) view.adminMain.textArea.setText("Oh dear! this teacher does not have the skill entered");
+					else view.adminMain.textArea.setText("skill ["+s+"] has been removed from teacher ID: "+t.gettID());
 				}
-				else {
-					view.adminMain.textArea.setText(inputguard.ensureStringNotEmptyMsg);
-					return; 
+				else if (n ==1 ) {
+					boolean res = t.removeTraining(s);
+					if (!res) view.adminMain.textArea.setText("Oh dear! this teacher does not have the training entered");
+					else view.adminMain.textArea.setText("training ["+s+"] has been removed from teacher ID: "+t.gettID());
+				}
+			}
+		}
+		
+		
+		//1.4.3 ADMIN >> mark training as complete: training gets removed from trainig list and added as a skill for the target teacher
+		else if(e.getSource()==view.adminMain.compTraining) {
+			view.adminMain.textArea.setText("");
+			
+			// Get teacher ID from input field
+			int TID; 
+			if (inputguard.ensureInteger(view.adminMain.teachID.getText())) {
+				TID = Integer.parseInt(view.adminMain.teachID.getText());
+			}
+			else {
+				view.adminMain.textArea.setText(inputguard.ensureIntegerMsg);
+				return; 
+			}
+			
+			// Get teacher reference
+			PTTeacher t = data.getLOP().getTeacherRef(TID);
+			
+			// Ensure reference is not null 
+			if (inputguard.ensureNotNullReference(t)) {
+				
+				int n = view.adminMain.optionListUpdate.getSelectedIndex();
+				String s = view.adminMain.choice.getText().trim();
+				
+				if (n == 0) {
+					view.adminMain.textArea.setText("You have selected skills, please select training");
+				}
+				else if (n ==1 ) {
+					boolean res = t.completeTraining(s);
+					if (res == false) {
+						view.adminMain.textArea.setText("The selected teacher does not have this training assigned. \n please check your input");
+					}
+					else {
+						view.adminMain.textArea.setText("teacher with ID: " + t.gettID() +"\n"+ "training ["+s+"] completed");
+					}
+
 				}
 			}
 			else {

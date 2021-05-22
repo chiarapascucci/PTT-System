@@ -57,7 +57,9 @@ public class PTTeacher {
 	
 	public String toString() {
 		
+
 		String s = "  First name: "+ fName +"\n"+ "  Last name: " + lName  + "\n" + "  ID: "+ tID + "\n" + this.printSkills() + "Training:\n" + this.printTraining() + "\n";
+
 		return s;
 	}
 	
@@ -85,28 +87,60 @@ public class PTTeacher {
 	
 	//-----------------//Training and Skills Methods//--------------//
 	
-	public void addTraining(String s) {
-		training.add(s);
+	public boolean addTraining(String s) {
+		s= s.trim().toLowerCase();
+		if (training.contains(s) || skills.contains(s)) return false;
+		else {
+			training.add(s);
+			return true;
+		}
+		
 	}
 	
-	public void addSkill(String s) {
-		skills.add(s);		
+	public boolean addSkill(String s) {
+		s= s.trim().toLowerCase();
+		if (skills.contains(s)) return false;
+		else {
+			skills.add(s);
+			return true;
+		}	
 	}
 	
-	public void removeTraining(String s) {
-		training.remove(s);
-		invalidCheck(s);
+	public boolean removeTraining(String s) {
+		s = s.trim().toLowerCase();
+		if (training.contains(s)) {
+			training.remove(s);
+			invalidCheck(s);
+			return true;
+		}
+		
+		else return false;
+		
 	}
 	
-	public void removeSkill(String s) {
-		skills.remove(s);
-		invalidCheck(s);
+	public boolean removeSkill(String s) {
+		s = s.trim().toLowerCase();
+		if (skills.contains(s)) {
+			skills.remove(s);
+			invalidCheck(s);
+			return true;
+		}
+		
+		else return false;
 	}
 	
 	// specialised training/skill method: when training is completed the teacher is recorded as having acquired the skill
-	public void completeTraining(int i) {
-		skills.add(training.get(i));
-		training.remove(training.get(i));
+	public boolean completeTraining(String s) {
+		s = s.toLowerCase().trim();
+		boolean res = false;
+		int index = training.indexOf(s);
+		if (index == -1) return res;
+		else {
+			skills.add(training.get(index));
+			training.remove(training.get(index));
+			res=true;
+			return res;
+		}
 	}
 	
 	// Checks whether removed training/skill invalidates PTTeacher's assigned requests
@@ -203,17 +237,17 @@ public class PTTeacher {
 	
 	//--------//Data Handler Helper Methods//-------//
 	//methods to help data loading and writing by DataHandler class. 
-	//strings are trimmed
+	//strings are trimmed and set to lower cases
 	
 	protected void addSkillArray(ArrayList <String> sArray) { 
-		for (String i : sArray) i = i.trim();
+		for (String i : sArray) i = i.trim().toLowerCase();
 		skills = sArray; 
 		
 		
 	}
 	  
 	public void addTrainingArray(ArrayList <String> tArray) { 
-		for (String i : tArray) i = i.trim();
+		for (String i : tArray) i = i.trim().toLowerCase();
 		training = tArray;
 	}
 	
