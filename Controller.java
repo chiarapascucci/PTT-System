@@ -100,24 +100,30 @@ public class Controller implements ActionListener {
 			TeachRequest t = data.getLOR().findReq(RID);
 			PTTeacher p = data.getLOP().getTeacherRef(TID);
 			
-			boolean outcome = false;
+			boolean outcome1 = false;
+			boolean outcome2 = false;
 			if (inputguard.ensureNotNullReference(p) && inputguard.ensureNotNullReference(t)) {
 				
-				outcome = p.assignTeacher(t);
-				if (!outcome) {
-					view.adminMain.textArea.setText("Request cannot be assigned to teacher as teacher unavailable.");				
-				} else {
-					outcome = t.addTeacher(p);
-					if(!outcome) {
-						view.adminMain.textArea.setText("Teacher cannot be assigned to request as does not fulfil request requirments.");
-					} else {
-						view.adminMain.textArea.setText("Success! teacher assigned to request.");
+				// Both references must be successfully added for accurate assignment
+				outcome1 = p.assignTeacher(t);
+				outcome2 = t.addTeacher(p);
+				
+				/* If one assignment failed due to checks, remove successful *
+				 * one as Teacher/Request references mirror each other.		 */
+				if ((!outcome1) || (!outcome2)) {
+					if(outcome1) {		
+						p.removeRequest(t);
+					} else if(outcome2) {
+						t.removeTeacher(p);
 					}
+					view.adminMain.textArea.setText("could not assign teacher");				
+				} else {
+					view.adminMain.textArea.setText("success! teacher assigned to request");
 					
 				}
 			}
 			else {
-				view.adminMain.textArea.setText("Invalid request number or teacher name");
+				view.adminMain.textArea.setText("invalid request number or teacher name");
 				return; 
 			}
 		

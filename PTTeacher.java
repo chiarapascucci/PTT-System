@@ -94,16 +94,36 @@ public class PTTeacher {
 	
 	public void removeTraining(String s) {
 		training.remove(s);
+		invalidCheck(s);
 	}
 	
 	public void removeSkill(String s) {
 		skills.remove(s);
+		invalidCheck(s);
 	}
 	
 	// specialised training/skill method: when training is completed the teacher is recorded as having acquired the skill
 	public void completeTraining(int i) {
 		skills.add(training.get(i));
 		training.remove(training.get(i));
+	}
+	
+	// Checks whether removed training/skill invalidates PTTeacher's assigned requests
+	private void invalidCheck(String s) {
+		
+		// Look for invalidated requests
+		ArrayList <TeachRequest> invalidRequest = new ArrayList <TeachRequest> ();
+		for(TeachRequest t: this.assign) {
+			if(t.getTrainingRequired().contains(s)) {
+				t.statusCheck();
+				invalidRequest.add(t);
+			}
+		}
+		
+		// Remove teacher's invalidated requests
+		for(TeachRequest r: invalidRequest) {
+			this.removeRequest(r);
+		}	
 	}
 
 	//--------//TEACHER ASSIGMENT AND AVAILABILITY METHODS//--------//
@@ -119,25 +139,32 @@ public class PTTeacher {
 	}
 	
 	//method to assign a teacher to a request
-	
 	protected boolean assignTeacher(TeachRequest q) {
 		
+		// is teacher available
 		if (this.isAvailable() == false) {
+			return false;
+		} 
+		// is request already assigned to teacher
+		else if (this.assign.contains(q)) {
 			return false;
 		}
 		else if (this.isAvailable()) {
 			this.assign.add(q);
-		}
-			
-		if (this.assign.size()>= 5) {	
-			this.setAvailable(false);
+			this.isAvailable();
 			return true;
 		}
-		return true;
+		return false;
 	}
 
-	
-	
+	// Method to manage teacher assignment, not a user function itself
+	protected void removeRequest(TeachRequest q) {
+		
+		if(this.assign.contains(q)) {
+			this.assign.remove(q);
+			if(this.assign.size() < 5) { this.setAvailable(true); }	
+		}
+	}
 	
 	//GETTERS AND SETTERS//
 	public String getfName() {
@@ -162,6 +189,10 @@ public class PTTeacher {
 
 	public ArrayList <String> getTraining() {
 		return training;
+	}
+	
+	public ArrayList <TeachRequest> getAssigned() {
+		return assign;
 	}
 
 	public int gettID() {
