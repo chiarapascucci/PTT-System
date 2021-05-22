@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+	import java.util.ArrayList;
 
 public class PTTeacher {
 	
@@ -57,8 +57,7 @@ public class PTTeacher {
 	
 	public String toString() {
 		
-		String s = "  First name: "+ fName +"\n"+ "  Last name: " + lName  + "\n" + "  ID: "+ tID + "\n" + this.printSkills() + "\n";
-		
+		String s = "  First name: "+ fName +"\n"+ "  Last name: " + lName  + "\n" + "  ID: "+ tID + "\n" + this.printSkills() + "Training:\n" + this.printTraining() + "\n";
 		return s;
 	}
 	
@@ -66,7 +65,7 @@ public class PTTeacher {
 		String s = "";
 		if (!this.skills.isEmpty()) {
 			for(int i = 0; i<this.skills.size(); i++) {
-				s = "  - " + skills.get(i)+"\n";
+				s += "  - " + skills.get(i)+"\n";
 			}
 		}
 		
@@ -75,8 +74,10 @@ public class PTTeacher {
 	
 	public String printTraining() {
 		String s = "";
-		for(int i = 0; i<=this.training.size(); i++) {
-			s = " " + training.get(i);
+		if(!this.training.isEmpty()) {
+			for(int i = 0; i<this.training.size(); i++) {
+				s += "  " + training.get(i)+" ";
+			}
 		}
 		
 		return s;
