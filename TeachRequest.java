@@ -42,6 +42,10 @@ public class TeachRequest {
 		LOR.getListReference().add(this);
 	}
 
+	
+	
+	
+	
 	/*	 >>> Status management methods			*/
 
 	public boolean addTeacher(PTTeacher target) {
@@ -54,12 +58,10 @@ public class TeachRequest {
 		if(this.assigned.contains(target)) {
 			return false;
 		} 
-		// Required teachers quantity already met
-		else if (this.assigned.size() >= teachNo) {
-			return false;
-		}
 		// Teacher does not have *all* the required training in their skills&training
-		else if(!(allTS.containsAll(this.trainingRequired))) {
+		// OR Required teachers quantity already met
+		else if((!(allTS.containsAll(this.trainingRequired))) || (!(numCheck(this)))) {
+			this.statusCheck();
 			return false;
 		}
 		else {
@@ -75,7 +77,7 @@ public class TeachRequest {
 			return false;							
 		} else {									
 			this.assigned.remove(target);
-			this.statusCheck();	// status needs updating, teachNo needs updating
+			this.statusCheck();
 			return true;			
 		}
 	}
@@ -103,7 +105,7 @@ public class TeachRequest {
 		}		
 
 		// Check quantity of valid teachers
-		if(this.assigned.size() < this.teachNo) {
+		if(numCheck(this)) {
 			passCheck = false;
 		} 
 
@@ -112,11 +114,18 @@ public class TeachRequest {
 		else { this.status = false; }
 	}
 
+	// Checks quantity of assigned teachers does not exceed limit
+	private boolean numCheck(TeachRequest t) {
+		if(t.assigned.size() < this.teachNo) {
+			return true;
+		} else {	return false;	}
+	}
 	
 	
 	
 	
-	/*	 >>> Print methods			*/
+	
+	/*	 >>> Print methods					*/
 	
 	public String printTrainingRequired() {
 		String s = "";
@@ -136,7 +145,6 @@ public class TeachRequest {
 		return s;
 	}
 
-	// Update this with something more useful if necessary
 	public String toString() {
 		String output = "ID: " + id + "\nComplete: " + status + "\nSkills: " + this.printTrainingRequired();
 		return output;
