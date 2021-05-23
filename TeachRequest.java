@@ -110,9 +110,9 @@ public class TeachRequest {
 		}		
 
 		// Check quantity of valid teachers
-		if(!(numCheck(this))) {
+		if(numCheck(this)) {
 			passCheck = false;
-		} 
+		}
 
 		// Set status
 		if(passCheck) { this.status = true; }
