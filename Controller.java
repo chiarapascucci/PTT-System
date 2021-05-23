@@ -101,22 +101,13 @@ public class Controller implements ActionListener {
 			TeachRequest t = data.getLOR().findReq(RID);
 			PTTeacher p = data.getLOP().getTeacherRef(TID);
 			
-			boolean outcome1 = false;
-			boolean outcome2 = false;
+			boolean outcome = false;
 			if (inputguard.ensureNotNullReference(p) && inputguard.ensureNotNullReference(t)) {
 				
 				// Both references must be successfully added for accurate assignment
-				outcome1 = p.assignTeacher(t);
-				outcome2 = t.addTeacher(p);
+				outcome = t.addTeacher(p);
 				
-				/* If one assignment failed due to checks, remove successful *
-				 * one as Teacher/Request references mirror each other.		 */
-				if ((!outcome1) || (!outcome2)) {
-					if(outcome1) {		
-						p.removeRequest(t);
-					} else if(outcome2) {
-						t.removeTeacher(p);
-					}
+				if (!outcome) {
 					view.adminMain.textArea.setText("Could not assign teacher.");				
 				} else {
 					view.adminMain.textArea.setText("Success! teacher assigned to request.");
@@ -366,7 +357,7 @@ public class Controller implements ActionListener {
 			view.cDPanel.displayField.setText("");
 			
 			// Get course name
-			String n = view.cDPanel.courseName.getText().trim();
+			String n = view.cDPanel.courseName.getText().trim().toLowerCase();
 		
 			// Get number of teachers required
 			int i; 
@@ -379,7 +370,7 @@ public class Controller implements ActionListener {
 			}
 			
 			//  Get entered skills
-			String s = view.cDPanel.skills.getText();
+			String s = view.cDPanel.skills.getText().toLowerCase();
 			String [] skills = s.split(",");
 			
 			// Ensure each skill has no white spaces which affect results

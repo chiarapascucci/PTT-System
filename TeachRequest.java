@@ -10,6 +10,7 @@ public class TeachRequest {
 	private ArrayList <String> trainingRequired;
 	private ArrayList <PTTeacher> assigned;
 	
+	// Constructor for request creation
 	public TeachRequest(String c, int no, ListOfRequests LOR, String[] t) {
 		this.id = nextID;
 		nextID++;
@@ -42,6 +43,10 @@ public class TeachRequest {
 		LOR.getListReference().add(this);
 	}
 
+	
+	
+	
+	
 	/*	 >>> Status management methods			*/
 
 	public boolean addTeacher(PTTeacher target) {
@@ -54,19 +59,21 @@ public class TeachRequest {
 		if(this.assigned.contains(target)) {
 			return false;
 		} 
-		// Required teachers quantity already met
-		else if (this.assigned.size() >= teachNo) {
-			return false;
-		}
 		// Teacher does not have *all* the required training in their skills&training
-		else if(!(allTS.containsAll(this.trainingRequired))) {
+		// OR Required teachers quantity already met
+		else if((!(allTS.containsAll(this.trainingRequired))) || (!(numCheck(this)))) {
+			this.statusCheck();
 			return false;
 		}
 		else {
-			this.assigned.add(target);
-			target.assignTeacher(this); 
-			this.statusCheck();	
-			return true;
+			if(target.assignTeacher(this)) {
+				this.assigned.add(target);
+				this.statusCheck();	
+				return true;			
+			} else {
+				return false;
+			}
+
 		}
 	}
 
@@ -75,7 +82,7 @@ public class TeachRequest {
 			return false;							
 		} else {									
 			this.assigned.remove(target);
-			this.statusCheck();	// status needs updating, teachNo needs updating
+			this.statusCheck();
 			return true;			
 		}
 	}
@@ -103,20 +110,27 @@ public class TeachRequest {
 		}		
 
 		// Check quantity of valid teachers
-		if(this.assigned.size() < this.teachNo) {
+		if(numCheck(this)) {
 			passCheck = false;
-		} 
+		}
 
 		// Set status
 		if(passCheck) { this.status = true; }
 		else { this.status = false; }
 	}
 
+	// Checks quantity of assigned teachers does not exceed limit
+	private boolean numCheck(TeachRequest t) {
+		if(t.assigned.size() < this.teachNo) {
+			return true;
+		} else {	return false;	}
+	}
 	
 	
 	
 	
-	/*	 >>> Print methods			*/
+	
+	/*	 >>> Print methods					*/
 	
 	public String printTrainingRequired() {
 		String s = "";
@@ -136,7 +150,6 @@ public class TeachRequest {
 		return s;
 	}
 
-	// Update this with something more useful if necessary
 	public String toString() {
 		String output = "ID: " + id + "\nComplete: " + status + "\nSkills: " + this.printTrainingRequired();
 		return output;
@@ -144,8 +157,8 @@ public class TeachRequest {
 
 
 
-	
-	
+
+
 	/*	 >>> Getter/setters			*/
 	
 	public int getReqID() {
@@ -154,10 +167,6 @@ public class TeachRequest {
 
 	public boolean getStatus() {
 		return status;
-	}
-	
-	protected void setStatus(boolean status) {
-		this.status = status;
 	}
 
 	public String getCourseID() {

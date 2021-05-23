@@ -26,15 +26,7 @@ public class ListOfRequests {
 		return s;
 	}
 	
-
-	
-	
-	public  ArrayList <TeachRequest> getListReference() {
-		return reqList; 
-	}
-	
-	
-	// Adding to ensure nextTID is always the highest
+	// Adding to ensure nextRID is always the highest
 	protected int maxRID() {
 		
 		int maxRID = 0;	// Initialise maxID
@@ -56,4 +48,9 @@ public class ListOfRequests {
 		return null;
 	}
 	
+
+	public  ArrayList <TeachRequest> getListReference() {
+		return reqList; 
+	}	
+
 }
