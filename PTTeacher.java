@@ -88,7 +88,7 @@ public class PTTeacher {
 	//-----------------//Training and Skills Methods//--------------//
 	
 	public boolean addTraining(String s) {
-		s= s.trim().toLowerCase();
+		s = s.trim().toLowerCase();
 		if (training.contains(s) || skills.contains(s)) return false;
 		else {
 			training.add(s);
@@ -98,7 +98,7 @@ public class PTTeacher {
 	}
 	
 	public boolean addSkill(String s) {
-		s= s.trim().toLowerCase();
+		s = s.trim().toLowerCase();
 		if (skills.contains(s)) return false;
 		else {
 			skills.add(s);

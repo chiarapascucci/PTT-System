@@ -46,13 +46,13 @@ public class Controller implements ActionListener {
 		
 		//1-GET TO ADMIN VIEW
 		if (e.getSource() == view.adminButton) {
-			System.out.println("view as Admin");
+			System.out.println("View as Admin");
 			view.updateView(view.adminMain);
 		}
 		
 		//2-GET TO CD VIEW
 		else if (e.getSource() == view.courseButton) {
-			System.out.println("view as Course Director");
+			System.out.println("View as Course Director");
 			view.updateView(view.cDPanel);
 		}
 		
@@ -129,7 +129,6 @@ public class Controller implements ActionListener {
 			
 			// Start option list 
 			int i = view.adminMain.optionList.getSelectedIndex();
-			System.out.println("search - int:" + i );
 			
 			// Get user input (trim.() to ensure any spaces dont ruin input)
 			String s = view.adminMain.searchChoiceOne.getText().trim();
@@ -160,7 +159,6 @@ public class Controller implements ActionListener {
 		//1.3 ADMIN >> VIEW REQUESTS
 		else if (e.getSource() == view.adminMain.viewReqs) {
 			
-			System.out.println("view reqs");
 			view.adminMain.textArea.setText("");
 			
 			// Obtain list of requests in string[] form 
@@ -340,9 +338,7 @@ public class Controller implements ActionListener {
 	
 		//2.1 CD >> VIEW STATUS OF REQUESTS IN THE SYSTEM
 		else if (e.getSource() == view.cDPanel.statCheck) {
-			
-			System.out.println("View request statuses:");
-			
+						
 			view.cDPanel.displayField.setText("");
 			String [] s = data.getLOR().printReqListStatus();
 			for (String i : s) {

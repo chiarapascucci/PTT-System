@@ -78,8 +78,6 @@ public class DataHandler extends AbstractDataHandlerFactory {
 				// Send line to parse and set function which parses the line 
 				// and applies the data to its respective object and list
 				parseDataAndSet(line); 
-				
-				System.out.println("DH: done");
 			}
 		}
 		catch (IOException e) {
