@@ -26,14 +26,14 @@ public class TeachRequest {
 
 	// Helper for common constructor content
 	private void requestSetup(String c, int no,ListOfRequests LOR, String[] t) {
-		this.courseID = c;
+		this.courseID = c.toLowerCase().trim();
 		this.teachNo = no;
 		this.assigned = new ArrayList <PTTeacher> ();
 
 		// Add training(s)
 		this.trainingRequired = new ArrayList <String> ();
 		for(int i = 0; i < t.length; i++) {
-			this.trainingRequired.add(t[i]);
+			this.trainingRequired.add(t[i].toLowerCase().trim());
 		}
 		
 		// Set status
