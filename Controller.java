@@ -368,7 +368,8 @@ public class Controller implements ActionListener {
 			//  Get entered skills
 			String s = view.cDPanel.skills.getText().toLowerCase();
 			String [] skills =null;
-			if (inputguard.ensureInteger(s)) {
+			if (inputguard.ensureSuitableString(s)) {
+				
 				skills = s.split(",");
 				// Ensure each skill has no white spaces which affect results
 				for (int j = 0; j < skills.length; j++) {
