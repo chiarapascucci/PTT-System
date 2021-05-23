@@ -99,7 +99,7 @@ public class PTTeacher {
 	
 	public boolean addSkill(String s) {
 		s = s.trim().toLowerCase();
-		if (skills.contains(s)) return false;
+		if (skills.contains(s) || training.contains(s)) return false;
 		else {
 			skills.add(s);
 			return true;
