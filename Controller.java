@@ -367,12 +367,20 @@ public class Controller implements ActionListener {
 			
 			//  Get entered skills
 			String s = view.cDPanel.skills.getText().toLowerCase();
-			String [] skills = s.split(",");
-			
-			// Ensure each skill has no white spaces which affect results
-			for (int j = 0; j < skills.length; j++) {
-				skills[j] = skills[j].trim(); 
+			String [] skills =null;
+			if (inputguard.ensureInteger(s)) {
+				skills = s.split(",");
+				// Ensure each skill has no white spaces which affect results
+				for (int j = 0; j < skills.length; j++) {
+					skills[j] = skills[j].trim(); 
+				}
 			}
+			else {
+				view.cDPanel.displayField.setText("Please provide a list of skills \nseparated by , in Skills");
+				return;
+			}
+			
+			
 			
 			if (inputguard.ensureSuitableString(n)) {
 				TeachRequest r = new TeachRequest (n,i,data.getLOR(), skills);
