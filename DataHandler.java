@@ -32,7 +32,7 @@ public class DataHandler extends AbstractDataHandlerFactory {
 	
 	
 	// Singleton method to create only one instance
-	public static DataHandler getDataHandlerInstance() {
+	protected static DataHandler getDataHandlerInstance() {
 	
 		// Check if instance has been created yet. If not, create. 
 		if (instance == null) {
