@@ -88,7 +88,7 @@ public class TeachRequest {
 	}
 
 	// Set status according to fulfilled requirements
-	public void statusCheck() {
+	protected void statusCheck() {
 
 		boolean passCheck = true;
 		ArrayList <PTTeacher> invalidTeachers = new ArrayList <PTTeacher> ();
