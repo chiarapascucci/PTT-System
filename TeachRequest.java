@@ -168,10 +168,6 @@ public class TeachRequest {
 	public boolean getStatus() {
 		return status;
 	}
-	
-	protected void setStatus(boolean status) {
-		this.status = status;
-	}
 
 	public String getCourseID() {
 		return courseID;
