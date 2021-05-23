@@ -209,7 +209,7 @@ public class DataHandler extends AbstractDataHandlerFactory {
 			splitData = data.split(",");
 
 			// For training data to be passed to request (remove outer curly brackets
-			temp = splitData[4].substring(1,splitData[4].length()-1);
+			temp = splitData[4].substring(1,splitData[4].length()-1).toLowerCase();
 			
 			String [] train = temp.split(";");
 			
