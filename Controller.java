@@ -101,22 +101,13 @@ public class Controller implements ActionListener {
 			TeachRequest t = data.getLOR().findReq(RID);
 			PTTeacher p = data.getLOP().getTeacherRef(TID);
 			
-			boolean outcome1 = false;
-			boolean outcome2 = false;
+			boolean outcome = false;
 			if (inputguard.ensureNotNullReference(p) && inputguard.ensureNotNullReference(t)) {
 				
 				// Both references must be successfully added for accurate assignment
-				outcome1 = p.assignTeacher(t);
-				outcome2 = t.addTeacher(p);
+				outcome = t.addTeacher(p);
 				
-				/* If one assignment failed due to checks, remove successful *
-				 * one as Teacher/Request references mirror each other.		 */
-				if ((!outcome1) || (!outcome2)) {
-					if(outcome1) {		
-						p.removeRequest(t);
-					} else if(outcome2) {
-						t.removeTeacher(p);
-					}
+				if (!outcome) {
 					view.adminMain.textArea.setText("Could not assign teacher.");				
 				} else {
 					view.adminMain.textArea.setText("Success! teacher assigned to request.");

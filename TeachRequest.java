@@ -10,6 +10,7 @@ public class TeachRequest {
 	private ArrayList <String> trainingRequired;
 	private ArrayList <PTTeacher> assigned;
 	
+	// Constructor for request creation
 	public TeachRequest(String c, int no, ListOfRequests LOR, String[] t) {
 		this.id = nextID;
 		nextID++;
@@ -65,10 +66,14 @@ public class TeachRequest {
 			return false;
 		}
 		else {
-			this.assigned.add(target);
-			target.assignTeacher(this); 
-			this.statusCheck();	
-			return true;
+			if(target.assignTeacher(this)) {
+				this.assigned.add(target);
+				this.statusCheck();	
+				return true;			
+			} else {
+				return false;
+			}
+
 		}
 	}
 
@@ -105,7 +110,7 @@ public class TeachRequest {
 		}		
 
 		// Check quantity of valid teachers
-		if(numCheck(this)) {
+		if(!(numCheck(this))) {
 			passCheck = false;
 		} 
 
@@ -152,8 +157,8 @@ public class TeachRequest {
 
 
 
-	
-	
+
+
 	/*	 >>> Getter/setters			*/
 	
 	public int getReqID() {
